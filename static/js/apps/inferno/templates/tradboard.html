@@ -1,0 +1,235 @@
+<div style="width: auto;">
+    <style>
+        p.stz {font-family: 'PT Sans', sans-serif; white-space:pre-wrap; font-size: 1.2em; margin:0px; margin-bottom: 0.75em; }
+        p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom: 0.75em;}
+        .available-lang { margin-bottom: 5px }
+        .translate-contrib p.trad-sugg { font-size: 1em}
+        .fr-canto-container, .eng-canto-container {font-size: 0.9em;}
+        .vote {color: green}
+        .stz-actions { top:0px; right:0px; margin-right: 5px; font-size: 0.8em; padding-right: 15px}
+        .stz.selected { margin-top:-10px ; padding-top: 10px; margin-left:-5px; margin-right:-5px; padding-left:5px; padding-right:5px;
+                        cursor:pointer; background-color: #faebcc;
+        }
+        .current-translation {padding: 15px; white-space:pre-wrap; background-color: #d9edf7}
+        /*.stz-editor {border: 1px solid #f1c40f}*/
+        .other-translation { margin-top: 10px; padding-top: 10px}
+        .save-btn { margin-top: 5px }
+        .user-tab { border-bottom: 1px solid #ebebeb}
+        .tab-pane { padding-top: 10px}
+        .available-lang { border-bottom: 1px solid #ebebeb; margin-bottom: 30px}
+        #contributions p.contrib { position: relative; padding: 15px; font-size: 1em; border: 1px solid #ebebeb}
+        #contributions .contrib-actions { position : absolute; top: 0px; right:0px}
+        #contributions .contrib-action {cursor: pointer; margin-left:10px}
+        #contributions .contrib-action:hover { text-decoration: none}
+        #editing { margin-bottom : 5px}
+        #edit-zone {margin-bottom: 5px}
+        #editing-zone .btn {margin-left: 5px}
+        #user-translation {background-color: #d9edf7; padding: 5px}
+        #add-translation {margin-top: 5px;}
+        #editing-zone{ margin-bottom: 5px; padding: 5px;}
+
+    </style>
+
+    <div class="row">
+        <div class="col-sm-1">
+            <div class=''><a href='javascript:;' data-action='inferno:edit'>Chant I</a></div>
+            <div class=''>Chant II</div>
+            <div class=''>Chant III</div>
+            <div class=''>Chant IV</div>
+            <div class=''>...</div>
+        </div>
+
+        <div class="col-sm-6">
+
+            <div class="available-lang">
+                <span><i></i><a data-lang="it" class="btn-link btn btn-link btn-xs disabled">It</a></span>
+                <span><i></i><a data-lang="fr" class="btn-link">/ Fr</a></span>
+                <span><i></i><a data-lang="eng" class="btn-link">/ Eng</a></span>
+                <span><i></i><a data-lang="esp" class='btn-link'>/ Espagnol</a></span>
+            </div>
+
+            <div class="canto-ctn it-canto-container">  </div>
+
+            <div style="display:none" class="canto-ctn eng-canto-container">
+                <p data-no="1" class="stz no-1">MIDWAY upon the journey of our life
+                    I found myself within a forest dark,
+                    For the straightforward pathway had been lost.
+                </p>
+                <p data-no="2" class="stz no-2">
+                    Ah me! how hard a thing it is to say
+                    What was this forest savage, rough, and stern,
+                    Which in the very thought renews the fear.
+                </p>
+                <p data-no="3" class="stz no-3">
+                    So bitter is it, death is little more;
+                    But of the good to treat, which there I found,
+                    Speak will I of the other things I saw there.
+                </p>
+                <p data-no="4" class="stz no-4">
+                    I cannot well repeat how there I entered,
+                    So full was I of slumber at the moment
+                    In which I had abandoned the true way.
+                </p>
+                <p data-no="5" class="stz no-5">
+                    So bitter is it, death is little more;
+                    But of the good to treat, which there I found,
+                    Speak will I of the other things I saw there.
+                </p>
+            </div>
+
+            <div style="display:none" class="canto-ctn fr-canto-container">
+                <p data-no="1" class="stz no-1">
+                    C'était à la moitié du trajet de la vie;
+                    Je me trouvais au fond d'un bois sans éclaircie,
+                    Comme le droit chemin était perdu pour moi.
+                </p>
+
+                <p data-no="2" class="stz no-2">
+                    Ah ! que la retracer est un pénible ouvrage,
+                    Cette forêt épaisse, âpre à l'œil et sauvage,
+                    Et dont le seul penser réveille mon effroi !
+                </p>
+
+                <p data-no="3" class="stz no-3">
+                    Tâche amère ! la mort est plus cruelle à peine;
+                    Mais puisque j'y trouvai le bien après la peine,
+                    Je dirai tous les maux dont j'y fus attristé.
+                </p>
+
+                <p data-no="4" class="stz no-4">
+                    Je ne sais plus comment j'entrai dans ce bois sombre,
+                    Tant pesait sur mes yeux le sommeil chargé d'ombre,
+                    Lorsque du vrai chemin je m'étais écarté.
+                </p>
+
+                <p data-no="5" class="stz no-5">
+                    Tâche amère ! la mort est plus cruelle à peine;
+                    Mais puisque j'y trouvai le bien après la peine,
+                    Je dirai tous les maux dont j'y fus attristé.
+                </p>
+
+            </div>
+
+            <div style="display:none" class="canto-ctn esp-canto-container">
+
+                <p class="stz no-1">
+                    A mitad del camino de la vida,
+                    en una selva oscura me encontraba
+                    porque mi ruta había extraviado.
+                </p>
+
+                <p class="stz no-2">
+                    ¡Cuán dura cosa es decir cuál era
+                    esta salvaje selva, áspera y fuerte
+                    que me vuelve el temor al pensamiento!
+                </p>
+
+                <p class="stz no-3">
+                    Es tan amarga casi cual la muerte;
+                    mas por tratar del bien que allí encontré,
+                    de otras cosas diré que me ocurrieron.
+                </p>
+
+                <p class="stz no-4">
+                    Yo no sé repetir cómo entré en ella
+                    pues tan dormido me hallaba en el punto
+                    que abandoné la senda verdadera.
+                </p>
+
+                <p class="stz no-5">
+                    ¡Cuán dura cosa es decir cuál era
+                    esta salvaje selva, áspera y fuerte
+                    que me vuelve el temor al pensamiento!
+                </p>
+
+            </div>
+
+        </div>
+
+        <div id="user-context" class="col-sm-5" style="border-left: 1px solid #ebebeb">
+            <ul id="user-action-tab" role="tablist" class="user-tab nav nav-tabs">
+                <li class="active" data-toggle="tab"><a href="#translation"><i class="glyphicon glyphicon-comment"></i> Traduction</a></li>
+                <li class="" data-toggle="tab"><a href="#editing">Info</a></li>
+                <li><a href="#contributions" data-toggle="tab">Contributions <span class="badge content-badge">0</span></a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="translation" class="tab-pane active">
+                     <div id="editor-ctn"></div>
+                     <div id="user-translation" class="contrib">
+                         <i class="fa fa-user"></i> mwen <strong>à</strong> 17h20
+                         <p>
+                             Nan mintan chemin lavim mwen te trouvem
+                             Nan yon rack byen nwè
+                             Paske mwen te pèdi chemen dwat mwen
+                         </p>
+                     </div>
+                     <a id="add-translation"><i class="fa fa-plus"></i> Propoze yon tradiksyon</a>
+                     <hr>
+                     <p><strong>Lot tradiksyon</strong></p>
+                    <div>
+                        <p class='trad-sugg'>Nemo quaeso miretur, si post exsudatos labores itinerum,
+                            commeatus fiducia vestri ductante barbaricos pagos adventans
+                            velut mutato repente consilio ad placidiora deverti.
+                            <span>
+                                vote :<span class="vote">1524</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
+                            </span>
+                        </p>
+
+                        <p class='trad-sugg'>Nan mitan chemin lavi a
+                            Me te retrouvem na yon rak nwa
+                            Paske mwen de pedi bon chemen la</p>
+                        <span>
+
+                            vote :<span class="vote">1503</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
+                        </span>
+                        <p class='trad-sugg'>Nan mitan chemin lavi a
+                            Me te retrouvem na yon rak nwa
+                            Paske mwen de pedi bon chemen la</p>
+                        <span>
+
+                            vote :<span class="vote">1502</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
+                        </span>
+                        <p class='trad-sugg'>Nan mitan chemin lavi a
+                            Me te retrouvem na yon rak nwa
+                            Paske mwen de pedi bon chemen la</p>
+                        <span>
+                            vote :<span class="vote">1510</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
+                        </span>
+                        <p class='trad-sugg'>Nan mitan chemin lavi a
+                            Me te retrouvem na yon rak nwa
+                            Paske mwen de pedi bon chemen la</p>
+                        <span>
+
+                            vote :<span class="vote">1000</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="editing" class="tab-pane">
+                    <div id="editor-zone"></div>
+                </div>
+                
+                <div id="contributions" class="tab-pane">
+                    <p class="bg-info"> Ou poko gen kontenu.</p>
+                    <p> Brouillon </p>
+                    <p class="current-translation">
+                        Nel mezzo del camin di nostra vita<br>
+                        che retrouvai para selva oscura<br>
+                        che la dereta via sta marita.
+                    </p>
+                    <p class="stz">
+                        Nel mezzo del camin di nostra vita<br>
+                        che retrouvai para selva oscura<br>
+                        che la dereta via sta marita.
+                    </p>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+</div>
