@@ -8,7 +8,6 @@ login_manager.login_view = "login"
 
 @login_manager.user_loader
 def load_user(userid):
-    pprint("radical is a way of calling")
     pprint(userid)
     return User.query.get(int(userid))
     
@@ -20,7 +19,7 @@ def handle_authentification(login, password):
     if user is not None:
         login_user(user)
     else:
-        flash("This is the way thing should")
+        flash("you are in!")
             
 
 #before request
