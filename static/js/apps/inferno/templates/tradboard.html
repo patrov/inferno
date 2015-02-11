@@ -27,22 +27,28 @@
         #user-translation {background-color: #d9edf7; padding: 5px}
         #add-translation {margin-top: 5px;}
         #editing-zone{ margin-bottom: 5px; padding: 5px;}
-
+		.canto-link { cursor: pointer; height: 50px; width: 100%; margin-bottom: 5px; text-align: center; color: green}
+		.canto-link.selected {pading:auto; text-align: center; background-color: 1px solid green; border: #d9edf7}
+		.canto-link-ctn { position: absolute; top: 62px}
     </style>
-
+	
     <div class="row">
         <div class="col-sm-1">
-            <div class=''><a href='javascript:;' data-action='inferno:edit'>Chant I</a></div>
-            <div class=''>Chant II</div>
-            <div class=''>Chant III</div>
-            <div class=''>Chant IV</div>
-            <div class=''>...</div>
+				<div class="canto-link-ctn">
+				<div data-canto-no="1" class='canto-link selected'><a href='#/inferno/canto/1'><i class="fa fa-newspaper-o"></i> Chant I</a></div>
+				<div data-canto-no="2" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/2"> Chant II</a></div>
+				<div data-canto-no="3" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/3">Chant III</a></div>
+				<div data-canto-no="4" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/4"> Chant IV</a></div>
+				<div data-canto-no="5" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/5"> Chant IV</a></div>
+				<div class=''>...</div>
+			</div>
         </div>
 
         <div class="col-sm-6">
 
             <div class="available-lang">
-                <span><i></i><a data-lang="it" class="btn-link btn btn-link btn-xs disabled">It</a></span>
+                <span><i></i><a data-lang="it" class="btn-link">It</a></span>
+                <span><i></i><a data-lang="kr" class="btn-link">Kr(HT)</a></span>
                 <span><i></i><a data-lang="fr" class="btn-link">/ Fr</a></span>
                 <span><i></i><a data-lang="eng" class="btn-link">/ Eng</a></span>
                 <span><i></i><a data-lang="esp" class='btn-link'>/ Espagnol</a></span>

@@ -1,7 +1,7 @@
 define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], function(Kimo, require) {
 
     Kimo.ActivityManager.createActivity("MainActivity", {
-        appname: "BabelioInferno",
+        appname: "Inferno",
         initView: function() {
             var rootView = {
                 name: "main-board",
@@ -10,7 +10,11 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
             };
             this.setContentView(rootView);
         },
-
+        
+        actionDependencies: {
+            
+        },
+        
         onCreate: function () {
             var self = this;
             this.terzaManager = require('bi.terza.manager');
@@ -20,12 +24,10 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
                 root: this.view.view,
                 canto: 1
             });
-            
             this.initTabs();
-            var bootstrap = require('bootstrap');
             $(this.view.view).on("click",".btn-link", function (e) {
                 var lang = $(e.currentTarget).data("lang");
-                if(!lang) return;
+                self.terzaManager.loadCantoTranslation(lang);
                 $(".canto-ctn").hide();
                 var className = lang+"-canto-container";
                 $("."+className).show();
@@ -48,27 +50,37 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
 
         },
 
-        onResume: function () {
-            console.log("... I'm here ");
+        onResume: function () {            
         },
         
-        templateReady: function () {
-            this.contentsManager.configure({ root: this.view.view });
-            this.terzaManager.loadCanto();
+        templateReady: function (canto) {
+            this.contentsManager.configure({
+                root: this.view.view
+            });
+            this.terzaManager.loadCanto(canto);
         },
         
         homeAction: function () {
             var self = this;
+            /* show placeholder  */
+            alert("this is it");
             require(['text!bi.templates/tradboard.html'], function(tpl){
+                console.log(self.view.view);
                 $(self.view.view).html($(tpl));
                 self.templateReady();
             });
         },
-
-        showCantoAction: function () {
+        /* deal with template and manager here 
+         * template ayan
+         * 
+         * */
+        showCantoAction: function (no) {
             var self = this;
-            require(['text!bi.templates/canto2.html'], function(tpl){
+            /*this.loadView("view!showCanto").ready(function(){});*/
+            require(['text!bi.template/tradboard.html'], function(tpl){
+                alert("let me tell you this ... ");
                 $(self.view.view).html($(tpl));
+                this.templateReady(no);
             });
         },
 

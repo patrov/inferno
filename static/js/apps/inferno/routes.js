@@ -1,5 +1,5 @@
 define(["Kimo.NavigationManager"], function (NvgManager) {
-    NvgManager.registerRoutes("BabelioInferno", {
+    NvgManager.registerRoutes("Inferno", {
 
         "inferno:home": {
             url: "#/inferno/home",
@@ -11,9 +11,9 @@ define(["Kimo.NavigationManager"], function (NvgManager) {
             action: "MainActivity:showProfile"
         },
 
-        "inferno:edit": {
-            url: "#/inferno/canto/2",
-            action: "MainActivity:showCanto"
+        "inferno:showcanto": {
+            url: "#/inferno/canto/{no}",
+            action: "MainActivity:showCanto" 
         }
 
     });

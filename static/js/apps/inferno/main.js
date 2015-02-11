@@ -2,7 +2,6 @@ Kimo.require.config({
     paths: {
         "bi.route": "apps/inferno/routes",
         "bi.templates": "apps/inferno/templates",
-        "bi.main.activity": "apps/inferno/activities/main.activity", //autoload activity
         "bi.terza.manager": "apps/inferno/managers/terza.manager",
         "bi.contents.manager": "apps/inferno/managers/contents.manager",
         "bi.models": "apps/inferno/models",
@@ -15,7 +14,7 @@ Kimo.require.config({
 
 /* main Application here */
 /*autoload activity*/
-define(["Kimo/core", "bi.route", "vendor.mustache", "Kimo.localstorage", "bi.main.activity"], function (Kimo) {
+define(["Kimo/core", "bi.route", "vendor.mustache", "Kimo.localstorage"], function (Kimo) {
 
     return Kimo.ApplicationManager.create("BabelioInferno", {
         _settings: {
@@ -41,7 +40,7 @@ define(["Kimo/core", "bi.route", "vendor.mustache", "Kimo.localstorage", "bi.mai
         },
         
         onError: function (e) {
-            console.log(e);
+            console.log("error", e);
         }
 
     });
