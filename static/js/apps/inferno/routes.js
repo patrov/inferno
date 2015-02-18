@@ -13,7 +13,12 @@ define(["Kimo.NavigationManager"], function (NvgManager) {
 
         "inferno:showcanto": {
             url: "#/inferno/canto/{no}",
-            action: "MainActivity:showCanto" 
+            action: "MainActivity:showCanto",
+            templateName: 'home'
+        },
+        "inferno:admin": {
+            url: "#/inferno/admin",
+            action: "AdminActivity:index"
         }
 
     });

@@ -13,10 +13,10 @@ api = restful.Api(app)
 #handle login here
 login_manager.init_app(app)
 app.secret_key = "raidxlblaze"
- 
-#register rest services		
-api.add_resource(CantoService, '/rest/canto/<int:canto>')		
-api.add_resource(TerzaService, '/rest/terza/<int:no_terza>')	
+
+#register rest services
+api.add_resource(CantoService, '/rest/canto/<int:canto>')
+api.add_resource(TerzaService, '/rest/terza/<int:no_terza>')
 api.add_resource(TranslationService, '/rest/translation')
 
 @app.route('/')
@@ -28,7 +28,7 @@ def index():
 def admin():
     return render_template("admin.html")
 
-@app.route('/login', methods=['POST','GET'])	
+@app.route('/login', methods=['POST','GET'])
 def login():
     if g.user is not None and g.user.is_authenticated():
         return redirect(request.values.get('next'))
@@ -38,12 +38,7 @@ def login():
 
 @app.before_request
 def before_request():
-    g.user = current_user  
-    pprint(g.user)    
-    
-@app.errorhandler(404)	
-def error_page(error):
-	return "["+request.path+"] doesn't exist"
+    g.user = current_user
 
 
 if __name__ == '__main__':

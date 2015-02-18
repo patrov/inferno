@@ -1,27 +1,27 @@
 define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) {
-    
+
     var terzaManager = (function () {
         this.stzAction = $("<p class='stz-actions'><a class='lang-choice' data-lang='eng' href='javascript:;'>Eng</a> | <a class='lang-choice' data-lang='fr' href='javascript:;'>Fr</a> | <a class='lang-choice' data-lang='esp' href='javascript:;'>Esp</a></p>").clone();
         this.currentTerza = null;
         this.currentCanto = null;
         this.previousContent = null;
         this.currentLang = 'it';
-		
+
         this.configure = function (config) {
             var self = this,
             target,
             lang;
-				
+
             $(config.root).on("click", ".lang-choice", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
                 target = e.currentTarget,
                 lang = $(target).data("lang");
-                this.showTranslationBoard(lang);
-                this.loadCantoTranslation(lang);
+                self.showTranslationBoard(lang);
+                self.loadCantoTranslation(lang);
                 return false;
             });
-			
+
 
             $(config.root).on("click", ".stz", function (e) {
                 var stz = e.currentTarget;
@@ -31,12 +31,12 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 var position = $(stz).position();
                 var top = position.top - 20;
                 //$("#user-context").animate({top: top+"px"},"faste");
-                stz = $(stz).clone(true).addClass("current-translation").removeClass("selected");  
+                stz = $(stz).clone(true).addClass("current-translation").removeClass("selected");
                 self.loadTranslations(self.currentTerzaNo);
-                Kimo.Observable.trigger("TerzaSelection", $(stz), self.currentTerzaNo);  
+                Kimo.Observable.trigger("TerzaSelection", $(stz), self.currentTerzaNo);
             });
-            
-            
+
+
             $(config.root).on("mouseleave", ".current-traduction", function (e) {
                 var target = e.currentTarget;
                 $(target).html(self.previousContent);
@@ -45,38 +45,39 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 self.previousContent = null;
             });
         },
-		
+
         /* load canto translation
 			show loading
 			populate canto
 		*/
-		
-		
+
+
         this.showTranslationBoard = function (lang) {
             var selectedLang = lang || 'it';
-            translation = $("." + selectedLang + "-canto-container").find(".no-" + self.currentTerzaNo).eq(0).html(); //wrong use handle annotation
+            var translation = $(".no-" + this.currentTerzaNo, $("." + selectedLang + "-canto-container")).eq(0).html();
+            console.log($(".no-" + this.currentTerzaNo));
             $("#translation").find(".current-translation").html(translation);
         }
-		
-		
+
+
         this.loadCantoTranslation = function (lang) {
             this.currentLang = lang;
             Kimo.ParamsContainer.set("currentLang", this.currentLang);
             console.log(Kimo.ParamsContainer);
             $.ajax({
-                url: "/rest/canto/"+this.currentCanto, 
+                url: "/rest/canto/"+this.currentCanto,
                 data: {
                     lang: this.currentLang
                 }
             }).done(function (response) {
             self.populateStanzas(response, lang);
         });
-			
+
     },
-        
+
     this.loadTranslations = function (terza) {
         $.ajax({
-            url: "/rest/translation", 
+            url: "/rest/translation",
             data : {
                 terza : terza,
                 user: 'harris'
@@ -84,7 +85,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
         }).done(function(data){
     });
     },
-        
+
     this.loadCanto = function (noCanto) {
         var self = this,
         noCanto = noCanto || 1,
@@ -98,8 +99,8 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             Kimo.Observable.trigger("cantoLoaded", noCanto, response);
         });
     },
-        
-    this.populateStanzas = function (stanzas, lang) { 
+
+    this.populateStanzas = function (stanzas, lang) {
         lang = lang || 'it';
         var tpl,
             render,
@@ -107,19 +108,19 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
         $(ctn).empty();
         tpl = '<p class="stz no-{{no_terza}}" data-no="{{no_terza}}">{{content}}</p>';
         $.each(stanzas, function (i) {
-            render = Mustache.render(tpl, stanzas[i]);  
+            render = Mustache.render(tpl, stanzas[i]);
             $(ctn).append(render);
         });
-                
-    }     
+
+    }
     this.showTradContext = function () {
         $('#user-action-tab a[href="#translation"]').tab('show');
     }
-		
+
     this.getCurrentTerza = function () {
         return this.currentTerzaNo;
     }
-		
+
     this.showLanguages = function (terza) {
         // if (this.currentterza && (this.currentterza.get(0) == terza)) return;
         this.currentTerza = $(terza);
@@ -135,7 +136,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
         $(terza).append(actions);
     }
     this.unselect = function () {
-            
+
     }
 
     return {
