@@ -50,7 +50,11 @@
                 console.log(" error", reason);
             }
             require(['Kimo/core','inferno.app'], function (Kimo, Inferno) {
+                    Inferno.onError = function () {
+                        console.log("error");
+                    }
                     Inferno.start({});
+                    
                 },_errorHandler);
 
         </script>

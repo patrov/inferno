@@ -1,11 +1,11 @@
 Kimo.require.config({
     paths: {
         "bi.route": "apps/inferno/routes",
-        "bi.templates": "apps/inferno/templates",
+        "bi.managers":"apps/inferno/managers",
         "bi.terza.manager": "apps/inferno/managers/terza.manager",
         "bi.contents.manager": "apps/inferno/managers/contents.manager",
         "bi.models": "apps/inferno/models",
-        "bi.templates": "apps/inferno/templates", 
+        "bi.templates": "apps/inferno/templates/", 
         "bi.views": "apps/inferno/views/views",
         "Kimo.localstorage": "kimonic/core/Kimo.adapter.localstorage",
         "vendor.mustache": "kimonic/vendor/mustache/mustache"
@@ -16,7 +16,7 @@ Kimo.require.config({
 /*autoload activity*/
 define(["Kimo/core", "bi.route", "vendor.mustache", "Kimo.localstorage"], function (Kimo) {
 
-    return Kimo.ApplicationManager.create("BabelioInferno", {
+    return Kimo.ApplicationManager.create("Inferno", {
         _settings: {
             mainViewContainer: ".jumbotron",
             mainActivity: "MainActivity",

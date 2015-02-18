@@ -7,7 +7,7 @@ define(["Kimo.NavigationManager"], function (NvgManager) {
         },
 
         "profile:show": {
-            url: "#/inferno/profile/tdfmj6",
+            url: "#/inferno/profile/index",
             action: "MainActivity:showProfile"
         },
 

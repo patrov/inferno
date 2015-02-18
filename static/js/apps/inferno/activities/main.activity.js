@@ -1,4 +1,4 @@
-define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], function(Kimo, require) {
+define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager','bi.managers/contrib.manager'], function(Kimo, require) {
 
     Kimo.ActivityManager.createActivity("MainActivity", {
         appname: "Inferno",
@@ -9,6 +9,10 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
                 contentEl: $("<div> Radical blaze </div>").clone()
             };
             this.setContentView(rootView);
+        },
+        
+        events: {
+            '.test click': 'sayHello'
         },
         
         actionDependencies: {
@@ -25,7 +29,9 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
                 canto: 1
             });
             this.initTabs();
-            $(this.view.view).on("click",".btn-link", function (e) {
+            
+            /*  move to cantoManager */
+            $(this.view.view).on("click", ".btn-link", function (e) {
                 var lang = $(e.currentTarget).data("lang");
                 self.terzaManager.loadCantoTranslation(lang);
                 $(".canto-ctn").hide();
@@ -63,9 +69,7 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
         homeAction: function () {
             var self = this;
             /* show placeholder  */
-            alert("this is it");
             require(['text!bi.templates/tradboard.html'], function(tpl){
-                console.log(self.view.view);
                 $(self.view.view).html($(tpl));
                 self.templateReady();
             });
@@ -77,18 +81,23 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
         showCantoAction: function (no) {
             var self = this;
             /*this.loadView("view!showCanto").ready(function(){});*/
-            require(['text!bi.template/tradboard.html'], function(tpl){
-                alert("let me tell you this ... ");
+            require(['text!bi.templates/tradboard.html'], function(tpl){
                 $(self.view.view).html($(tpl));
-                this.templateReady(no);
+                self.templateReady(no);
             });
         },
-
+        
+        sayHello: function () {
+            alert("sdsd");
+        },
+        
         showProfileAction: function () {
             var self = this;
-            require(['text!sw.templates/profiles.html'], function(tpl){
-                $(self.view.view).html($(tpl));
-            });
+            
+            /* if action returns somethings it will be used to evaluate the template using the template renderer*/
+            //at this stage before return template is ready
+            /*take care of prerender*/
+            return {data: "radical"};
         }
 
     });

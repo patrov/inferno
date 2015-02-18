@@ -5,7 +5,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
         this.currentTerza = null;
         this.currentCanto = null;
         this.previousContent = null;
-		
+        this.currentLang = 'it';
 		
         this.configure = function (config) {
             var self = this,
@@ -60,10 +60,13 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
 		
 		
         this.loadCantoTranslation = function (lang) {
+            this.currentLang = lang;
+            Kimo.ParamsContainer.set("currentLang", this.currentLang);
+            console.log(Kimo.ParamsContainer);
             $.ajax({
                 url: "/rest/canto/"+this.currentCanto, 
                 data: {
-                    lang:lang
+                    lang: this.currentLang
                 }
             }).done(function (response) {
             self.populateStanzas(response, lang);
@@ -79,31 +82,32 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 user: 'harris'
             }
         }).done(function(data){
-        console.log(data);
     });
     },
         
     this.loadCanto = function (noCanto) {
-        var self = this;
-        noCanto = noCanto || 1;
-        this.currentCanto = noCanto; 
-        $.ajax({
-            url: "/rest/canto/"+noCanto
-            }).done(function(response){
+        var self = this,
+        noCanto = noCanto || 1,
+        restParams = {url: "/rest/canto/"+noCanto};
+        if (this.currentLang !=='it' ) {
+            restParams.data = {lang:this.currentLang};
+        }
+        this.currentCanto = noCanto;
+        $.ajax(restParams).done(function(response){
             self.populateStanzas(response);
             Kimo.Observable.trigger("cantoLoaded", noCanto, response);
         });
     },
         
     this.populateStanzas = function (stanzas, lang) { 
-        var lang = lang || 'it',
-        tpl,
-        render,
-        ctn = $("."+lang+"-canto-container");
+        lang = lang || 'it';
+        var tpl,
+            render,
+            ctn = $("."+lang+"-canto-container");
         $(ctn).empty();
         tpl = '<p class="stz no-{{no_terza}}" data-no="{{no_terza}}">{{content}}</p>';
-        $.each(stanzas, function (i, stanza) {
-            render = Mustache.render(tpl, stanza);  
+        $.each(stanzas, function (i) {
+            render = Mustache.render(tpl, stanzas[i]);  
             $(ctn).append(render);
         });
                 
