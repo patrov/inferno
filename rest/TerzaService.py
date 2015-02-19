@@ -41,12 +41,15 @@ class TerzaService(restful.Resource):
         pass
     
     @marshal_with(terza_fields)
-    def get(self):
+    def get(self, no_terza):
         #argument parsing
         parser = reqparse.RequestParser()
-        parser.add_argument('no_terza', type=int, location="path", help='Rate cannot be converted')
+        parser.add_argument('lang', type=str)
         args = parser.parse_args()
-        results = Terza.query.filter_by(no_terza = None, canto = 1, lang='it').all()
+        if args['lang'] is not None:
+            results = Terza.query.filter_by(no_terza = no_terza, lang=args['lang']).first()
+        else:
+            results = Terza.query.filter_by(no_terza = no_terza).all()
         return results
             
     def put(self): pass
