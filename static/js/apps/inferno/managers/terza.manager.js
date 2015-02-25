@@ -6,12 +6,13 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
         this.currentCanto = null;
         this.previousContent = null;
         this.currentLang = 'it';
+        this.isConfigured = false;
 
         this.configure = function (config) {
             var self = this,
             target,
             lang;
-
+            if (this.isConfigured) { return; }
             $(config.root).on("click", ".lang-choice", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
@@ -20,7 +21,6 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 self.showTranslationBoard(lang);
                 return false;
             });
-
 
             $(config.root).on("click", ".stz", function (e) {
                 var stz = e.currentTarget;
@@ -42,6 +42,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 self.currentTerza = null;
                 self.previousContent = null;
             });
+            this.isConfigured = true;
         },
 
         /* load canto translation

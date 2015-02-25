@@ -54,10 +54,10 @@ class User(db.Model):
         return unicode(self.id)
     
     def __rep__(self):
-        return '<User %r>'%(self.login)
+        return '<User %s id: %r>' % (self.login, self.id)
         
     def __repr__(self):
-        return '<User %s>' % self.login 
+        return '<User %s id: %r>' % (self.login, self.id) 
 
 class AnonymousUser(AnonymousUserMixin, User):
     __mapper_args__ = {'polymorphic_identity': 'anonymous'}

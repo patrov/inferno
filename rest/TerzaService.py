@@ -1,8 +1,7 @@
 from flask.ext import restful
-from flask import request
+from flask import request, g
 from models.Models import db, Terza, Translation, User
 from flask.ext.restful import Resource, reqparse, fields, marshal_with
-from flask.ext.login import current_user
 
 from pprint import pprint
 from flask.ext.restful import reqparse
@@ -90,7 +89,8 @@ class TranslationService(restful.Resource):
         #should be provided by flask
         
         translation = Translation(jsonData['content'], terza, jsonData['state'])
-        translation.setAuthor(current_user)
+        pprint(g.user)
+        translation.setAuthor(g.user)
         #persist
         db.session.add(translation)
         db.session.commit()

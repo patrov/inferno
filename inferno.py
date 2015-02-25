@@ -2,9 +2,9 @@
 # -*- coding:utf-8 -*-
 from flask import Flask, session, request, g, redirect, abort, url_for, render_template
 from rest.TerzaService import TerzaService, TranslationService, CantoService
-from auth.AuthManager import login_manager, handle_authentification
+from auth.AuthManager import login_manager, handle_authentification, load_anonymous_user
 from flask.ext import restful
-from flask.ext.login import login_user, current_user, login_required
+from flask.ext.login import login_user, login_required, current_user as cu
 from pprint import pprint
 
 app = Flask(__name__)
@@ -38,8 +38,11 @@ def login():
 
 @app.before_request
 def before_request():
-    user = User.query.filter_by(login="anonymous").first()
-    g.user = current_user
+        if cu.is_anonymous():
+            current_user = load_anonymous_user()
+            g.user = current_user
+        else:
+            g.user = cu
 
 
 if __name__ == '__main__':
