@@ -38,6 +38,7 @@ def login():
 
 @app.before_request
 def before_request():
+    user = User.query.filter_by(login="anonymous").first()
     g.user = current_user
 
 

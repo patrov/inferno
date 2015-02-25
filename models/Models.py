@@ -1,6 +1,9 @@
+
 from datetime import datetime
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.login import AnonymousUserMixin
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/inferno'
@@ -32,7 +35,8 @@ class User(db.Model):
     login = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(120))
     email = db.Column(db.String(120), unique=True)
-    
+    __mapper_args__ = {'polymorphic_on': login}
+        
     def __init__(self, login, password):
         self.login = login
         self.password = password
@@ -51,13 +55,25 @@ class User(db.Model):
     
     def __rep__(self):
         return '<User %r>'%(self.login)
-    
-    
-    
-    
         
     def __repr__(self):
         return '<User %s>' % self.login 
+
+class AnonymousUser(AnonymousUserMixin, User):
+    __mapper_args__ = {'polymorphic_identity': 'anonymous'}
+    
+    def __init__(self):
+        return None
+        
+    def is_authenticated(self):
+        return True
+    
+    def is_anonymous(self):
+        return True
+        
+    def get_login(self):
+        return "anonymous"
+
         
         
 #Translation model

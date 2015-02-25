@@ -32,10 +32,26 @@ define(["Kimo/core","require", "bi.models", "bi.terza.manager", "bi.views"], fun
             terzaEditor.setTerzaRender($(terzaNode).html());
         }, 
         
+         loadTranslation = function (noTerza) {
+           return $.ajax({url:"/rest/translation?terza="+noTerza});
+        },
+        
+        handleTranslation = function (html, noTerza) {
+            try {
+                loadTranslation(noTerza).done(function (response) {
+                    console.log("response", response);
+             });
+            } catch(e) {
+                console.log(e);
+            }
+            
+        },
+       
         bindEvents = function () {
             Kimo.Observable.registerEvents(['TranslationEditTask','TerzaSelection']);//strange voodou
             Kimo.Observable.on("TranslationEditTask", editContent);
             Kimo.Observable.on("TerzaSelection", setCurrentTerza);
+            Kimo.Observable.on("TerzaSelection", handleTranslation);
             $(config.root).on('click','#add-translation', displayTerzaEditor);
         },
         

@@ -31,7 +31,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 var top = position.top - 20;
                 //$("#user-context").animate({top: top+"px"},"faste");
                 stz = $(stz).clone(true).addClass("current-translation").removeClass("selected");
-                self.loadTranslations(self.currentTerzaNo);
+                //self.loadTranslations(self.currentTerzaNo);
                 Kimo.Observable.trigger("TerzaSelection", $(stz), self.currentTerzaNo);
             });
 

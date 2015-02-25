@@ -2,6 +2,8 @@ from flask.ext import restful
 from flask import request
 from models.Models import db, Terza, Translation, User
 from flask.ext.restful import Resource, reqparse, fields, marshal_with
+from flask.ext.login import current_user
+
 from pprint import pprint
 from flask.ext.restful import reqparse
 import json
@@ -66,8 +68,9 @@ class TranslationService(restful.Resource):
     def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument('terza', type=int, required=True)
-        parser.add_argument('user', type=str, required=True)
+        #parser.add_argument('user', type=str, required=True)
         args = parser.parse_args()
+        args["user"] = None
         if args["user"] is not None:
             user = User.query.filter_by(login=args["user"]).first()
             results = Translation.query.filter_by(author=user, no_terza=args['terza']).all()
@@ -85,10 +88,9 @@ class TranslationService(restful.Resource):
         terza = Terza.query.filter_by(no_terza=jsonData['terza']).first()
         
         #should be provided by flask
-        currentUser = User.query.filter_by(login="harris").first() 
         
         translation = Translation(jsonData['content'], terza, jsonData['state'])
-        translation.setAuthor(currentUser)
+        translation.setAuthor(current_user)
         #persist
         db.session.add(translation)
         db.session.commit()
