@@ -69,12 +69,7 @@ class TranslationService(restful.Resource):
         parser.add_argument('terza', type=int, required=True)
         #parser.add_argument('user', type=str, required=True)
         args = parser.parse_args()
-        args["user"] = None
-        if args["user"] is not None:
-            user = User.query.filter_by(login=args["user"]).first()
-            results = Translation.query.filter_by(author=user, no_terza=args['terza']).all()
-        else:
-            results = Translation.query.filter_by(no_terza=args['terza']).all()
+        results = Translation.query.filter_by(author=g.user, no_terza=args['terza']).all()
         return results
     
     @marshal_with(translation_fields)
@@ -89,7 +84,6 @@ class TranslationService(restful.Resource):
         #should be provided by flask
         
         translation = Translation(jsonData['content'], terza, jsonData['state'])
-        pprint(g.user)
         translation.setAuthor(g.user)
         #persist
         db.session.add(translation)

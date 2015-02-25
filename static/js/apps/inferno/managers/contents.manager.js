@@ -35,6 +35,7 @@ define(["Kimo/core","require", "bi.models", "bi.terza.manager", "bi.views"], fun
             currentTerza = no;
             terzaNode = html;
             terzaEditor.setTerzaRender($(terzaNode).html());
+            displayTerzaEditor();
         },
 
          loadTranslation = function (noTerza) {
@@ -44,7 +45,7 @@ define(["Kimo/core","require", "bi.models", "bi.terza.manager", "bi.views"], fun
         handleTranslation = function (html, noTerza) {
             try {
                 loadTranslation(noTerza).done(function (response) {
-                    console.log("response", response);
+                    terzaEditor.setTranslation(response[0]);
              });
             } catch(e) {
                 console.log(e);
