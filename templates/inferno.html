@@ -3,16 +3,16 @@
     <head>
         <meta encoding="utf-8">
         <title>Showroom</title>
-		<link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/bootstrap/dist/css/bootstrap.min.css')}}"/>
-		<link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/fontawesome/css/font-awesome.min.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/bootstrap/dist/css/bootstrap.min.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/fontawesome/css/font-awesome.min.css')}}"/>
 
         <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
-		<script type="text/javascript" src="{{url_for('static', filename='js/kimonic/vendor/requirejs/require.js')}}"></script>
-		<script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/kimonic/vendor/requirejs/require.js')}}"></script>
+        <script>
             var appPath = "/static/";
         </script>
-		<script  src="{{url_for('static', filename='js/kimonic/main.js')}}"></script>
+        <script  src="{{url_for('static', filename='js/kimonic/main.js')}}"></script>
         <script>
             require.config({
                 paths: {
@@ -34,9 +34,21 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">Babelio inferno : Dante An Kreyol</a>
+                    <!-- menu -->
+                    <ul class="nav navbar-nav navbar-right pull-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> User <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Log in</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Log out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+
         <div class="container">
             <div class="col-sm-12">
                 <div class="jumbotron">
@@ -50,12 +62,12 @@
                 console.log(" error", reason);
             }
             require(['Kimo/core','inferno.app'], function (Kimo, Inferno) {
-                    Inferno.onError = function () {
-                        console.log("error");
-                    }
-                    Inferno.start({});
+                Inferno.onError = function () {
+                    console.log("error");
+                }
+                Inferno.start({});
 
-                },_errorHandler);
+            },_errorHandler);
 
         </script>
     </body>

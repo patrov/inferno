@@ -6,7 +6,7 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
             var rootView = {
                 name: "main-board",
                 title: "mainBoard",
-                contentEl: $("</div>").clone()
+                contentEl: $("<div><ul><li>home</li></ul><div id='profile'></div></div>").clone()
             };
             this.setContentView(rootView);
         },
@@ -29,6 +29,11 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
                 canto: 1
             });
             this.initTabs();
+            Kimo.Observable.registerEvents(['CantoLoaded']);
+
+             Kimo.Observable.on('CantoLoaded', function () {
+                 self.terzaManager.selectTerzaByPosition(1);
+             });
 
             /*  move to cantoManager */
             $(this.view.view).on("click", ".btn-link", function (e) {
@@ -64,6 +69,7 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
                 root: this.view.view
             });
             this.terzaManager.loadCanto(canto);
+
         },
 
         homeAction: function () {
@@ -84,14 +90,15 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
             alert("sdsd");
         },
 
+        menuComponent: function () {
+            return "<ul><li>Home</li><li>User</li><li>Contribution</li></ul>"
+        },
+
         showProfileAction: function () {
-            var self = this;
             this.data = {sdsd:'sdsd'};
-            /* if action returns somethings it will be used to evaluate the template using the template renderer*/
-            //at this stage before return template is ready
-            /*take care of prerender*/
             return {name: "Tema "};
         }
+
 
     });
 });

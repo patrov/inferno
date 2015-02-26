@@ -8,7 +8,8 @@ define(["Kimo.NavigationManager"], function (NvgManager) {
 
         "profile:show": {
             url: "#/inferno/profile/index",
-            action: "MainActivity:showProfile"
+            action: "MainActivity:showProfile",
+            renderer: {zone : "#profile", animation: "slideIn"}
         },
 
         "inferno:showcanto": {
@@ -16,6 +17,7 @@ define(["Kimo.NavigationManager"], function (NvgManager) {
             action: "MainActivity:showCanto",
             templateName: 'home'
         },
+
         "inferno:admin": {
             url: "#/inferno/admin",
             action: "AdminActivity:index"
