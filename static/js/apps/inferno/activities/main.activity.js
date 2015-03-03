@@ -29,10 +29,14 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
                 canto: 1
             });
             this.initTabs();
-            Kimo.Observable.registerEvents(['CantoLoaded']);
+            Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded']);
 
              Kimo.Observable.on('CantoLoaded', function () {
                  self.terzaManager.selectTerzaByPosition(1);
+             });
+
+             Kimo.Observable.on('CantoTranslationLoaded', function () {
+                 self.terzaManager.selectTerza(self.terzaManager.getCurrentTerza(),false);
              });
 
             /*  move to cantoManager */

@@ -91,6 +91,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 }
             }).done(function (response) {
                 self.populateStanzas(response, lang);
+                Kimo.Observable.trigger("CantoTranslationLoaded", lang, response);
             });
         },
 
