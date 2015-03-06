@@ -1,4 +1,4 @@
-define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], function(Kimo, require) {
+define(["Kimo/core",'require', 'bi.pager.manager', 'bi.terza.manager', 'bi.contents.manager'], function(Kimo, require) {
 
     Kimo.ActivityManager.createActivity("MainActivity", {
         appname: "Inferno",
@@ -23,7 +23,7 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
             var self = this;
             this.terzaManager = require('bi.terza.manager');
             this.contentsManager = require('bi.contents.manager');
-
+            this.pagerManager =  require('bi.pager.manager');
             this.terzaManager.configure({
                 root: this.view.view,
                 canto: 1
@@ -33,6 +33,7 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
 
              Kimo.Observable.on('CantoLoaded', function () {
                  self.terzaManager.selectTerzaByPosition(1);
+                 self.pagerManager.selectCanto(self.terzaManager.getCurrentCanto());
              });
 
              Kimo.Observable.on('CantoTranslationLoaded', function () {
@@ -43,6 +44,9 @@ define(["Kimo/core",'require', 'bi.terza.manager', 'bi.contents.manager'], funct
             $(this.view.view).on("click", ".btn-link", function (e) {
                 var lang = $(e.currentTarget).data("lang");
                 self.terzaManager.loadCantoTranslation(lang);
+                $(".btn-link").removeClass("selected");
+                $(e.currentTarget).addClass("selected");
+
                 $(".canto-ctn").hide();
                 var className = lang+"-canto-container";
                 $("."+className).show();

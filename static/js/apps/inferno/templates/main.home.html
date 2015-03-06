@@ -10,6 +10,7 @@
         .stz.selected { margin-top:-10px ; padding-top: 10px; margin-left:-5px; margin-right:-5px; padding-left:5px; padding-right:5px;
                         cursor:pointer; background-color: #faebcc;
         }
+        .available-lang .selected { padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 2px solid #d9edf9 }
         .current-translation {padding: 15px; font-size:1.3em; white-space:pre-wrap; background-color: #d9edf7}
         /*.stz-editor {border: 1px solid #f1c40f}*/
         .other-translation { margin-top: 10px; padding-top: 10px}
@@ -27,22 +28,22 @@
         #user-translation {background-color: #d9edf7; padding: 5px}
         #add-translation {margin-top: 5px;}
         #editing-zone{ margin-bottom: 5px; padding: 5px;}
-		.canto-link { cursor: pointer; height: 50px; width: 100%; margin-bottom: 5px; text-align: center; color: green}
-		.canto-link.selected {pading:auto; text-align: center; background-color: 1px solid green; border: #d9edf7}
-		.canto-link-ctn { position: absolute; top: 62px}
+        .canto-link { cursor: pointer; height: 50px; width: 100%; margin-bottom: 5px; text-align: center; color: green}
+        .canto-link.selected {padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 2px solid #d9edf9}
+        .canto-link-ctn { position: absolute; top: 62px}
     </style>
 
     <div class="row">
         <div class="col-sm-1">
-				<div class="canto-link-ctn">
-				<div data-canto-no="1" class='canto-link selected'><a href='#/inferno/canto/1'><i class="fa fa-newspaper-o"></i> Chant I</a></div>
-				<div data-canto-no="2" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/2"> Chant II</a></div>
-				<div data-canto-no="3" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/3">Chant III</a></div>
-				<div data-canto-no="4" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/4"> Chant IV</a></div>
-				<div data-canto-no="5" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/5"> Chant IV</a></div>
-                                <div class=''><a href="#/inferno/profile/index">User profile</a></div>
-                                <div class=''><a href="#/inferno/admin">User Admin</a></div>
-			</div>
+            <div id="canto-pager" class="canto-link-ctn">
+                <div id="canto-1" data-canto-no="1" class='canto-link'><a href='#/inferno/canto/1'><i class="fa fa-newspaper-o"></i> Chant I</a></div>
+                <div id="canto-2" data-canto-no="2" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/2"> Chant II</a></div>
+                <div id="canto-3" data-canto-no="3" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/3">Chant III</a></div>
+                <div id="canto-4" data-canto-no="4" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/4"> Chant IV</a></div>
+                <div id="canto-5" data-canto-no="5" class='canto-link'><i class="fa fa-newspaper-o"></i><a href="#/inferno/canto/5"> Chant IV</a></div>
+                <div class=''><a href="#/inferno/profile/index">User profile</a></div>
+                <div class=''><a href="#/inferno/admin">User Admin</a></div>
+            </div>
         </div>
 
         <div class="col-sm-6">
@@ -70,11 +71,11 @@
             </ul>
             <div class="tab-content">
                 <div id="translation" class="tab-pane active">
-                     <div id="editor-ctn"></div>
-                     <div id="user-translation" class="contrib"></div>
-                     <a id="add-translation"><i class="fa fa-plus"></i> Propoze yon tradiksyon</a>
-                     <hr>
-                     <p><strong>Lot tradiksyon</strong></p>
+                    <div id="editor-ctn"></div>
+                    <div id="user-translation" class="contrib"></div>
+                    <a id="add-translation"><i class="fa fa-plus"></i> Propoze yon tradiksyon</a>
+                    <hr>
+                    <p><strong>Lot tradiksyon</strong></p>
                     <div>
                         <p class='trad-sugg'>Nemo quaeso miretur, si post exsudatos labores itinerum,
                             commeatus fiducia vestri ductante barbaricos pagos adventans

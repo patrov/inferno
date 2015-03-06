@@ -20,6 +20,8 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 e.preventDefault();
                 target = e.currentTarget,
                 lang = $(target).data("lang");
+                $(self.stzAction).find(".lang-choice").removeClass("selected");
+                $(target).addClass("selected");
                 self.showTranslationBoard(lang);
                 return false;
             });
@@ -170,11 +172,14 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             $(terza).append(actions);
         }
 
-
+        var self = this;
         return {
             configure: $.proxy(this.configure, this),
             showLanguages: $.proxy(this.showLanguages, this),
             getCurrentTerza: $.proxy(this.getCurrentTerza, this),
+            getCurrentCanto: function (){
+                return self.currentCanto;
+            },
             selectTerza: $.proxy(this.selectTerza, this),
             selectTerzaByPosition: $.proxy(this.selectTerzaByPosition, this),
             loadCanto: $.proxy(this.loadCanto, this),
