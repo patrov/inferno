@@ -6,6 +6,7 @@ Kimo.require.config({
         "bi.contents.manager": "apps/inferno/managers/contents.manager",
         "bi.pager.manager": "apps/inferno/managers/pager.manager",
         "bi.models": "apps/inferno/models",
+        "bi.forms": "apps/inferno/forms",
         "bi.templates": "apps/inferno/templates/",
         "bi.views": "apps/inferno/views/views",
         "Kimo.localstorage": "kimonic/core/Kimo.adapter.localstorage",

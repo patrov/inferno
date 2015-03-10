@@ -59,7 +59,6 @@ class TerzaService(restful.Resource):
     
     def delete(self): pass
 
-
 #translation service
 class TranslationService(restful.Resource):
     
@@ -89,4 +88,19 @@ class TranslationService(restful.Resource):
         db.session.add(translation)
         db.session.commit()
     
+ #userService
+class UserService(restful.Resource):
     
+    def post(self):
+        user =  User.query.filter_by(login=request.form['login']).first()
+        if user is None:
+            user = User(request.form.get('login'), request.form.get('password'))
+            user.setEmail(request.form.get('email'))
+            db.session.add(user)
+            db.session.commit()
+        else:
+            return None
+        
+        
+        
+        

@@ -35,7 +35,7 @@ class User(db.Model):
     login = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(120))
     email = db.Column(db.String(120), unique=True)
-    __mapper_args__ = {'polymorphic_on': login}
+    #__mapper_args__ = {'polymorphic_on': login}
         
     def __init__(self, login, password):
         self.login = login
@@ -49,6 +49,9 @@ class User(db.Model):
     
     def is_anonymous(self):
         return False
+    
+    def setEmail(self, email):
+        self.email = email
     
     def get_id(self):
         return unicode(self.id)
@@ -66,7 +69,7 @@ class AnonymousUser(AnonymousUserMixin, User):
         return None
         
     def is_authenticated(self):
-        return True
+        return False
     
     def is_anonymous(self):
         return True

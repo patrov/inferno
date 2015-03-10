@@ -2,8 +2,8 @@ from flask import flash
 from flask.ext.login import LoginManager, login_user, current_user
 from models.Models import db, Terza, Translation, User, AnonymousUser
 from pprint import pprint
-login_manager = LoginManager()
 
+login_manager = LoginManager()
 login_manager.login_view = "login"
 
 #custom anonymous user  
