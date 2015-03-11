@@ -24,6 +24,9 @@ class Terza(db.Model):
 
     def toJson(self):
         pass
+    
+    def setContent(self, content):
+        self.content = content
         
     def __repr__(self):
         return '<Terza %r>' % self.no_terza

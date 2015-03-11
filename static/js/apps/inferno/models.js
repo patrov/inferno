@@ -3,7 +3,7 @@ define(["Kimo/core"], function(Kimo){
 
     var TranslationItem = Kimo.ModelManager.createEntity({
         name: "Translation",
-        defaults: { 
+        defaults: {
             content: "",
             terza: "",
             canto: "",
@@ -12,28 +12,22 @@ define(["Kimo/core"], function(Kimo){
             vote: "",
             state: 0 //default draft
         },
-        
+
         init: function(){
-			
+
         },
-			
+
         getPath: function(){
-            return "/rest/translation"		
+            return "/rest/translation"
         },
-        
-        checkData: function(){ 
+
+        checkData: function(){
             return false;
-        }			
+        }
     }),
-    
-   /* terzaItem = Kimo.ModelManager.createEntity({
-        name: "terza",
-        canto: "",
-        no: "",
-        content : ""
-    });*/
-	   
-	   
+
+
+
     TranslationRepository = Kimo.ModelManager.createRepository({
         repositoryName: "TranslationRepository",
         model: TranslationItem,
@@ -41,9 +35,9 @@ define(["Kimo/core"], function(Kimo){
             return "/rest/translation"
         }
     });
-	
+
     TranslationRepository = new TranslationRepository;
-		
+
     return {
         TranslationItem : TranslationItem,
         //terzaItem : terzaItem,

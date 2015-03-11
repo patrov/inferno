@@ -6,7 +6,7 @@ define(["Kimo/core",'require', 'bi.pager.manager', 'bi.terza.manager', 'bi.conte
             var rootView = {
                 name: "main-board",
                 title: "mainBoard",
-                contentEl: $("<div><ul><li>home</li></ul><div id='profile'></div></div>").clone()
+                contentEl: $("</div>").clone()
             };
             this.setContentView(rootView);
         },
