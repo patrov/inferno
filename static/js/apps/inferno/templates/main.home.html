@@ -1,9 +1,9 @@
 <div style="width: autso;">
     <style>
-        p.stz {font-family: 'PT Sans', sans-serif; white-space:pre-wrap; font-size: 1.2em; margin:0px; margin-bottom: 0.75em; }
+        p.stz {font-family: 'Georgia', sans-serif; white-space:pre-wrap; font-size: 1.2em; margin:0px; margin-bottom: 0.75em; }
         p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom: 0.75em;}
         .available-lang { margin-bottom: 5px }
-        .translate-contrib p.trad-sugg { font-size: 1em}
+        .trad-sugg {font-family: 'Georgia', sans-serif; margin: 10px; background-color: white; padding: 5px; box-shadow: 0 1px 2px rgba(0,0,0,.1);}
         .fr-canto-container, .eng-canto-container {font-size: 0.9em;}
         .vote {color: green}
         .stz-actions { top:0px; right:0px; margin-right: 5px; font-size: 0.8em; padding-right: 15px}
@@ -11,20 +11,23 @@
                         cursor:pointer; background-color: #faebcc;
         }
         .available-lang .selected { padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 2px solid #d9edf9 }
-        .current-translation {padding: 15px; font-size:1.2em; white-space:pre-wrap; background-color: #d9edf7}
-        /*.stz-editor {border: 1px solid #f1c40f}*/
+        .current-translation { box-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; font-size:1.4em; font-family: "Garamond","Georgia", serif; white-space:pre-wrap; background-color: white}
+        .stz-editor { margin: 5px; background-color: white; box-shadow: 0 1px 2px rgba(0,0,0,.1); text-align: center }
         .other-translation { margin-top: 10px; padding-top: 10px}
         .save-btn { margin-top: 5px }
         .user-tab { border-bottom: 1px solid #ebebeb}
         .tab-pane { padding-top: 10px}
         .available-lang { border-bottom: 1px solid #ebebeb; margin-bottom: 30px}
+        #trad-container { background-color: #d9edf7 !important; }
+
         #contributions p.contrib { position: relative; padding: 15px; font-size: 1em; border: 1px solid #ebebeb}
         #contributions .contrib-actions { position : absolute; top: 0px; right:0px}
         #contributions .contrib-action {cursor: pointer; margin-left:10px}
         #contributions .contrib-action:hover { text-decoration: none}
-        #editing { margin-bottom : 5px}
-        #edit-zone {margin-bottom: 5px}
-        #editing-zone .btn {margin-left: 5px}
+        #editing { margin-bottom : 5px;}
+        #editor-ctn {background-color: #ecf0f1;}
+        #edit-zone {margin: 5px auto; border-radius: 0; overflow: auto; font-family: 'Georgia', sans-serif; background-color: #faebcc !important; width: 95%; resize: none; height: 75px;}
+        #editing-zone .btn {margin-left: 5px; }
         #user-translation {background-color: #d9edf7; padding: 5px}
         #add-translation {margin-top: 5px;}
         #editing-zone{ margin-bottom: 5px; padding: 5px;}
@@ -73,46 +76,49 @@
             <div class="tab-content">
                 <div id="translation" class="tab-pane active">
                     <div id="editor-ctn"></div>
-                    <div id="user-translation" class="contrib"></div>
-                    <a id="add-translation"><i class="fa fa-plus"></i> Propoze yon tradiksyon</a>
+                    <div style="display:none" id="user-translation" class="contrib"></div>
+                    <a id="add-translation" style="display:none"><i class="fa fa-plus"></i> Propoze yon tradiksyon</a>
                     <hr>
-                    <p><strong>Lot tradiksyon</strong></p>
-                    <div>
-                        <p class='trad-sugg'>Nemo quaeso miretur, si post exsudatos labores itinerum,
-                            commeatus fiducia vestri ductante barbaricos pagos adventans
-                            velut mutato repente consilio ad placidiora deverti.
+
+                    <div id="trad-container">
+                        <p><strong>Lot tradiksyon</strong></p>
+                        <div>
+                            <p class='trad-sugg'>Nemo quaeso miretur, si post exsudatos labores itinerum,
+                                commeatus fiducia vestri ductante barbaricos pagos adventans
+                                velut mutato repente consilio ad placidiora deverti.
+                                <span>
+                                    vote :<span class="vote">1524</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
+                                </span>
+                            </p>
+
+                            <p class='trad-sugg'>Nan mitan chemin lavi a
+                                Me te retrouvem na yon rak nwa
+                                Paske mwen de pedi bon chemen la</p>
                             <span>
-                                vote :<span class="vote">1524</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
+
+                                vote :<span class="vote">1503</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
                             </span>
-                        </p>
+                            <p class='trad-sugg'>Nan mitan chemin lavi a
+                                Me te retrouvem na yon rak nwa
+                                Paske mwen de pedi bon chemen la</p>
+                            <span>
 
-                        <p class='trad-sugg'>Nan mitan chemin lavi a
-                            Me te retrouvem na yon rak nwa
-                            Paske mwen de pedi bon chemen la</p>
-                        <span>
+                                vote :<span class="vote">1502</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
+                            </span>
+                            <p class='trad-sugg'>Nan mitan chemin lavi a
+                                Me te retrouvem na yon rak nwa
+                                Paske mwen de pedi bon chemen la</p>
+                            <span>
+                                vote :<span class="vote">1510</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
+                            </span>
+                            <p class='trad-sugg'>Nan mitan chemin lavi a
+                                Me te retrouvem na yon rak nwa
+                                Paske mwen de pedi bon chemen la</p>
+                            <span>
 
-                            vote :<span class="vote">1503</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
-                        </span>
-                        <p class='trad-sugg'>Nan mitan chemin lavi a
-                            Me te retrouvem na yon rak nwa
-                            Paske mwen de pedi bon chemen la</p>
-                        <span>
-
-                            vote :<span class="vote">1502</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
-                        </span>
-                        <p class='trad-sugg'>Nan mitan chemin lavi a
-                            Me te retrouvem na yon rak nwa
-                            Paske mwen de pedi bon chemen la</p>
-                        <span>
-                            vote :<span class="vote">1510</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
-                        </span>
-                        <p class='trad-sugg'>Nan mitan chemin lavi a
-                            Me te retrouvem na yon rak nwa
-                            Paske mwen de pedi bon chemen la</p>
-                        <span>
-
-                            vote :<span class="vote">1000</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
-                        </span>
+                                vote :<span class="vote">1000</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -120,20 +126,7 @@
                     <div id="editor-zone"></div>
                 </div>
 
-                <div id="contributions" class="tab-pane">
-                    <p class="bg-info"> Ou poko gen kontenu.</p>
-                    <p> Brouillon </p>
-                    <p class="current-translation">
-                        Nel mezzo del camin di nostra vita<br>
-                        che retrouvai para selva oscura<br>
-                        che la dereta via sta marita.
-                    </p>
-                    <p class="stz">
-                        Nel mezzo del camin di nostra vita<br>
-                        che retrouvai para selva oscura<br>
-                        che la dereta via sta marita.
-                    </p>
-                </div>
+                <div id="contributions" class="tab-pane"></div>
             </div>
 
 

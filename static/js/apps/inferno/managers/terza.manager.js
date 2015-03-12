@@ -56,6 +56,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             if (triggerEvent) {
                 Kimo.Observable.trigger("TerzaSelection", $(clonedNode), this.currentTerzaNo);
             }
+            this.showLanguages($(clonedNode));
         },
 
         this.showTranslationBoard = function (lang) {
@@ -66,6 +67,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                     var tpl = "<p style='position:relative'>{{content}}</p>",
                     render = Mustache.render(tpl, response);
                     $("#translation").find(".current-translation").html($(render));
+                    self.terzaManager.showLanguages($(render));
                 });
             } else {
                 var tpl = $("</p>").html($(terza).html());
@@ -162,7 +164,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             this.currentTerza = $(terza);
             this.previousContent = $(terza).clone().html();
             var actions = $(this.stzAction).clone();
-            // $(terza).addClass("selected");
+
             $(terza).css({
                 position: "relative"
             });

@@ -52,10 +52,10 @@ define(["Kimo/core",'require', 'bi.pager.manager', 'bi.terza.manager', 'bi.conte
                 $("."+className).show();
             });
 
-            $(this.view.view).on("mouseenter", ".current-translation", function (e) {
+           /* $(this.view.view).on("mouseenter", ".current-translation", function (e) {
                 var stz = e.currentTarget;
                 self.terzaManager.showLanguages(stz);
-            });
+            });*/
         },
 
         initTabs: function(){

@@ -1,10 +1,32 @@
 <div id="inferno-admin">
-    <p>This is my admin </p>
-    <p>Admin allow us to valid stanzas Radical</p>
-    <ul>
-    {{#each menuItems}}
-        <li> {{ this }}</li>
-    {{/each}}
-    </ul>
-    <a href="#/inferno/profile/index">Back to Profile</a>
+    <div class="col-sm-12">
+        <div class="col-sm-2" style="border: 1px solid red">
+            <p>there</p>
+        </div>
+
+        <div class="col-sm-5">
+           Flask-Principal provides a very loose framework to tie in providers of two types of service, often located in different parts of a web application:
+
+            Authentication providers
+            User information providers
+
+            For example, an authentication provider may be oauth, using Flask-OAuth and the user information may be stored in a relational database. Looseness of the framework is provided by using signals as the interface.
+
+            The major components are the Identity, Needs, Permission, and the IdentityContext.
+
+            The Identity represents the user, and is stored/loaded from various locations (eg session) for each request. The Identity is the user’s avatar to the system. It contains the access rights that the user has.
+
+            A Need is the smallest grain of access control, and represents a specific parameter for the situation. For example “has the admin role”, “can edit blog posts”.
+
+            Needs are any tuple, or probably could be object you like, but a tuple fits perfectly. The predesigned Need types (for saving your typing) are either pairs of (method, value) where method is used to specify common things such as “role”, “user”, etc. And the value is the value. An example of such is (‘role’, ‘admin’). Which would be a Need for a
+        </div>
+        <div class="col-sm-4" style="1px solid yellow">
+            <ul>
+                <li>Philosopie</li>
+                <li>Conflict</li>
+                <li>Genetic</li>
+            </ul>
+        </div>
+
+    </div>
 </div>

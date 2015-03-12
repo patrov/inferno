@@ -80,7 +80,7 @@ class TranslationService(restful.Resource):
         jsonData = json.loads(request.form['data']) 
         terza = Terza.query.filter_by(no_terza=jsonData['terza']).first()
         
-        #should be provided by flask
+        #should be provided by flask user hasttr instead
         if jsonData['id'] == 0 :
             translation = Translation(jsonData['content'], terza, jsonData['state'])
             translation.setAuthor(g.user)
