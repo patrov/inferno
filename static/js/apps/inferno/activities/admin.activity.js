@@ -6,7 +6,7 @@ define(['Kimo/core', 'bi.forms/user.form'], function (Kimo, UserForm) {
             var rootView = {
                 name: "admin-zone",
                 title: "adminZone",
-                contentEl: $("</div>").clone()
+                contentEl: $("<div><spot1><spot2></div>").clone()
             };
             this.setContentView(rootView);
         },
@@ -15,10 +15,12 @@ define(['Kimo/core', 'bi.forms/user.form'], function (Kimo, UserForm) {
             UserForm.on("submit", $.proxy(this.handleUserFormSubmit, this));
         },
 
-        indexAction: function () {
+        indexAction: function (placeHolder) {
             var elements = {
                 menuItems: ["One", "Part", "Last", "Radical"]
             };
+            //this.getSlot("spo1").render({menu : elements.menuItems});
+            //this.render("/test/t.tpl", "spo1", {menu : elements.menuItems});
             return elements;
         },
 

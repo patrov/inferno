@@ -34,28 +34,28 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="/index">Babelio inferno : Dante An Kreyol</a>
-					
+
                 </div>
                 <div class="collapse navbar-collapse">
                     <!-- menu -->
-					
+
                     <ul class="nav navbar-nav navbar-right pull-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> User <span class="caret"></span></a>
                             {% if current_user.is_authenticated() %}
-							<ul class="dropdown-menu" role="menu">
-                                <li><a href="#/inferno/user/settings">Settings</a></li>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#/inferno/user/settings"><i class="fa fa-gears"></i> Param</a></li>
                                 <li class="divider"></li>
-                                <li><a href="/logout">Log out</a></li>
+                                <li><a href="/logout"><i class="fa fa-sign-out"></i> Dekonekte</a></li>
                             </ul>
-							{% endif %}
+                            {% endif %}
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="col-sm-12">
                 <div class="jumbotron">
                     <div class="mainWrapper viewCtn"></div>
