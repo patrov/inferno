@@ -27,6 +27,7 @@ define(["Kimo.NavigationManager"], function (NvgManager) {
             url: "#/inferno/user/create",
             action: "AdminActivity:createUser"
         }
+        
 
     });
 

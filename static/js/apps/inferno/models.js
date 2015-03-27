@@ -1,4 +1,4 @@
-define(["Kimo/core"], function(Kimo){
+define(["Kimo/core"], function(Kimo) {
 
 
     var TranslationItem = Kimo.ModelManager.createEntity({
@@ -8,39 +8,51 @@ define(["Kimo/core"], function(Kimo){
             terza: "",
             canto: "",
             pub_date: "",
-            update_date:"",
-            vote: "",
+            update_date: "",
+            vote: 0,
             state: 0 //default draft
         },
-
-        init: function(){
+        init: function() {
 
         },
-
-        getPath: function(){
+        isEmpty: function() {
+            return (!this.get("content")) ? true : false;
+        },
+        getPath: function() {
             return "/rest/translation"
         },
-
-        checkData: function(){
+        checkData: function() {
             return false;
         }
     }),
-
-
-
     TranslationRepository = Kimo.ModelManager.createRepository({
         repositoryName: "TranslationRepository",
         model: TranslationItem,
-        getPath: function () {
+        getPath: function() {
             return "/rest/translation"
+        },
+                
+        getContributions: function(terza) {
+            var self = this,
+                    dfd = new $.Deferred();
+            terza = terza || 1;
+            $.ajax({
+                url: this.getPath(),
+                data: {terza: terza, type: 'contrib'}
+            }).done(function(response) {
+                var data = self.populateData(response);
+                dfd.resolve(self.toJson());
+            }).fail(dfd.reject);
+            return dfd.promise();
         }
+
     });
 
     TranslationRepository = new TranslationRepository;
 
     return {
-        TranslationItem : TranslationItem,
+        TranslationItem: TranslationItem,
         //terzaItem : terzaItem,
-        TranslationRepository : TranslationRepository
+        TranslationRepository: TranslationRepository
     }
 });

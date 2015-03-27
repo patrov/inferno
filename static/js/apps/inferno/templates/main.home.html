@@ -6,12 +6,14 @@
         .trad-sugg {font-family: 'Georgia', sans-serif; margin: 10px; background-color: white; padding: 5px; border: 1px solid #e5e5e5; box-shaddow: 0 1px 2px rgba(0,0,0,.1);}
         .fr-canto-container, .eng-canto-container {font-size: 0.9em;}
         .vote {color: green}
-        .stz-actions { top:0px; right:0px; margin-right: 5px; font-size: 0.8em; padding-right: 15px}
+        .pointable { cursor: pointer}
+        .stz-actions { top:0px; right:0px; margin-right: 5px; font-size: 0.6em; padding-right: 15px}
         .stz.selected { margin-top:-10px ; padding-top: 10px; margin-left:-5px; margin-right:-5px; padding-left:5px; padding-right:5px;
                         cursor:pointer; background-color: #faebcc;
         }
         .available-lang .selected { padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 2px solid #d9edf9 }
-        .current-translation { box-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; font-size:1.4em; font-family: "Garamond","Georgia", serif; white-space:pre-wrap; background-color: white}
+        .current-translation { box-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; padding-top: 15px; font-size:1.4em; font-family: "Garamond","Georgia", serif; white-space:pre-wrap; background-color: white}
+        .shadowed-box {box-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; background-color: white}
         .stz-editor { margin: 5px; background-color: white; box-shadow: 0 1px 2px rgba(0,0,0,.1); text-align: center }
         .other-translation { margin-top: 10px; padding-top: 10px}
         .save-btn { margin-top: 5px }
@@ -19,12 +21,14 @@
         .tab-pane { padding-top: 10px}
         .available-lang { border-bottom: 1px solid #ebebeb; margin-bottom: 30px}
         #trad-container { background-color: #f6f5f4 !important; }
-
+        #user-translation-text {white-space: pre-wrap; font-family: "Garamond","Georgia",serif; font-size: 1.3em;}
         #contributions p.contrib { position: relative; padding: 15px; font-size: 1em; border: 1px solid #ebebeb}
         #contributions .contrib-actions { position : absolute; top: 0px; right:0px}
         #contributions .contrib-action {cursor: pointer; margin-left:10px}
         #contributions .contrib-action:hover { text-decoration: none}
         #editing { margin-bottom : 5px;}
+        .prewrap {white-space: pre-wrap}
+        .block-title {border-bottom : 1px solid #eee; margin: 10px}
         #editor-ctn {background-color: #ecf0f1;}
         #edit-zone {margin: 5px auto; border-radius: 0; overflow: auto; font-family: 'Georgia', sans-serif; background-color: #faebcc !important; width: 95%; resize: none; height: 75px;}
         #editing-zone .btn {margin-left: 5px; }
@@ -35,6 +39,8 @@
         .canto-link { cursor: pointer; height: 50px; width: 100%; margin-bottom: 5px; text-align: center; color: green}
         .canto-link.selected {padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 2px solid #d9edf9}
         .canto-link-ctn { position: absolute; top: 62px}
+        #comment-field { position: relative; width: 98%; border: 1px #ecf0f1 dotted;  word-wrap: break-word; cursor: text;  min-height: 50px; }
+        .comment-close-btn { margin-right: -1px !important;}
     </style>
 
     <div class="row">
@@ -76,51 +82,9 @@
             <div class="tab-content">
                 <div id="translation" class="tab-pane active">
                     <div id="editor-ctn"></div>
-                    <div style="display:none" id="user-translation" class="contrib"></div>
                     <a id="add-translation" style="display:none"><i class="fa fa-plus"></i> Propoze yon tradiksyon</a>
                     <hr>
-
-                    <div id="trad-container">
-                        <p><strong>Lot tradiksyon</strong></p>
-                        <div>
-                            <p class='trad-sugg'>Nemo quaeso miretur, si post exsudatos labores itinerum,
-                                commeatus fiducia vestri ductante barbaricos pagos adventans
-                                velut mutato repente consilio ad placidiora deverti.
-                                <span>
-                                    vote :<span class="vote">1524</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
-                                </span>
-                            </p>
-
-                            <p class='trad-sugg'>Nan mitan chemin lavi a
-                                Me te retrouvem na yon rak nwa
-                                Paske mwen de pedi bon chemen la</p>
-                            <span>
-
-                                vote :<span class="vote">1503</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
-                            </span>
-                            <p class='trad-sugg'>Nan mitan chemin lavi a
-                                Me te retrouvem na yon rak nwa
-                                Paske mwen de pedi bon chemen la</p>
-                            <span>
-
-                                vote :<span class="vote">1502</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
-                            </span>
-                            <p class='trad-sugg'>Nan mitan chemin lavi a
-                                Me te retrouvem na yon rak nwa
-                                Paske mwen de pedi bon chemen la</p>
-                            <span>
-                                vote :<span class="vote">1510</span> - <span><i> </i><span class="contrib"><a href="javascript" class=''>Atike yassou</a></span></span>
-                            </span>
-                            <p class='trad-sugg'>
-                                <span>
-                                vote :<span class="vote">1000</span> - <span><i class="fa fa-user"></i><span class="contrib"><a href="javascript" class=''> Atike yassou</a></span></span>
-                                </span>
-                                Nan mitan chemin lavi a
-                                Me te retrouvem na yon rak nwa
-                                Paske mwen de pedi bon chemen la</p>
-
-                        </div>
-                    </div>
+                    <div id="trad-container"></div>
                 </div>
 
                 <div id="editing" class="tab-pane">

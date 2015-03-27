@@ -14,11 +14,20 @@ terza_fields = {
     'lang': fields.String,
 }
 
-translation_fields = {
-'id': fields.Integer,
-'terza': fields.Nested(terza_fields),
-'content': fields.String,
+author_fields = {
+    'login': fields.String
 }
+
+translation_fields = {
+    'id': fields.Integer(attribute='id'),
+    'terza': fields.Nested(terza_fields),
+    'content': fields.String,
+    'uid': fields.Integer(attribute='id'),
+    'author': fields.Nested(author_fields),
+    
+}
+
+
 
 class CantoService(restful.Resource):
     @marshal_with(terza_fields)
@@ -48,7 +57,7 @@ class TerzaService(restful.Resource):
         parser.add_argument('lang', type=str)
         args = parser.parse_args()
         if args['lang'] is not None:
-            results = Terza.query.filter_by(no_terza = no_terza, lang=args['lang']).first()
+            results = Terza.query.filter_by(author = g.user, no_terza = no_terza, lang=args['lang']).first()
         else:
             results = Terza.query.filter_by(no_terza = no_terza).all()
         return results
@@ -66,10 +75,19 @@ class TranslationService(restful.Resource):
     def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument('terza', type=int, required=True)
-        #parser.add_argument('user', type=str, required=True)
+        parser.add_argument('type', type=str, required=False)
         args = parser.parse_args()
-        results = Translation.query.filter_by(author=g.user, no_terza=args['terza']).first() #deal with version
+        if args.type is not None :
+            results = self.get_contrib_translation(args['terza'])
+        else:
+            results = Translation.query.filter_by(author=g.user, no_terza=args['terza']).first() #deal with version
         return results
+    
+    #add pagination after
+    def get_contrib_translation(self, terza):
+        results = Translation.query.filter_by(no_terza=terza).filter(User.login != g.user.login).all()
+        return results
+    
     
     @marshal_with(translation_fields)
     def post(self):
@@ -90,6 +108,7 @@ class TranslationService(restful.Resource):
         #persist
         db.session.add(translation)
         db.session.commit()
+        return translation
     
  #userService
 class UserService(restful.Resource):

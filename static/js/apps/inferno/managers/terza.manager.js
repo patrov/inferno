@@ -32,13 +32,13 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 self.selectTerza(no);
             });
 
-            $(config.root).on("mouseleave", ".current-traduction", function (e) {
+            /*$(config.root).on("mouseleave", ".current-traduction", function (e) {
                 var target = e.currentTarget;
                 $(target).html(self.previousContent);
                 $(self.currentTerza).removeClass("selected");
                 self.currentTerza = null;
                 self.previousContent = null;
-            });
+            });*/
             this.isConfigured = true;
         },
 
@@ -60,18 +60,21 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
         },
 
         this.showTranslationBoard = function (lang) {
+            var self = this;
             var selectedLang = lang || 'it';
             var terza = $(".no-" + this.currentTerzaNo, $("." + selectedLang + "-canto-container").eq(0));
             if(!terza.length) {
                 this.loadTerza(this.currentTerzaNo, selectedLang).done(function (response) {
                     var tpl = "<p style='position:relative'>{{content}}</p>",
-                    render = Mustache.render(tpl, response);
-                    $("#translation").find(".current-translation").html($(render));
-                    self.terzaManager.showLanguages($(render));
+                    render = Mustache.render(tpl, response),
+                    translationCtn = $("#translation").find(".current-translation").eq(0);
+                    $(translationCtn).html($(render));
+                    self.showLanguages();
                 });
             } else {
                 var tpl = $("</p>").html($(terza).html());
                 $("#translation").find(".current-translation").html($(tpl));
+                self.showLanguages();
             }
         },
 
@@ -158,20 +161,21 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
         this.getCurrentTerza = function () {
             return this.currentTerzaNo;
         }
-
-        this.showLanguages = function (terza) {
-            // if (this.currentterza && (this.currentterza.get(0) == terza)) return;
-            this.currentTerza = $(terza);
-            this.previousContent = $(terza).clone().html();
+        
+        this.getFocusedTerza = function () {
+            return $("#editing-zone").find(".current-translation").eq(0);
+        }
+        
+        this.showLanguages = function () {
+             var focusedTerza = this.getFocusedTerza();
             var actions = $(this.stzAction).clone();
-
-            $(terza).css({
-                position: "relative"
+            $(focusedTerza).css({
+                "position": "relative"
             });
             $(actions).css({
-                position: "absolute"
+                "position": "absolute"
             });
-            $(terza).append(actions);
+            $(focusedTerza).append(actions);
         }
 
         var self = this;

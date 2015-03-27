@@ -9,6 +9,8 @@ Kimo.require.config({
         "bi.forms": "apps/inferno/forms",
         "bi.templates": "apps/inferno/templates/",
         "bi.views": "apps/inferno/views/views",
+        "bi.components": "apps/inferno/components/",
+        "bi.viewsContainer": "apps/inferno/views/",
         "Kimo.localstorage": "kimonic/core/Kimo.adapter.localstorage",
         "vendor.mustache": "kimonic/vendor/mustache/mustache"
     }
@@ -38,7 +40,9 @@ define(["Kimo/core", "bi.route", "vendor.mustache", "Kimo.localstorage"], functi
         },
 
         onStart: function () {
-            Kimo.ModelManager.useAdapter(Kimo.AdapterRegistry.get("restAdapter"));
+            var restAdapter = Kimo.AdapterRegistry.get("restAdapter");
+                restAdapter.settings.envelope = false;
+            Kimo.ModelManager.useAdapter(restAdapter);
         },
 
         onError: function (e) {

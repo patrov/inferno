@@ -1,10 +1,16 @@
 <div id="editing-zone" class="tab-pane">
     <p class="current-translation"></p>
-    <div class="stz-editor clearfix">
-        <textarea id="edit-zone" class="form-control" placeholder="Propoze yon vèsyon" style="border: 1px solid #95a5a6; background-color: #fbfcfc"></textarea>
+    <div class="user-translation edit-field shadowed-box" style="border: 1px solid #faebcc">
+        <span><i class="fa fa-user"></i> Mwen menm <span> a 10h30</span>
+            <span><i class="fa fa-remove pull-right pointable"></i></span>
+            <span><i class="fa fa-edit pull-right pointable" style="margin-left: 5px"></i></span>
+        <p id="user-translation-text"></p>
+    </div>
+    <div class="stz-editor clearfix edit-field" style="display : none">
+        <textarea id="edit-zone" class="form-control" placeholder="Propoze yon tradiksyon" style="border: 1px solid #95a5a6; background-color: #fbfcfc"></textarea>
         <div class="btn-group btn-group-xm pull-right" style="margin : 0px 10px 5px 0 ">
             <button id="save-draft-btn" class="btn btn-default btn-sm"><i class="fa fa-check" style="color: green"></i> Anregistre</button>
-            <button id="cancel-btn" class="btn btn-default btn-sm"><i class="fa fa-times" style="color: red"></i> Annuler</button>
+            <button id="cancel-btn" class="btn btn-default btn-sm"><i class="fa fa-times" style="color: red"></i> Vag</button>
         </div>
     </div>
 </div>

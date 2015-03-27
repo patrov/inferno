@@ -81,7 +81,16 @@ class AnonymousUser(AnonymousUserMixin, User):
         return "anonymous"
 
         
-        
+ 
+#Comments
+class Comments(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	content = db.Column(db.Text)
+	pub_date = db.Column(db.DateTime)
+	target_id = db.Column(db.Integer, db.ForeignKey("terza.no_terza"))
+	target = db.relationship("Terza", backref = db.backref("comments", lazy='dynamic'))
+	
+	
 #Translation model
 class Translation(db.Model):
     id = db.Column(db.Integer, primary_key=True)

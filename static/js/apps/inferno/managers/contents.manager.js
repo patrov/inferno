@@ -1,20 +1,21 @@
 /***
  * handle save
  */
-define(["Kimo/core","require", "bi.models", "bi.terza.manager", "bi.views"], function (Kimo, require, Models, terzaManager) {
+define(["Kimo/core", "require", "bi.models", "bi.terza.manager", "bi.views", "bi.components/translationslist/main"], function(Kimo, require, Models, terzaManager) {
 
-    var ContentManager = (function () {
+    var ContentManager = (function() {
         var config = {
             "editZone": "#edit-zone",
             contentTpl: "<p class='stz'>{{content}} <span><strong>Mwen menm</strong></span></p>"
         },
         currentTerza = null,
-        terzaEditor = null,
-        terzaNode = null,
-        isConfigured =  false,
-        previousEditedContent = null,
-        configure = function (userConfig) {
-            if (isConfigured == true ) {
+                terzaEditor = null,
+                translationList = null,
+                terzaNode = null,
+                isConfigured = false,
+                previousEditedContent = null,
+                configure = function(userConfig) {
+            if (isConfigured == true) {
                 return;
             }
             $.extend(true, config, userConfig);
@@ -25,81 +26,71 @@ define(["Kimo/core","require", "bi.models", "bi.terza.manager", "bi.views"], fun
                 contentBadge: ".content-badge"
             });
 
-            terzaEditor = Kimo.createEntityView("terzaEditorView",{});
+            terzaEditor = Kimo.createEntityView("terzaEditorView", {});
             $("#contributions").html(translationsView.render());
+            /*... Translation list ...*/
+            translationList = Kimo.createEntityView("TranslationListView", {
+                entity: Models.TranslationRepository
+            });
             bindEvents();
             isConfigured = true;
         },
-
-        setCurrentTerza = function (html, no) {
+                setCurrentTerza = function(html, no) {
             currentTerza = no;
             terzaNode = html;
             terzaEditor.setTerzaRender($(terzaNode).html());
             terzaEditor.setTerza(currentTerza);
             displayTerzaEditor();
+            displayTranslations();
         },
-
-         loadTranslation = function (noTerza) {
-           return $.ajax({url:"/rest/translation?terza="+noTerza});
+                displayTranslations = function() {
+            translationList.render("#trad-container");
         },
-
-        handleTranslation = function (html, noTerza) {
+                loadTranslation = function(noTerza) {
+            return $.ajax({url: "/rest/translation?terza=" + noTerza});
+        },
+                handleTranslation = function(html, noTerza) {
             try {
-                loadTranslation(noTerza).done(function (response) {
+                loadTranslation(noTerza).done(function(response) {
                     var translation = new Models.TranslationItem(response);
                     terzaEditor.setTranslation(translation);
-             });
-            } catch(e) {
+                });
+            } catch (e) {
                 console.log(e);
             }
 
         },
-
-        bindEvents = function () {
-            Kimo.Observable.registerEvents(['TranslationEditTask','TerzaSelection']);//strange voodou
+                bindEvents = function() {
+            Kimo.Observable.registerEvents(['TranslationEditTask', 'TerzaSelection']);//strange voodou
             Kimo.Observable.on("TranslationEditTask", editContent);
             Kimo.Observable.on("TerzaSelection", setCurrentTerza);
             Kimo.Observable.on("TerzaSelection", handleTranslation);
-            $(config.root).on('click','#add-translation', displayTerzaEditor);
         },
-
-        displayTerzaEditor = function () {
+                displayTerzaEditor = function() {
             var translationItem = new Models.TranslationItem({}),
-            currentTerza = terzaManager.getCurrentTerza();
+                    currentTerza = terzaManager.getCurrentTerza();
             translationItem.set("terza", currentTerza);
             terzaEditor.configure({
-                mode:"create",
+                mode: "create",
                 repository: Models.TranslationRepository,
-                translation :translationItem,
-                onAction: function (action) {
-                    //show the button
-                    if (action=="cancel" || action=="hide") {
-                        $("#add-translation").show();
-                    }
-                }
+                translation: translationItem
             });
-            $("#add-translation").hide();
-            if($("#editor-ctn").find("#editing-zone").length){
-                $("#editing-zone").show();
-            }else{
-                $("#editor-ctn").html(terzaEditor.render());
-            }
+            terzaEditor.render("#editor-ctn");
         },
-
-        /* create a stranza editor */
-        editContent = function (translationItem, render) {
-            if(previousEditedContent){
+                /* create a stranza editor */
+                editContent = function(translationItem, render) {
+            if (previousEditedContent) {
                 $(previousEditedContent).show();
             }
             var editorView;
             $(terzaEditor).val(translationItem.get("content"));
             $(render).hide();
             terzaEditor.configure({
-                mode:"edit",
-                translation : translationItem,
+                mode: "edit",
+                translation: translationItem,
                 repository: Models.TranslationRepository,
-                onAction: function (type) {
-                    if(type=="cancel" || type=="save"){
+                onAction: function(type) {
+                    if (type == "cancel" || type == "save") {
                         $(render).show();
                     }
                 }
@@ -108,28 +99,24 @@ define(["Kimo/core","require", "bi.models", "bi.terza.manager", "bi.views"], fun
             $(render).after(editorView);
             previousEditedContent = render;
         },
-
-        showEditTab = function () {
+                showEditTab = function() {
             $('#user-action-tab a[href="#editing"]').tab('show') // Select tab by name
         },
-
-
-        saveContent = function () {
-        /* var currentterza = stzManager.getCurrentterza();
-            if(parseInt(currentterza)== NaN) return;
-            var curTranslation = $(config.editZone).val();
-            var translationItem = new Models.TranslationItem({
-                content:curTranslation
-            });
-            translationItem.set("terza", currentterza);
-            translationItem.set("date", new Date().getTime());
-            Models.TranslationRepository.add(translationItem);*/
+                saveContent = function() {
+            /* var currentterza = stzManager.getCurrentterza();
+             if(parseInt(currentterza)== NaN) return;
+             var curTranslation = $(config.editZone).val();
+             var translationItem = new Models.TranslationItem({
+             content:curTranslation
+             });
+             translationItem.set("terza", currentterza);
+             translationItem.set("date", new Date().getTime());
+             Models.TranslationRepository.add(translationItem);*/
         },
-
-        getApi = function () {
+                getApi = function() {
             return {
                 configure: configure,
-                showEditTab : showEditTab
+                showEditTab: showEditTab
             }
         }
         return getApi();
