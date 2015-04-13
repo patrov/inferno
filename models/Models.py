@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import AnonymousUserMixin
+from pprint import pprint
 
 
 app = Flask(__name__)
@@ -83,14 +84,25 @@ class AnonymousUser(AnonymousUserMixin, User):
         
  
 #Comments
-class Comments(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	content = db.Column(db.Text)
-	pub_date = db.Column(db.DateTime)
-	target_id = db.Column(db.Integer, db.ForeignKey("terza.no_terza"))
-	target = db.relationship("Terza", backref = db.backref("comments", lazy='dynamic'))
-	
-	
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text)
+    pub_date = db.Column(db.DateTime)
+    target_id = db.Column(db.Integer, db.ForeignKey("translation.id"))
+    target = db.relationship("Translation", backref = db.backref("comments", lazy='dynamic'))
+    
+    #author
+    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    author = db.relationship('User', backref=db.backref('comments', lazy='dynamic'))
+    
+    def __init__(self, content, target_id, author):
+        self.content = content
+        self.target_id = target_id
+        self.author = author
+        self.pub_date = datetime.utcnow()
+
+        
+    
 #Translation model
 class Translation(db.Model):
     id = db.Column(db.Integer, primary_key=True)

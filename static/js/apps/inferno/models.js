@@ -25,6 +25,28 @@ define(["Kimo/core"], function(Kimo) {
             return false;
         }
     }),
+    /* Comment Item */
+    CommentItem = Kimo.ModelManager.createEntity({
+        name: "Comment",
+        defaults: {
+            content: '',
+            target: null
+        } 
+    }),
+    
+    CommentRepository = Kimo.ModelManager.createRepository({
+        repositoryName: "CommentRepository",
+        model: CommentItem,
+        getPath: function () {
+            return "/rest/comment"
+        },
+                
+        getComments: function (terza) {
+            
+        }
+        
+    }),
+   
     TranslationRepository = Kimo.ModelManager.createRepository({
         repositoryName: "TranslationRepository",
         model: TranslationItem,
@@ -40,7 +62,7 @@ define(["Kimo/core"], function(Kimo) {
                 url: this.getPath(),
                 data: {terza: terza, type: 'contrib'}
             }).done(function(response) {
-                var data = self.populateData(response);
+                var data = self.setData(response);
                 dfd.resolve(self.toJson());
             }).fail(dfd.reject);
             return dfd.promise();
@@ -53,6 +75,9 @@ define(["Kimo/core"], function(Kimo) {
     return {
         TranslationItem: TranslationItem,
         //terzaItem : terzaItem,
-        TranslationRepository: TranslationRepository
+        TranslationRepository: TranslationRepository,
+        CommentItem: CommentItem,
+        CommentRepository: CommentRepository
+        
     }
 });

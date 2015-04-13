@@ -1,6 +1,6 @@
 from flask.ext import restful
 from flask import request, g
-from models.Models import db, Terza, Translation, User
+from models.Models import db, Terza, Translation, User, Comment
 from flask.ext.restful import Resource, reqparse, fields, marshal_with
 
 from pprint import pprint
@@ -24,9 +24,13 @@ translation_fields = {
     'content': fields.String,
     'uid': fields.Integer(attribute='id'),
     'author': fields.Nested(author_fields),
-    
 }
 
+comment_fields = {
+    'id': fields.Integer(attribute='id'),
+    'content': fields.String,
+    'terza': fields.Nested(terza_fields),
+}
 
 
 class CantoService(restful.Resource):
@@ -124,5 +128,26 @@ class UserService(restful.Resource):
             return None
         
         
+#Comment Service
+class CommentService(restful.Resource):
+    
+    @marshal_with(comment_fields)
+    def get(self):
+        response = None
+        if g.user is not None:
+            response = Comment.query.filter_by(author = g.user).all()
+        else:
+            return response
         
         
+        
+    def post(self):
+        if g.user is not None:
+            comment = Comment(request.form.get('content'), request.form.get('target'), g.user)
+            with db.session.no_autoflush:
+                db.session.add(comment)
+                db.session.commit()
+                return comment
+        else:
+            return None
+        #return comment

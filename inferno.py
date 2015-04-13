@@ -1,7 +1,7 @@
 #! python
 # -*- coding:utf-8 -*-
 from flask import Flask, session, request, g, redirect, abort, url_for, render_template
-from rest.TerzaService import TerzaService, TranslationService, CantoService, UserService
+from rest.TerzaService import TerzaService, TranslationService, CantoService, UserService, CommentService
 from auth.AuthManager import login_manager, handle_authentification, load_anonymous_user
 from flask.ext import restful
 from flask.ext.login import login_user, logout_user, login_required, current_user
@@ -18,6 +18,7 @@ app.secret_key = "raidxlblaze"
 api.add_resource(CantoService, '/rest/canto/<int:canto>')
 api.add_resource(TerzaService, '/rest/terza/<int:no_terza>')
 api.add_resource(TranslationService, '/rest/translation')
+api.add_resource(CommentService, '/rest/comment')
 api.add_resource(UserService, '/rest/user')
 
 #home

@@ -9,32 +9,45 @@ define(['Kimo/core', 'text!../translationslist/templates/layout.html', '../trans
         name: "TranslationListView",
         init: function() {
             this.root = $(layout).clone();
-            ItemRenderer.init();
+            ItemRenderer.init({});
             this.dataView = new Kimo.DataView({
                 itemRenderer: $.proxy(ItemRenderer.render, ItemRenderer),
                 width: 'auto'
             });
+            this.isRendered = false;
             this.translationRepository = this.entity;
-            this.loadTranslations();
         },
-        bindEvents: function() {
+                
+       /* bindEvents: function() {
             this.translationRepository.on("create", function() {
+                alert("this is it");
                 console.log("argurments", arguments);
             });
-        },
-        loadTranslations: function() {
+        },*/
+                
+        loadTranslations: function(terza) {
             var self = this;
-            this.translationRepository.getContributions(1).done(function(data) {
+            this.translationRepository.getContributions(terza).done(function(data) {
                 self.dataView.setData(data, true);
            });
         },
+        
+        setTerza: function(terza) {
+            if(terza && (this.currentTerza !== terza)) {
+                this.currentTerza = terza; 
+                this.loadTranslations(terza);
+            }
+        },
+                
         render: function(container, method) {
+            if(this.isRendered) {return;}
             if (typeof $.fn[method] === "function") {
                 $(container)[method](this.root);
             } else {
                 $(container).append(this.root);
             }
             this.dataView.render("#list-container");
+            this.isRendered = true;
         }
     });
 

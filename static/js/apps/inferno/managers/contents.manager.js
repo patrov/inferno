@@ -41,10 +41,11 @@ define(["Kimo/core", "require", "bi.models", "bi.terza.manager", "bi.views", "bi
             terzaEditor.setTerzaRender($(terzaNode).html());
             terzaEditor.setTerza(currentTerza);
             displayTerzaEditor();
-            displayTranslations();
+            displayUserContributions(currentTerza);
         },
-                displayTranslations = function() {
-            translationList.render("#trad-container");
+                displayUserContributions = function(terza) {
+                translationList.setTerza(terza);
+                translationList.render("#trad-container");
         },
                 loadTranslation = function(noTerza) {
             return $.ajax({url: "/rest/translation?terza=" + noTerza});
