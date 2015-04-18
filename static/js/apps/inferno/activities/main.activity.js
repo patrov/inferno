@@ -1,4 +1,16 @@
-define(["Kimo/core",'require', 'bi.pager.manager', 'bi.terza.manager', 'bi.contents.manager'], function(Kimo, require) {
+requirejs.onError = function (err) {
+    console.log(err.requireType);
+    console.log(err);
+    console.log('modules: ' + err.requireModules);
+    throw err;
+};
+
+window.onerror = function (response) {
+  console.log(response);
+}; 
+
+define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza', 'manager!inferno:comment', 'manager!inferno:contents'],
+function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
 
     Kimo.ActivityManager.createActivity("MainActivity", {
         appname: "Inferno",
@@ -21,15 +33,16 @@ define(["Kimo/core",'require', 'bi.pager.manager', 'bi.terza.manager', 'bi.conte
 
         onCreate: function () {
             var self = this;
-            this.terzaManager = require('bi.terza.manager');
-            this.contentsManager = require('bi.contents.manager');
-            this.pagerManager =  require('bi.pager.manager');
+            this.terzaManager = terzaManager;
+            this.contentsManager = ContentMananager;
+            this.pagerManager =  Pager;
+            this.commentManager = CommentManager;
             this.terzaManager.configure({
                 root: this.view.view,
                 canto: 1
             });
             this.initTabs();
-            Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded']);
+            Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded', 'EnterCommentMode']);
 
              Kimo.Observable.on('CantoLoaded', function () {
                  self.terzaManager.selectTerzaByPosition(1);
@@ -39,6 +52,13 @@ define(["Kimo/core",'require', 'bi.pager.manager', 'bi.terza.manager', 'bi.conte
              Kimo.Observable.on('CantoTranslationLoaded', function () {
                  self.terzaManager.selectTerza(self.terzaManager.getCurrentTerza(),false);
              });
+             
+             Kimo.Observable.on("EnterCommentMode", function(translation) {
+                 console.log("... enter CommentMode translation ...");
+                 self.commentManager.showCommentList(translation);
+             });
+             
+             
 
             /*  move to cantoManager */
             $(this.view.view).on("click", ".btn-link", function (e) {

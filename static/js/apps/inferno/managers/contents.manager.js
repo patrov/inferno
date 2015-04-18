@@ -1,8 +1,7 @@
 /***
  * handle save
  */
-define(["Kimo/core", "require", "bi.models", "bi.terza.manager", "bi.views", "bi.components/translationslist/main"], function(Kimo, require, Models, terzaManager) {
-
+define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "bi.views", "bi.components/translationslist/main"], function(Kimo, require, Models, terzaManager) {
     var ContentManager = (function() {
         var config = {
             "editZone": "#edit-zone",
@@ -28,10 +27,12 @@ define(["Kimo/core", "require", "bi.models", "bi.terza.manager", "bi.views", "bi
 
             terzaEditor = Kimo.createEntityView("terzaEditorView", {});
             $("#contributions").html(translationsView.render());
+            
             /*... Translation list ...*/
             translationList = Kimo.createEntityView("TranslationListView", {
                 entity: Models.TranslationRepository
             });
+            
             bindEvents();
             isConfigured = true;
         },

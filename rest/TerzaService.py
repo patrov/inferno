@@ -29,7 +29,8 @@ translation_fields = {
 comment_fields = {
     'id': fields.Integer(attribute='id'),
     'content': fields.String,
-    'terza': fields.Nested(terza_fields),
+    'translation': fields.Nested(translation_fields),
+    'author': fields.Nested(author_fields),
 }
 
 
@@ -133,11 +134,10 @@ class CommentService(restful.Resource):
     
     @marshal_with(comment_fields)
     def get(self):
-        response = None
+        response = []
         if g.user is not None:
             response = Comment.query.filter_by(author = g.user).all()
-        else:
-            return response
+        return response
         
         
         

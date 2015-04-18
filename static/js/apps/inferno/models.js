@@ -41,10 +41,15 @@ define(["Kimo/core"], function(Kimo) {
             return "/rest/comment"
         },
                 
-        getComments: function (terza) {
-            
+        getComments: function (translation) {
+        var self = this,
+            dfd = new $.Deferred();
+            $.ajax({url: this.getPath(), data:{'translation': translation.uid}}).done(function(response){
+                self.setData(response);
+               dfd.resolve(self.toJson()); 
+            }).fail(dfd.reject);
+            return dfd.promise(); 
         }
-        
     }),
    
     TranslationRepository = Kimo.ModelManager.createRepository({
@@ -71,6 +76,7 @@ define(["Kimo/core"], function(Kimo) {
     });
 
     TranslationRepository = new TranslationRepository;
+    CommentRepository = new CommentRepository;
 
     return {
         TranslationItem: TranslationItem,

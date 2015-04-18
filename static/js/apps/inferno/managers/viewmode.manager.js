@@ -24,8 +24,10 @@ define([], function() {
         commentMode: function() {
             $(".col-sm-1").addClass("cantoZone").hide("fast");
             var commentZone = $("<div/>"),
-                closeBtn = $("<span><i class='fa fa-close pull-right'></i></span>")
+                closeBtn = $("<p><i class='fa fa-close pull-right'></i></p>"),
+                listZone = $("<div id='commentlist-wrapper'></div>");
            commentZone.append(closeBtn);
+           commentZone.append(listZone);
            $(closeBtn).find('.fa-close').on('click', $.proxy(ViewModeManager.terzaMode, ViewModeManager));
             $(commentZone).css("border", "1px solid blue");
             $(commentZone).css("paddingTop", "10px")

@@ -1,4 +1,6 @@
 Kimo.require.config({
+    urlArgs: "bust=" + (new Date()).getTime(),
+    waitSeconds: 4,
     paths: {
         "bi.route": "apps/inferno/routes",
         "bi.managers":"apps/inferno/managers",

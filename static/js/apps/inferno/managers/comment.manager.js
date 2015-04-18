@@ -3,28 +3,26 @@
  * and open the template in the editor.
  */
 
+define(["bi.models", 'bi.components/commentlist/main'], function(Models) {
 
-define([], function() {
-    
-    
-   var CommentsManager = {
-       showCommentList: function (comment) {
-           var commentHtml = this.attachEvents(comment);
-           $(".commentZone").append(commentHtml);
-       },
-       
-       attachEvents: function (commentHtml) {
-           $(commentHtml).on("click", ".fa-angle-down", function () {
-            alert("radical");
-        });
-        return commentHtml;
-       }
-   };
-   
-   return {
-       showCommentList: $.proxy(CommentsManager.showCommentList, CommentsManager)
-   }
-    
-    
-    
+    var CommentsManager = {
+        
+        showCommentList: function(translation) {
+            try {
+                if (!this.commentList) {
+                    this.commentList = Kimo.createEntityView("CommentList", {
+                        entity: Models.CommentRepository
+                    });
+                }
+                this.commentList.setTranslation(translation);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    };
+
+    return {
+        showCommentList: $.proxy(CommentsManager.showCommentList, CommentsManager)
+    };
+
 });

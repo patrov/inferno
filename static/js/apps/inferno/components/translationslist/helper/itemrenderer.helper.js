@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-define(['Kimo/core', 'manager!inferno:viewmode','manager!inferno:comment'], function(Kimo, ViewModeManager, CommentManager) {
+define(['Kimo/core', 'manager!inferno:viewmode'], function(Kimo, ViewModeManager) {
 
     var ItemRenderer = {
         init: function(settings) {
@@ -20,10 +20,12 @@ define(['Kimo/core', 'manager!inferno:viewmode','manager!inferno:comment'], func
         },
                 
         showCommentField: function(itemHtml, item) {
-            if (this.translationManager.getCurrentMode() === "comment") { return; }
+            if (this.translationManager.getCurrentMode() === "comment") { 
+                Kimo.Observable.trigger("EnterCommentMode", item);
+                return; 
+            }
             this.translationManager.switchViewMode("comment");
-            CommentManager.showCommentList(itemHtml);
-           
+            Kimo.Observable.trigger("EnterCommentMode", item);
         },
                 
         hideEditor: function() {
