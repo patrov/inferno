@@ -7,7 +7,7 @@ requirejs.onError = function (err) {
 
 window.onerror = function (response) {
   console.log(response);
-}; 
+};
 
 define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza', 'manager!inferno:comment', 'manager!inferno:contents'],
 function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
@@ -52,13 +52,12 @@ function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
              Kimo.Observable.on('CantoTranslationLoaded', function () {
                  self.terzaManager.selectTerza(self.terzaManager.getCurrentTerza(),false);
              });
-             
+
              Kimo.Observable.on("EnterCommentMode", function(translation) {
-                 console.log("... enter CommentMode translation ...");
                  self.commentManager.showCommentList(translation);
              });
-             
-             
+
+
 
             /*  move to cantoManager */
             $(this.view.view).on("click", ".btn-link", function (e) {
