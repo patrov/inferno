@@ -31,34 +31,37 @@ define(["Kimo/core"], function(Kimo) {
         defaults: {
             content: '',
             target: null
-        } 
+        },
+        getPath: function () {
+            return "/rest/comment"
+        }
     }),
-    
+
     CommentRepository = Kimo.ModelManager.createRepository({
         repositoryName: "CommentRepository",
         model: CommentItem,
         getPath: function () {
             return "/rest/comment"
         },
-                
+
         getComments: function (translation) {
         var self = this,
             dfd = new $.Deferred();
-            $.ajax({url: this.getPath(), data:{'translation': translation.uid}}).done(function(response){
+            $.ajax({url: this.getPath(), data:{'target': translation.uid}}).done(function(response){
                 self.setData(response);
-               dfd.resolve(self.toJson()); 
+               dfd.resolve(self.toJson());
             }).fail(dfd.reject);
-            return dfd.promise(); 
+            return dfd.promise();
         }
     }),
-   
+
     TranslationRepository = Kimo.ModelManager.createRepository({
         repositoryName: "TranslationRepository",
         model: TranslationItem,
         getPath: function() {
             return "/rest/translation"
         },
-                
+
         getContributions: function(terza) {
             var self = this,
                     dfd = new $.Deferred();
@@ -84,6 +87,6 @@ define(["Kimo/core"], function(Kimo) {
         TranslationRepository: TranslationRepository,
         CommentItem: CommentItem,
         CommentRepository: CommentRepository
-        
+
     }
 });

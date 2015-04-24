@@ -28,12 +28,13 @@ define([], function() {
             var commentZone = $("<div/>"),
                 closeBtn = $("<p><i class='fa fa-close pull-right'></i></p>"),
                 currentTranslation = $("<div id='trans-ctn'></div>"),
-                listZone = $("<div id='commentlist-wrapper'></div>");
+                listZone = $("<div id='commentlist-wrapper'></div>"),
+                editorZone = $("<div id='editor-wrapper'></div>");
            commentZone.append(closeBtn);
            commentZone.append(currentTranslation);
            commentZone.append(listZone);
+           commentZone.append(editorZone);
            $(closeBtn).find('.fa-close').on('click', $.proxy(ViewModeManager.terzaMode, ViewModeManager));
-            $(commentZone).css("border", "1px solid blue");
             $(commentZone).css("paddingTop", "10px")
             $(commentZone).addClass("commentZone col-sm-4");
             $(".col-sm-6").addClass("terzaZone col-sm-4");
