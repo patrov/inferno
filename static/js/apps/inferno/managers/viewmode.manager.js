@@ -7,7 +7,7 @@
 
 });*/
 
-define([], function() {
+define(["text!bi.templates/partials/commentzone.partial.html"], function (tpl) {
 
     var ViewModeManager = {
 
@@ -25,23 +25,13 @@ define([], function() {
         commentMode: function() {
             if(this.currentViewMode === 'comment') { return; }
             $(".col-sm-1").addClass("cantoZone").hide("fast");
-            var commentZone = $("<div/>"),
-                closeBtn = $("<p><i class='fa fa-close pull-right'></i></p>"),
-                currentTranslation = $("<div id='trans-ctn'></div>"),
-                listZone = $("<div id='commentlist-wrapper'></div>"),
-                editorZone = $("<div id='editor-wrapper'></div>");
-           commentZone.append(closeBtn);
-           commentZone.append(currentTranslation);
-           commentZone.append(listZone);
-           commentZone.append(editorZone);
-           $(closeBtn).find('.fa-close').on('click', $.proxy(ViewModeManager.terzaMode, ViewModeManager));
-            $(commentZone).css("paddingTop", "10px")
-            $(commentZone).addClass("commentZone col-sm-4");
-            $(".col-sm-6").addClass("terzaZone col-sm-4");
-            $(".col-sm-5").addClass("translationZone col-sm-4");
-            $(".row").append(commentZone);
-            commentZone.css("top", "50px");
-            this.currentViewMode = 'comment';
+            var commentZone = $(tpl).clone();
+            $('.commentzone-close-btn', commentZone).on("click", $.proxy(ViewModeManager.terzaMode, ViewModeManager));
+           $(commentZone).addClass("commentZone col-sm-4");
+           $(".col-sm-6").addClass("terzaZone col-sm-4");
+           $(".col-sm-5").addClass("translationZone col-sm-4");
+           $(".row").append(commentZone);
+           this.currentViewMode = 'comment';
         }
     };
 

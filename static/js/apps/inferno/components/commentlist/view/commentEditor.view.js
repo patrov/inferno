@@ -10,7 +10,7 @@ require(["Kimo/core", "text!bi.components/commentlist/templates/comment.editor.h
         events: {
             ".add-comment click": "saveComment"
         },
-
+       
         init: function () {
             this.currentValue = "";
             this.root = $(editor).clone();
@@ -59,7 +59,7 @@ require(["Kimo/core", "text!bi.components/commentlist/templates/comment.editor.h
             this.entity.create({
                 content: this.editableField.html(),
                 target: this.target.id
-                }).done($.proxy(this.enableEditor, this));
+                });
                 this.reset();
         },
 

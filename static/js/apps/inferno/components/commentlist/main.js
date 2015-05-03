@@ -41,8 +41,6 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
 
         displayCommentEditor: function () {
             this.editor.show();
-            this.editor.on("save");
-            this.editor.on("cancel");
         },
 
         loadTranslationComments: function (translation) {

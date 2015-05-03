@@ -28,11 +28,14 @@ translation_fields = {
 
 comment_fields = {
     'id': fields.Integer(attribute='id'),
+    'uid': fields.Integer(attribute='id'),
     'content': fields.String,
     'translation': fields.Nested(translation_fields),
     'author': fields.Nested(author_fields),
+    'pubdate': fields.DateTime(dt_format='iso8601', attribute='pub_date')
 }
 
+pprint(dir(fields))
 
 class CantoService(restful.Resource):
     @marshal_with(terza_fields)
@@ -134,16 +137,20 @@ class CommentService(restful.Resource):
     
     @marshal_with(comment_fields)
     def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('target', type=int, required=True)
+        args = parser.parse_args()
         response = []
         if g.user is not None:
-            response = Comment.query.filter_by(author = g.user).all()
+            response = Comment.query.filter_by(target_id=args['target'] ).all()
         return response
         
         
-        
+    @marshal_with(comment_fields)
     def post(self):
         if g.user is not None:
-            comment = Comment(request.form.get('content'), request.form.get('target'), g.user)
+            jsonData = json.loads(request.form['data']) 
+            comment = Comment(jsonData['content'], jsonData['target'], g.user)
             with db.session.no_autoflush:
                 db.session.add(comment)
                 db.session.commit()

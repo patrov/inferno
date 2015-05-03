@@ -60,8 +60,11 @@ function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
 
 
             /*  move to cantoManager */
-            $(this.view.view).on("click", ".btn-link", function (e) {
+            $(this.view.view).on("click", ".canto-lang", function (e) {
                 var lang = $(e.currentTarget).data("lang");
+                if (!lang) {
+                    return;
+                }
                 self.terzaManager.loadCantoTranslation(lang);
                 $(".btn-link").removeClass("selected");
                 $(e.currentTarget).addClass("selected");
