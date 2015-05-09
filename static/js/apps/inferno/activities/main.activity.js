@@ -47,6 +47,7 @@ function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
              Kimo.Observable.on('CantoLoaded', function () {
                  self.terzaManager.selectTerzaByPosition(1);
                  self.pagerManager.selectCanto(self.terzaManager.getCurrentCanto());
+                 self.pagerManager.showCantoPager();
              });
 
              Kimo.Observable.on('CantoTranslationLoaded', function () {
@@ -99,7 +100,6 @@ function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
                 root: this.view.view
             });
             this.terzaManager.loadCanto(canto);
-
         },
 
         homeAction: function () {
