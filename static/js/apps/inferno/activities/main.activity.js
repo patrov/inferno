@@ -35,7 +35,7 @@ function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
             var self = this;
             this.terzaManager = terzaManager;
             this.contentsManager = ContentMananager;
-            this.pagerManager =  Pager;
+            this.pagerManager =  Pager.configure();
             this.commentManager = CommentManager;
             this.terzaManager.configure({
                 root: this.view.view,
@@ -44,14 +44,19 @@ function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
             this.initTabs();
             Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded', 'EnterCommentMode']);
 
+            this.pagerManager.getPager().on("cantoSelection", function (e, canto) {
+               self.terzaManager.loadCanto(canto);
+            });
+
              Kimo.Observable.on('CantoLoaded', function () {
                  self.terzaManager.selectTerzaByPosition(1);
                  self.pagerManager.selectCanto(self.terzaManager.getCurrentCanto());
                  self.pagerManager.showCantoPager();
+                 self.pagerManager.getPager().selectCanto(self.terzaManager.getCurrentCanto());
              });
 
              Kimo.Observable.on('CantoTranslationLoaded', function () {
-                 self.terzaManager.selectTerza(self.terzaManager.getCurrentTerza(),false);
+                 self.terzaManager.selectTerza(self.terzaManager.getCurrentTerza(), false);
              });
 
              Kimo.Observable.on("EnterCommentMode", function(translation) {
@@ -105,6 +110,7 @@ function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
         homeAction: function () {
             var self = this;
             self.templateReady();
+
         },
 
         /* deal with template and manager here
@@ -114,6 +120,9 @@ function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
         showCantoAction: function (no) {
             var self = this;
                 self.templateReady(no);
+                this.onTemplateReady(function () {
+
+                });
         },
 
         sayHello: function () {
