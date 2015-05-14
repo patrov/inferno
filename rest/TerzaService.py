@@ -32,7 +32,7 @@ comment_fields = {
     'content': fields.String,
     'translation': fields.Nested(translation_fields),
     'author': fields.Nested(author_fields),
-    'pubdate': fields.DateTime(dt_format='iso8601', attribute='pub_date')
+    'pubdate': fields.DateTime(attribute='pub_date')
 }
 
 pprint(dir(fields))

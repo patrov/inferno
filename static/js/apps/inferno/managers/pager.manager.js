@@ -7,33 +7,44 @@ define(["Kimo/core", "bi.components/cantopager/main"], function(Kimo) {
             pageContainer: "#canto-pager",
             selectedCls: "selected"
         },
-        canto = [1, 34],
-                selectCanto = function(no) {
+
+        pagerInstance = null,
+        selectCanto = function(no) {
             $(settings.pageContainer).find(settings.linkSelector).removeClass(settings.selectedClass);
             $("#canto-" + no).addClass(settings.selectedCls);
         },
-                showPager = function(container) {
+
+
+        showPager = function() {
+            pagerInstance.render(Kimo.jQuery(".col-sm-1"));
+        },
+
+        configure = function (settings) {
             try {
-                this.cantoPager = Kimo.createEntityView("CantoPager", {
+                pagerInstance = Kimo.createEntityView("CantoPager", {
                     settings: {
                         itemRenderer: function(page) {
                             return Kimo.jQuery("<div/>").text(page).addClass("canto-link");
                         }
                     }
-
                 });
-                this.cantoPager.render(container);
+
+                return getApi();
             } catch (e) {
                 console.log(e);
             }
-        };
+        },
 
-
-        return {
-            selectCanto: selectCanto,
-            showCantoPager: showPager
-        };
-
+        getApi = function () {
+            return {
+                selectCanto: selectCanto,
+                showCantoPager: showPager,
+                getPager: function() {
+                    return pagerInstance;
+                }
+            }
+        }
+        return { configure: configure };
     }());
     return PagerManager;
 
