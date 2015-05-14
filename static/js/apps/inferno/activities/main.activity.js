@@ -47,7 +47,7 @@ function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
              Kimo.Observable.on('CantoLoaded', function () {
                  self.terzaManager.selectTerzaByPosition(1);
                  self.pagerManager.selectCanto(self.terzaManager.getCurrentCanto());
-                 self.pagerManager.showCantoPager();
+                 //self.pagerManager.showCantoPager();
              });
 
              Kimo.Observable.on('CantoTranslationLoaded', function () {
@@ -101,10 +101,10 @@ function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
             });
             this.terzaManager.loadCanto(canto);
         },
-
+                        
         homeAction: function () {
             var self = this;
-            self.templateReady();
+            self.templateReady(1);
         },
 
         /* deal with template and manager here
@@ -113,7 +113,12 @@ function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
          * */
         showCantoAction: function (no) {
             var self = this;
-                self.templateReady(no);
+            this.on("viewReady", function (render) {
+                self.pagerManager.showCantoPager(render.find(".col-sm-1").eq(0));
+            });           
+            /* attend que le template soit dans le dom use events? */
+            self.templateReady(no);
+            return {activityName: "Show Canto told ya"};
         },
 
         sayHello: function () {

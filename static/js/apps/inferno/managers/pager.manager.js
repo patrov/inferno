@@ -12,7 +12,7 @@ define(["Kimo/core", "bi.components/cantopager/main"], function(Kimo) {
             $(settings.pageContainer).find(settings.linkSelector).removeClass(settings.selectedClass);
             $("#canto-" + no).addClass(settings.selectedCls);
         },
-                showPager = function() {
+                showPager = function(container) {
             try {
                 this.cantoPager = Kimo.createEntityView("CantoPager", {
                     settings: {
@@ -22,7 +22,7 @@ define(["Kimo/core", "bi.components/cantopager/main"], function(Kimo) {
                     }
 
                 });
-                this.cantoPager.render(Kimo.jQuery(".col-sm-1"));
+                this.cantoPager.render(container);
             } catch (e) {
                 console.log(e);
             }

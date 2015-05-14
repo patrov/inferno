@@ -8,12 +8,6 @@ define(['Kimo/core', 'jquery'], function (Kimo) {
     Kimo.registerEntityView({
         name : "CantoPager",
         
-        events: {
-          ".prev-canto click" : "prev",
-          ".next-canto click": "next",
-          ".canto-link click": "clickHandler"
-        },
-        
         settings: {
             items: 34,
             itemsOnPage: 7,
@@ -34,9 +28,17 @@ define(['Kimo/core', 'jquery'], function (Kimo) {
             }
             this.state = { maxPage : Math.ceil( this.settings.items / this.settings.itemsOnPage ) };
             this.select(this.settings.currentPage);
+            this.bindEvents();
+            /*user event délégation*/
             this.updateUi();
         },
-         
+        
+        bindEvents : function () {
+            $(document).on("click", ".prev-canto", $.proxy(this.prev, this));
+            $(document).on("click", ".next-canto", $.proxy(this.next, this));
+            $(document).on("click", ".canto-link", $.proxy(this.prev, this));
+        },
+        
         clickHandler: function (e) {
             var canto = Kimo.jQuery(e.currentTarget).data("canto-no");
             this.state.selected = canto;
@@ -86,8 +88,7 @@ define(['Kimo/core', 'jquery'], function (Kimo) {
                 var ellipsisBtn = Kimo.jQuery("<div/>").text(this.settings.ellipsis).addClass("next-canto");
                 pagerRender.appendChild(Kimo.jQuery(ellipsisBtn).get(0));
             }
-            
-            this.root.html(Kimo.jQuery(pagerRender));   
+             this.root.html(Kimo.jQuery(pagerRender));   
         },
                 
         _computePages: function (start) {
@@ -101,7 +102,10 @@ define(['Kimo/core', 'jquery'], function (Kimo) {
         },
                     
         render: function (container) {
-            Kimo.jQuery(container).html(this.root);
+            if (container) {
+                Kimo.jQuery(container).html(this.root);
+            }
+            return this.root;
         }
         
     });
