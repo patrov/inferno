@@ -7,21 +7,21 @@ define(["Kimo/core", "bi.components/cantopager/main"], function(Kimo) {
             pageContainer: "#canto-pager",
             selectedCls: "selected"
         },
-
+        
         pagerInstance = null,
+        
         selectCanto = function(no) {
-            $(settings.pageContainer).find(settings.linkSelector).removeClass(settings.selectedClass);
-            $("#canto-" + no).addClass(settings.selectedCls);
+            pagerInstance.selectCanto(no);
         },
 
-
-        showPager = function() {
-            pagerInstance.render(Kimo.jQuery(".col-sm-1"));
+        showPager = function(container) {
+            pagerInstance.render(container);
         },
 
         configure = function (settings) {
             try {
                 pagerInstance = Kimo.createEntityView("CantoPager", {
+                    root: settings.root,
                     settings: {
                         itemRenderer: function(page) {
                             return Kimo.jQuery("<div/>").text(page).addClass("canto-link");
