@@ -65,7 +65,7 @@ class TerzaService(restful.Resource):
         parser.add_argument('lang', type=str)
         args = parser.parse_args()
         if args['lang'] is not None:
-            results = Terza.query.filter_by(author = g.user, no_terza = no_terza, lang=args['lang']).first()
+            results = Terza.query.filter_by(no_terza = no_terza, lang=args['lang']).first()
         else:
             results = Terza.query.filter_by(no_terza = no_terza).all()
         return results

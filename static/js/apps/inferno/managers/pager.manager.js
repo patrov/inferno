@@ -8,6 +8,16 @@ define(["Kimo/core", "bi.components/cantopager/main"], function(Kimo) {
             selectedCls: "selected"
         },
         
+        cantoMapping = {
+            1: "I",
+            5 : "V",
+            10: "X"
+        },
+       
+        deciToRoman = function (deciNum) {
+            
+        },
+                
         pagerInstance = null,
         
         selectCanto = function(no) {

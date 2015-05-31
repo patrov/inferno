@@ -21,7 +21,7 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
             ".fa-remove click": "deleteDraft"
         },
         init: function() {
-            this.root = $("<div/>");
+            this.widget = $("<div/>");
             this.translationRepository = this.entity;
             this.selectedTranslation = null;
             this.translationRepository.on("save", $.proxy(this.handleContentChange, this));
@@ -30,13 +30,16 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
                 triggerCreateEvent: true
             }).done($.proxy(this.populate, this));
         },
+                
         showEditForm: function() {
         },
+                
         editDraft: function(e) {
             this.selectedTranslation = $(e.currentTarget).closest(".contrib").eq(0);
             var entity = this.translationRepository.findByCid($(this.selectedTranslation).data("translation"));
             Kimo.Observable.trigger("TranslationEditTask", entity, this.selectedTranslation);
         },
+                
         deleteDraft: function(e) {
             this.selectedTranslation = $(e.currentTarget).closest(".contrib").eq(0);
             if (!confirm("Efase?")) {
@@ -45,14 +48,17 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
             var entity = this.translationRepository.findByCid($(this.selectedTranslation).data("translation"));
             this.translationRepository.remove(entity);
         },
+                
         showActions: function(e) {
             var item = e.currentTarget;
             $(item).append(itemActions);
         },
+                
         hideActions: function(e) {
             var item = e.currentTarget;
-            $(this.root).find(".contrib-actions").remove();
+            $(this.widget).find(".contrib-actions").remove();
         },
+                
         handleContentChange: function(reason, translation) {
             var html = "...";
             html = $(Mustache.render(translationItemTpl, translation.toJson()));
@@ -62,7 +68,7 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
             }
 
             if (reason == "create") {
-                this.root.append($(html));
+                this.widget.append($(html));
                 this.updateContentCount();
             }
 
@@ -74,12 +80,14 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
                 this.updateContentCount();
             }
         },
+                
         updateContentCount: function( ) {
-            var ctn = parseInt($(this.root).find(".contrib").length);
+            var ctn = parseInt($(this.widget).find(".contrib").length);
             $(".content-badge").html(ctn);
         },
+                
         render: function() {
-            return this.root;
+            return this.widget;
         }
 
     });
@@ -93,16 +101,16 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
         events: {
             "#cancel-btn click": "doCancel",
             "#save-draft-btn click": "doSave",
-            ".fa-edit click": "doEdit",
+            ".fa-edit click": "doEdit"
             //".fa-remove click": "deDelete"
         },
                 
         init: function() {
-            this.root = $(biTpl).clone();
-            this.root.find(".btn").hide();
-            this.editor = $(this.root).find("#edit-zone");
-            this.userTranslationCtn = $(this.root).find("#user-translation-text");
-            this.editFields = $(this.root).find(".edit-field");
+            this.widget = $(biTpl).clone();
+            this.widget.find(".btn").hide();
+            this.editor = $(this.widget).find("#edit-zone");
+            this.userTranslationCtn = $(this.widget).find("#user-translation-text");
+            this.editFields = $(this.widget).find(".edit-field");
             this.isVisible = false;
         },
         
@@ -119,14 +127,14 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
             this.onAction = (typeof config.onAction == "function") ? config.onAction : function() {
             };
             this.repository = config.repository;
-            this.root.find(".btn").hide();
+            this.widget.find(".btn").hide();
 
             if (config.mode == this.CREATE_MODE) {
-                this.root.find("#save-draft-btn, #propose-btn, #cancel-btn").show();
+                this.widget.find("#save-draft-btn, #propose-btn, #cancel-btn").show();
             }
 
             if (config.mode == this.EDIT_MODE) {
-                this.root.find("#save-draft-btn, #cancel-btn").show();
+                this.widget.find("#save-draft-btn, #cancel-btn").show();
             }
             this.bindEvents();
         },
@@ -135,13 +143,13 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
         },
                 
         showUserTranslation: function() {
-            this.root.find(".user-translation").show();
+            this.widget.find(".user-translation").show();
             
         },
         showEditForm: function() {
             $(this.editFields).hide();
             $(this.editor).val(this.translationItem.get("content"));
-            this.root.find(".stz-editor").show();
+            this.widget.find(".stz-editor").show();
         },
         setTranslation: function(translationItem) {
             if (!translationItem || typeof translationItem.set !== "function") {
@@ -162,14 +170,14 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
             this.currentTerza = terza;
         },
         setTerzaRender: function(terzaNode) {
-            $(this.root).find('.current-translation').html(terzaNode);
+            $(this.widget).find('.current-translation').html(terzaNode);
         },
         hide: function() {
-            $(this.root).hide();
+            $(this.widget).hide();
             this.onAction("hide");
         },
         show: function() {
-            (this.root).show();
+            (this.widget).show();
             this.onAction("show");
         },
         isVisible: function() {
@@ -192,11 +200,11 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
         },
         render: function(container) {
             this.show();
-            if (container && !this.isVisible) {
-                $(container).html(this.root);
+           //if (container && !this.isVisible) {
+                $(container).html(this.widget);
                 this.isVisible = true;
                 return;
-            }
+           // }
         }
 
     });

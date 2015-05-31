@@ -81,7 +81,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
         this.selectTerzaByPosition = function (position) {
             var terzaNode = $(".stz:nth-child("+position+")", $("." + this.currentLang + "-canto-container").eq(0)),
                 no;
-            if(!terzaNode) { return };
+            if(!terzaNode) { return; };
             no = $(terzaNode).data('no');
             this.selectTerza(no);
         },

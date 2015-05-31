@@ -75,7 +75,7 @@ define(['Kimo/core', 'jquery'], function(Kimo) {
             this.updateUi();
         },
                 
-        /* allways render currentState */
+        /* always render currentState */
         updateUi: function() {
             var pagerRender = document.createDocumentFragment(),
                     rangeLength = this.state.range.length;
@@ -114,7 +114,6 @@ define(['Kimo/core', 'jquery'], function(Kimo) {
         },
                 
         render: function(container) {
-            var self = this; 
             if (container) {
                 Kimo.jQuery(container).empty().append(this.widget);
             }
