@@ -32,11 +32,8 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
                     this.terzaManager = terzaManager;
                     this.contentsManager = ContentMananager;
                     this.pagerManager = Pager.configure({root: this.view.view});
-                    this.commentManager = CommentManager;
-                    this.terzaManager.configure({
-                        root: this.view.view,
-                        canto: 1
-                    });
+                    this.commentManager = CommentManager.configure({root: this.view.view});
+                    this.terzaManager.configure({ root: this.view.view, canto: 1 });
                     this.initTabs();
                     Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded', 'EnterCommentMode']);
                     
@@ -57,8 +54,6 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
                     Kimo.Observable.on("EnterCommentMode", function(translation) {
                         self.commentManager.showCommentList(translation);
                     });
-
-
 
                     /*  move to cantoManager */
                     $(this.view.view).on("click", ".canto-lang", function(e) {

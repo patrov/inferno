@@ -22,17 +22,21 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "bi.views"
             /* user contentManager */
             var translationsView = Kimo.createEntityView("TranslationsView", {
                 entity: Models.TranslationRepository,
+                root: config.root,
                 contentBadge: ".content-badge"
             });
 
-            terzaEditor = Kimo.createEntityView("terzaEditorView", {});
-            $("#contributions").html(translationsView.render());
+            terzaEditor = Kimo.createEntityView("terzaEditorView", {
+                root: config.root
+            });
             
+            $("#contributions").html(translationsView.render());
+
             /*... Translation list ...*/
             translationList = Kimo.createEntityView("TranslationListView", {
                 entity: Models.TranslationRepository
             });
-            
+
             bindEvents();
             isConfigured = true;
         },
@@ -45,8 +49,8 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "bi.views"
             displayUserContributions(currentTerza);
         },
                 displayUserContributions = function(terza) {
-                translationList.setTerza(terza);
-                translationList.render("#trad-container");
+            translationList.setTerza(terza);
+            translationList.render("#trad-container");
         },
                 loadTranslation = function(noTerza) {
             return $.ajax({url: "/rest/translation?terza=" + noTerza});
@@ -63,20 +67,21 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "bi.views"
 
         },
                 bindEvents = function() {
-            Kimo.Observable.registerEvents(['TranslationEditTask', 'TerzaSelection']);//strange voodou
+            Kimo.Observable.registerEvents(['TranslationEditTask', 'TerzaSelection']);
             Kimo.Observable.on("TranslationEditTask", editContent);
             Kimo.Observable.on("TerzaSelection", setCurrentTerza);
             Kimo.Observable.on("TerzaSelection", handleTranslation);
         },
                 displayTerzaEditor = function() {
             var translationItem = new Models.TranslationItem({}),
-                    currentTerza = terzaManager.getCurrentTerza();
+                currentTerza = terzaManager.getCurrentTerza();
             translationItem.set("terza", currentTerza);
             terzaEditor.configure({
                 mode: "create",
                 repository: Models.TranslationRepository,
                 translation: translationItem
             });
+            console.log(terzaEditor.render);
             terzaEditor.render("#editor-ctn");
         },
                 /* create a stranza editor */
