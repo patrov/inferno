@@ -53,7 +53,7 @@
 
     <div class="row">
         <div class="col-sm-1"></div>
-        
+
         <div class="col-sm-6">
 
             <div class="available-lang">
@@ -70,6 +70,14 @@
             <div style="display:none" class="canto-ctn esp-canto-container"></div>
             <div style="display:none" class="canto-ctn kr-canto-container"></div>
         </div>
+
+        <kimo-time data-format="dd/mm/yy" data-application="inferno">
+            <action type="click" target="component:setSelected"></action>
+        </kimo-time>
+
+        <kimo-cantopager data-application="inferno" data-id="gen()">
+            <param name="selected" value=1 />
+        </kimo-cantopager>
 
         <div id="user-context" class="col-sm-5" style="border-left: 1px solid #ebebeb">
             <ul id="user-action-tab" role="tablist" class="user-tab nav nav-tabs">

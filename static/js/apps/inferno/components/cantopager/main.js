@@ -4,16 +4,16 @@
  */
 
 
-define(['Kimo/core', 'jquery'], function(Kimo) {
+define(['Kimo/core', 'jquery'], function(Kimo, jQuery) {
     Kimo.registerEntityView({
         name: "CantoPager",
-        
+
         events: {
             ".prev-canto click": "prev",
             ".next-canto click": "next",
             ".canto-link click": "clickHandler"
         },
-        
+
         settings: {
             items: 34,
             itemsOnPage: 7,
@@ -21,11 +21,9 @@ define(['Kimo/core', 'jquery'], function(Kimo) {
             disabledRange: [2, 'max'],
             ellipsis: "...",
             currentPage: 1,
-            selectedCls: "selected",
-            itemRenderer: function() {
-            }
+            selectedCls: "selected"
         },
-                
+
         init: function() {
             this.widget = $("<div/>").clone()
                     .attr("id", "canto-pager")
@@ -39,7 +37,7 @@ define(['Kimo/core', 'jquery'], function(Kimo) {
             this.state.selected = this.settings.selected;
             this.select(this.settings.currentPage);
         },
-                
+
         clickHandler: function(e) {
             var canto = Kimo.jQuery(e.currentTarget).data("canto-no");
             this.state.selected = canto;
@@ -47,34 +45,34 @@ define(['Kimo/core', 'jquery'], function(Kimo) {
             Kimo.jQuery(e.currentTarget).addClass("selected");
             this.trigger("cantoSelection", e, canto);
         },
-                
+
         itemRenderer: function(no) {
-            return Kimo.jQuery("<div>" + no + "</div>").addClass("canto");
+            return jQuery("<div>" + no + "</div>").addClass("canto-link");
         },
-                
+
         next: function() {
             var nextPage = this.state.currentPage + 1;
             this.select(nextPage);
         },
-                
+
         prev: function() {
             var prevPage = this.state.currentPage - 1;
             this.select(prevPage);
         },
-                
+
         selectCanto: function(no) {
             this.state.selected = no;
             var currentPage = Math.ceil(no / this.settings.itemsOnPage);
             this.select(currentPage);
         },
-                
+
         select: function(noPage, silent) {
             this.state.currentPage = noPage;
             this.silentNextEvent = silent || false;
             this.state.range = this._computePages(noPage);
             this.updateUi();
         },
-                
+
         /* always render currentState */
         updateUi: function() {
             var pagerRender = document.createDocumentFragment(),
@@ -88,11 +86,11 @@ define(['Kimo/core', 'jquery'], function(Kimo) {
             for (var i = 0; i < rangeLength; i++) {
                 var item = Kimo.jQuery(this.itemRenderer(this.state.range[i]));
                 item.data("canto-no", this.state.range[i]);
-                
+
                 if (this.state.range[i] === this.state.selected) {
                     item.addClass(this.settings.selectedCls);
                 }
-                
+
                 pagerRender.appendChild(item.get(0));
             }
 
@@ -102,7 +100,7 @@ define(['Kimo/core', 'jquery'], function(Kimo) {
             }
             this.widget.html(Kimo.jQuery(pagerRender));
         },
-                
+
         _computePages: function(start) {
             var nextStart = (start * this.settings.itemsOnPage) < this.settings.items ? start * this.settings.itemsOnPage : this.settings.items,
                     start = nextStart - this.settings.itemsOnPage + 1,
@@ -112,16 +110,26 @@ define(['Kimo/core', 'jquery'], function(Kimo) {
             }
             return range;
         },
-                
+
         render: function(container) {
             if (container) {
                 Kimo.jQuery(container).empty().append(this.widget);
             }
             return this.widget;
-
         }
 
     });
+
+    return {
+        init: function (config) {
+            //config.root = "body";
+            this.entityView = Kimo.createEntityView("CantoPager", config);
+        },
+
+        render: function () {
+            return this.entityView.render();
+        }
+    }
 
 
 });
