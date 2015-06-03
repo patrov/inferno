@@ -122,8 +122,12 @@ define(['Kimo/core', 'jquery'], function(Kimo, jQuery) {
 
     return {
         init: function (config) {
-            //config.root = "body";
+            this.id = "cantoPager";
             this.entityView = Kimo.createEntityView("CantoPager", config);
+        },
+
+        getId: function () {
+            return this.id;
         },
 
         render: function () {

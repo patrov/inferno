@@ -10,7 +10,7 @@ define(['jquery', 'text!../time/templates/layout.html'], function (jQuery, layou
      * Handle and trigger events
      * Parse component actions
      * actions allow us to match
-     * content must have an id. 
+     * content must have an id.
      *  */
     return {
         init: function (config) {
@@ -21,6 +21,10 @@ define(['jquery', 'text!../time/templates/layout.html'], function (jQuery, layou
             this.bindEvents();
         },
 
+        getId: function () {
+            return "time";
+        },
+        
         bindEvents: function () {
             jQuery('body').on('click', "#qs6d7qs6d4sd", function () {
                 console.log("this is the way it should Work");

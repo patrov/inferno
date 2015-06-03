@@ -36,7 +36,7 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
                     this.terzaManager.configure({ root: this.view.view, canto: 1 });
                     this.initTabs();
                     Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded', 'EnterCommentMode']);
-                    
+
                     /* canto change */
                     this.pagerManager.getPager().on("cantoSelection", function(e, canto) {
                         self.terzaManager.loadCanto(canto);
@@ -92,17 +92,22 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
                     });
                     this.terzaManager.loadCanto(canto);
                 },
-                homeAction: function() {
-                    var self = this;
-                    self.templateReady(1);
 
+                homeAction: function() {
+                    Kimo.NavigationManager.getRouter().updateRoute("#/inferno/canto/1");
                 },
+
                 /* deal with template and manager here
                  * template ayan
                  *
                  * */
                 showCantoAction: function(no) {
                     var self = this;
+                    /*
+                     * ComponentHandler.on("pager:id", "selected", function () {
+                     *
+                     * });
+                     **/
                     this.on("viewReady", function(render) {
                         self.pagerManager.showCantoPager(render.find(".col-sm-1").eq(0));
                         self.pagerManager.selectCanto(parseInt(no, 10));
@@ -111,11 +116,11 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
                     self.templateReady(no);
                     return {activityName: "Show Canto Told"};
                 },
-                        
+
                 sayHello: function() {
                     alert("sdsd");
                 },
-                        
+
                 menuComponent: function() {
                     return "<ul><li>Home</li><li>User</li><li>Contribution</li></ul>"
                 },
