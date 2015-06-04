@@ -1,0 +1,96 @@
+#inferno-app {padding-top:70px!important;}
+
+.navbar-static-top {position: fixed; top: 0; left: 0; right: 0;}
+
+p.stz {font-family: 'Georgia', sans-serif; white-space:pre-wrap; font-size: 1.2em; margin:0px; margin-bottom: 0.75em; }
+
+p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom: 0.75em;}
+
+.available-lang { margin-bottom: 5px }
+
+.trad-sugg {font-family: 'Georgia', sans-serif; margin: 10px; background-color: white; padding: 5px; border: 1px solid #e5e5e5; box-shaddow: 0 1px 2px rgba(0,0,0,.1);}
+
+.fr-canto-container, .eng-canto-container {font-size: 0.9em;}
+
+.vote {color: green}
+
+.pointable { cursor: pointer}
+
+.stz-actions { top:0px; right:0px; margin-right: 5px; font-size: 0.6em; padding-right: 15px}
+
+.stz.selected { margin-top:-10px ; padding-top: 10px; margin-left:-5px; margin-right:-5px; padding-left:5px; padding-right:5px; cursor:pointer; border-left: 2px solid orange; }
+
+.available-lang .selected { padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 2px solid #d9edf9 }
+
+.current-translation { border-top: 2px solid orange; box-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; padding-top: 15px; font-size:1.4em; font-family: "Garamond","Georgia", serif; white-space:pre-wrap; background-color: white}
+
+.shadowed-box {box-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; background-color: white}
+
+.stz-editor { margin: 5px; background-color: white; box-shadow: 0 1px 2px rgba(0,0,0,.1); text-align: center }
+
+.other-translation { margin-top: 10px; padding-top: 10px}
+
+.save-btn { margin-top: 5px }
+
+.user-tab { border-bottom: 1px solid #ebebeb}
+
+.tab-pane { padding-top: 10px}
+
+.available-lang { border-bottom: 1px solid #ebebeb; margin-bottom: 30px}
+
+#user-translation-text {white-space: pre-wrap; font-family: "Garamond","Georgia",serif; font-size: 1.3em;}
+
+#contributions p.contrib { position: relative; padding: 15px; font-size: 1em; border: 1px solid #ebebeb}
+
+#contributions .contrib-actions { position : absolute; top: 0px; right:0px}
+
+#contributions .contrib-action {cursor: pointer; margin-left:10px}
+
+#contributions .contrib-action:hover { text-decoration: none}
+
+#editing { margin-bottom : 5px;}
+
+.prewrap {white-space: pre-wrap}
+
+.block-title {border-bottom : 1px solid #eee; margin: 10px; margin-bottom: 10px}
+
+#editor-ctn {background-color: #ecf0f1;}
+
+#edit-zone {margin: 5px auto; border-radius: 0; overflow: auto; font-family: 'Georgia', sans-serif; background-color: #faebcc !important; width: 95%; resize: none; height: 75px;}
+
+#editing-zone .btn {margin-left: 5px; }
+
+#user-translation {background-color: #d9edf7; padding: 5px; border-bottom: 1px solid #3498db}
+
+.user-context-wrapper {position: fixed; top:70px; width: 457px;}
+
+#add-translation {margin-top: 5px;}
+
+#editing-zone{ margin-bottom: 5px; padding: 5px;}
+
+.csanto-ctn { max-height: 726px; overflow-y: auto }
+
+.canto-link { border: 1px solid orange; cursor: pointer; height: 50px; width: 100%; margin-bottom: 5px; text-align: center; color: green}
+
+.canto-link.selected {padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 1px solid #d9edf9}
+
+.canto-link-ctn { /*position: absolute; top: 62px*/ width: 68px; position: fixed; top: 70px;}
+
+.user-comment {font-size: 0.9em; font-family: helvetica,arial,"lucida grande",sans-serif; min-height: 20px !important}
+
+#comment-wrapper{ border-top: 1px solid #3498db;}
+
+#comment-field {padding: 3px; margin: auto; margin-top: 5px; position: relative; border: 2px #3498db solid;  word-wrap: break-word; cursor: text; min-height: 35px; max-height: 50px }
+.comment-close-btn { margin-right: -1px !important;}
+
+.comment-list-trad-wrapper {background-color: #ecf0f1; padding: 5px}
+
+#commentlist-wrapper {margin-top: 15px}
+
+.commentzone-close-btn { padding: 5px; border: 1px solid orange; position: absolute; right: 0px; cursor: pointer}
+
+.comment-zone-title {border-bottom: 1px solid orange; font-size: large; margin-top: 15px;}
+
+.prev-canto {margin-bottom: 5px;}
+
+.prev-canto, .next-canto {cursor: pointer; height: 50px; text-align: center; border: 1px solid #67b168}

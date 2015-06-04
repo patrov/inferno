@@ -4,7 +4,7 @@
  */
 
 
-define(['Kimo/core', 'jquery'], function(Kimo, jQuery) {
+define(['Kimo/core', 'jquery', 'bootstrap'], function(Kimo, jQuery) {
     Kimo.registerEntityView({
         name: "CantoPager",
 

@@ -94,7 +94,8 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
                 },
 
                 homeAction: function() {
-                    Kimo.NavigationManager.getRouter().updateRoute("#/inferno/canto/1");
+                    var self = this;
+                    self.templateReady(1);
                 },
 
                 /* deal with template and manager here
@@ -104,9 +105,7 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
                 showCantoAction: function(no) {
                     var self = this;
                     /*
-                     * ComponentHandler.on("pager:id", "selected", function () {
-                     *
-                     * });
+                     * ComponentHandler.on("pager:id", "selected", function () {});
                      **/
                     this.on("viewReady", function(render) {
                         self.pagerManager.showCantoPager(render.find(".col-sm-1").eq(0));
@@ -114,7 +113,7 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
                     });
                     /* Attend que le template soit dans le dom use events? */
                     self.templateReady(no);
-                    return {activityName: "Show Canto Told"};
+                    return {activityName: "Show Canto Told"}; //send variable to template
                 },
 
                 sayHello: function() {
