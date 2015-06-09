@@ -1,4 +1,4 @@
-requirejs.onError = function(err) {
+ requirejs.onError = function(err) {
     console.log(err.requireType);
     console.log(err);
     console.log('modules: ' + err.requireModules);
@@ -22,18 +22,22 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
                     };
                     this.setContentView(rootView);
                 },
+                        
                 events: {
                     // '.test click': 'sayHello'
                 },
+                        
                 actionDependencies: {
                 },
-                onCreate: function() {
+                        
+                onCreate: function () {
                     var self = this;
+                    this.currentMode = Kimo.ParamsContainer.get("config");                    
                     this.terzaManager = terzaManager;
                     this.contentsManager = ContentMananager;
                     this.pagerManager = Pager.configure({root: this.view.view});
                     this.commentManager = CommentManager.configure({root: this.view.view});
-                    this.terzaManager.configure({ root: this.view.view, canto: 1 });
+                    this.terzaManager.configure({ root: this.view.view, canto: 1, mode: this.currentMode.mode});
                     this.initTabs();
                     Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded', 'EnterCommentMode']);
 

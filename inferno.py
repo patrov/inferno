@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 from flask import Flask, session, request, g, redirect, abort, url_for, render_template
 from rest.TerzaService import TerzaService, TranslationService, CantoService, UserService, CommentService
+from rest.ConfigService import ConfigService
 from auth.AuthManager import login_manager, handle_authentification, load_anonymous_user
 from flask.ext import restful
 from flask.ext.login import login_user, logout_user, login_required, current_user
@@ -20,10 +21,10 @@ api.add_resource(TerzaService, '/rest/terza/<int:no_terza>')
 api.add_resource(TranslationService, '/rest/translation')
 api.add_resource(CommentService, '/rest/comment')
 api.add_resource(UserService, '/rest/user')
-
+api.add_resource(ConfigService, '/rest/config')
 #home
 @app.route('/index')
-@login_required
+#@login_required  
 def index():
 	return render_template("inferno.html")
 
@@ -47,6 +48,7 @@ def login():
     if  request.values.get('login') is not None:
         user = handle_authentification(request.form.get('login'), request.form.get('pass'))
         return redirect(request.values.get('next')  or url_for("index"))
+    pprint(current_user)   
     return render_template("auth.login.html")
 
 

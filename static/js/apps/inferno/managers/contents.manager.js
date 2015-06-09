@@ -23,6 +23,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "bi.views"
             var translationsView = Kimo.createEntityView("TranslationsView", {
                 entity: Models.TranslationRepository,
                 root: config.root,
+                mode: config.mode,
                 contentBadge: ".content-badge"
             });
 

@@ -42,6 +42,9 @@ define(["Kimo/core", "bi.route", "vendor.mustache", "Kimo.localstorage"], functi
         },
 
         onStart: function () {
+            Kimo.jquery.get("/rest/config").done(function (response) {
+              Kimo.ParamsContainer.set("config", response); 
+            });
             var restAdapter = Kimo.AdapterRegistry.get("restAdapter");
                 restAdapter.settings.envelope = false;
             Kimo.ModelManager.useAdapter(restAdapter);
