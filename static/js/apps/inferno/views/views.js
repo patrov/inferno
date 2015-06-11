@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], function(Kimo, Mustache, biTpl) {
+define(["Kimo/core", "vendor.mustache"], function(Kimo, Mustache) {
 
     var translationItemTpl = "<p class='contrib'>{{{content}}}</p>";
     var itemActions = "<div class='contrib-actions'>\n\
@@ -14,12 +14,14 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
 
     Kimo.registerEntityView({
         name: "TranslationsView",
-       events: {
+
+        events: {
             ".contrib mouseenter": "showActions",
             ".contrib mouseleave": "hideActions",
             ".fa-pencil click": "showEditForm",
             ".fa-remove click": "deleteDraft"
         },
+
         init: function() {
             this.widget = $("<div/>");
             this.translationRepository = this.entity;
@@ -30,16 +32,16 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
                 triggerCreateEvent: true
             }).done($.proxy(this.populate, this));
         },
-                
+
         showEditForm: function() {
         },
-                
+
         editDraft: function(e) {
             this.selectedTranslation = $(e.currentTarget).closest(".contrib").eq(0);
             var entity = this.translationRepository.findByCid($(this.selectedTranslation).data("translation"));
             Kimo.Observable.trigger("TranslationEditTask", entity, this.selectedTranslation);
         },
-                
+
         deleteDraft: function(e) {
             this.selectedTranslation = $(e.currentTarget).closest(".contrib").eq(0);
             if (!confirm("Efase?")) {
@@ -48,17 +50,17 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
             var entity = this.translationRepository.findByCid($(this.selectedTranslation).data("translation"));
             this.translationRepository.remove(entity);
         },
-                
+
         showActions: function(e) {
             var item = e.currentTarget;
             $(item).append(itemActions);
         },
-                
+
         hideActions: function(e) {
             var item = e.currentTarget;
             $(this.widget).find(".contrib-actions").remove();
         },
-                
+
         handleContentChange: function(reason, translation) {
             var html = "...";
             html = $(Mustache.render(translationItemTpl, translation.toJson()));
@@ -80,12 +82,12 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
                 this.updateContentCount();
             }
         },
-                
+
         updateContentCount: function( ) {
             var ctn = parseInt($(this.widget).find(".contrib").length);
             $(".content-badge").html(ctn);
         },
-                
+
         render: function() {
             return this.widget;
         }
@@ -102,18 +104,27 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
             "#cancel-btn click": "doCancel",
             "#save-draft-btn click": "doSave",
             ".fa-edit click": "doEdit"
-            //".fa-remove click": "deDelete"
+        //".fa-remove click": "deDelete"
         },
-                
+
+        templateMap: {
+            contrib: "bi.templates/terzaEditor.contrib.html",
+            view: "bi.templates/terzaEditor.view.html"
+        },
+
         init: function() {
-            this.widget = $(biTpl).clone();
-            this.widget.find(".btn").hide();
-            this.editor = $(this.widget).find("#edit-zone");
-            this.userTranslationCtn = $(this.widget).find("#user-translation-text");
-            this.editFields = $(this.widget).find(".edit-field");
+            this.widget = $("<div></div>").clone();
+            this.widget.append(Kimo.TemplateManager.render(this.templateMap[this.viewMode], { onRender : this.onTemplateReady.bind(this) }));
             this.isVisible = false;
         },
-        
+
+        onTemplateReady: function () {
+            this.editor = $(this.widget).find("#edit-zone");
+            this.widget.find(".btn").hide();
+            this.userTranslationCtn = $(this.widget).find("#user-translation-text");
+            this.editFields = $(this.widget).find(".edit-field");
+        },
+
         bindEvents: function() {
             var self = this;
             this.repository.on("change", function (reason, entity) {
@@ -122,7 +133,8 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
                 }
             });
             this.bindEvents = $.noop;
-        },        
+        },
+
         configure: function(config) {
             this.onAction = (typeof config.onAction == "function") ? config.onAction : function() {
             };
@@ -138,19 +150,21 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
             }
             this.bindEvents();
         },
+
         doEdit: function() {
             this.showEditForm();
         },
-                
+
         showUserTranslation: function() {
             this.widget.find(".user-translation").show();
-            
         },
+
         showEditForm: function() {
             $(this.editFields).hide();
             $(this.editor).val(this.translationItem.get("content"));
             this.widget.find(".stz-editor").show();
         },
+
         setTranslation: function(translationItem) {
             if (!translationItem || typeof translationItem.set !== "function") {
                 return;
@@ -183,7 +197,7 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
         isVisible: function() {
             return this.isVisible;
         },
-                
+
         doCancel: function(e) {
             $(this.editFields).hide();
             this.showUserTranslation();
@@ -195,16 +209,16 @@ define(["Kimo/core", "vendor.mustache", "text!bi.templates/editorTpl.html"], fun
             this.translationItem.set("state", 1);//draft
             this.translationItem.set("terza", this.currentTerza);
             this.repository.create(this.translationItem.toJson());
-            /*whait and show the new translation*/            
+            /*whait and show the new translation*/
             this.onAction("save");
         },
         render: function(container) {
             this.show();
-           //if (container && !this.isVisible) {
-                $(container).html(this.widget);
-                this.isVisible = true;
-                return;
-           // }
+            //if (container && !this.isVisible) {
+            $(container).html(this.widget);
+            this.isVisible = true;
+            return;
+        // }
         }
 
     });
