@@ -8,6 +8,7 @@ define(['Kimo/core'], function(Kimo) {
     
     var ItemRenderer = {
         templatePath: "bi.components/commentlist/templates/",
+        
         attachEvents: function (itemHtml, data){
             return itemHtml;
         },
