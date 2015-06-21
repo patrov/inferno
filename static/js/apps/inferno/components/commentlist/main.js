@@ -9,7 +9,7 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
 
         init: function() {
             this.isRendered = false;
-            this.templatePath = "bi.components/commentlist/templates/";
+            this.templatePath = "bi.components/commentlist/templates/";            
             this.commentDataView = new Kimo.DataView({
                 itemRenderer: $.proxy(ItemRenderer.render, ItemRenderer),
                 width: "auto"

@@ -9,7 +9,7 @@ define(['Kimo/core', 'text!../translationslist/templates/layout.html', '../trans
         name: "TranslationListView",
         init: function() {
             this.root = $(layout).clone();
-            ItemRenderer.init({});
+            ItemRenderer.init(Kimo.ParamsContainer.get("config"));            
             this.dataView = new Kimo.DataView({
                 itemRenderer: $.proxy(ItemRenderer.render, ItemRenderer),
                 width: 'auto'

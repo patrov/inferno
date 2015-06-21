@@ -5,9 +5,12 @@
 define(['Kimo/core', 'manager!inferno:viewmode'], function(Kimo, ViewModeManager) {
 
     var ItemRenderer = {
+        
         init: function(settings) {
+            this.settings = settings;
             this.templatePath = "apps/inferno/components/translationslist/templates/";
             this.commentField = null;
+            this.viewMode = this.settings.mode;
             this.translationManager = ViewModeManager;
        },
                
@@ -45,7 +48,7 @@ define(['Kimo/core', 'manager!inferno:viewmode'], function(Kimo, ViewModeManager
         },
                 
         render: function(itemData, mode) {
-            var itemRender = Kimo.TemplateManager.render(this.templatePath + "item.html", {data: itemData});
+            var itemRender = Kimo.TemplateManager.render(this.templatePath + this.viewMode + ".item.html", {data: itemData});
             return this.attachEvents(itemRender, itemData);
         }
     };

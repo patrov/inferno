@@ -2,13 +2,17 @@
 
 .navbar-static-top {position: fixed; top: 0; left: 0; right: 0;}
 
-p.stz {font-family: 'Georgia', sans-serif; white-space:pre-wrap; font-size: 1.2em; margin:0px; margin-bottom: 0.75em; }
+p.stz {padding-left: 10px; position: relative; font-family: 'Georgia', sans-serif; white-space:pre-wrap; font-size: 1.2em; margin:0px; margin-bottom: 0.75em; }
+
+#terza-infos {color: #555; right: 5px; top: 22px; display: inline-block; position: absolute; font-size: 0.6em; font-family: 'Georgia', sans-serif;}
 
 p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom: 0.75em;}
 
-.available-lang { margin-bottom: 5px }
+.available-lang { margin-bottom: 5px; margin-top: 20px }
 
-.trad-sugg {font-family: 'Georgia', sans-serif; margin-bottom: 10px; background-color: white; padding: 5px; border: 1px solid #e5e5e5; box-shaddow: 0 1px 2px rgba(0,0,0,.1);}
+.trad-sugg {font-family: 'Georgia', sans-serif; margin-bottom: 10px; background-color: white; padding: 5px; border-bottom: 1px dotted #e5e5e5; box-shaddow: 0 1px 2px rgba(0,0,0,.1);}
+
+#trad-container {margin-top: 30px}
 
 .fr-canto-container, .eng-canto-container {font-size: 0.9em;}
 
@@ -18,7 +22,7 @@ p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom
 
 .stz-actions { top:0px; right:0px; margin-right: 5px; font-size: 0.6em; padding-right: 15px}
 
-.stz.selected { margin-top:-10px ; padding-top: 10px; margin-left:-5px; margin-right:-5px; padding-left:5px; padding-right:5px; cursor:pointer; border-left: 2px solid orange; }
+.stz.selected { padding-left: 8px;/*margin-left:-5px; margin-top:-10px ; margin-right:-5px;padding-left:5px; padding-right:5px;*/ cursor:pointer; border-left: 2px solid orange; }
 
 .available-lang .selected { padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 2px solid #d9edf9 }
 
@@ -74,7 +78,7 @@ p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom
 
 .canto-link.selected {padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 1px solid #d9edf9}
 
-.canto-link-ctn { /*position: absolute; top: 62px*/ width: 68px; position: fixed; top: 70px;}
+.canto-link-ctn { /*position: absolute; top: 62px*/ width: 68px; position: fixed; top: 90px;}
 
 .user-comment {font-size: 0.9em; font-family: helvetica,arial,"lucida grande",sans-serif; min-height: 20px !important}
 

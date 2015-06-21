@@ -49,6 +49,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             if(!terzaNode) {
                 return;
             }
+            this.showStanzaInfos(terzaNode);
             this.currentTerzaNo = terzaNo;
             $(".stz").removeClass("selected");
             clonedNode = $(terzaNode).clone(true);
@@ -58,6 +59,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             }
             this.showLanguages($(clonedNode));
         },
+        
 
         this.showTranslationBoard = function (lang) {
             var self = this;
@@ -129,18 +131,27 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             restParams = {
                 url: "/rest/canto/"+noCanto
                 };
-            if (this.currentLang !=='it' ) {
+            if (this.currentLang !== 'it' ) {
                 restParams.data = {
                     lang:this.currentLang
                     };
             }
             this.currentCanto = noCanto;
-            $.ajax(restParams).done(function(response){
+            $.ajax(restParams).done(function (response) {
                 self.populateStanzas(response);
                 Kimo.Observable.trigger("CantoLoaded", noCanto, response);
             });
         },
-
+        
+        this.showStanzaInfos = function (terzaNode) {
+            $("#terza-infos").remove();
+            var infoTpl = $("<span/>"),
+                terzaNo = $(terzaNode).data("no");
+                $(infoTpl).addClass("pull-right");
+            $(infoTpl).attr("id","terza-infos").html("<strong>canto</strong> " + this.currentCanto + ":" + terzaNo);
+            terzaNode.append(infoTpl);
+        },
+                
         this.populateStanzas = function (stanzas, lang) {
             lang = lang || 'it';
             var tpl,
@@ -148,6 +159,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             ctn = $("."+lang+"-canto-container");
             $(ctn).empty();
             tpl = '<p class="stz no-{{no_terza}}" data-no="{{no_terza}}">{{content}}</p>';
+            
             $.each(stanzas, function (i) {
                 render = Mustache.render(tpl, stanzas[i]);
                 $(ctn).append(render);

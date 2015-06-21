@@ -109,9 +109,7 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
                         self.pagerManager.showCantoPager(render.find(".col-sm-1").eq(0));
                         self.pagerManager.selectCanto(parseInt(no, 10));
                     });
-                    /* Attend que le template soit dans le dom use events? */
                     self.templateReady(no);
-                    return {activityName: "Show Canto Told"}; //send variable to template
                 },
 
                 sayHello: function() {
