@@ -23,8 +23,8 @@ api.add_resource(CommentService, '/rest/comment')
 api.add_resource(UserService, '/rest/user')
 api.add_resource(ConfigService, '/rest/config')
 #home
-@app.route('/index')
-#@login_required  
+@app.route('/app')
+#@login_required
 def index():
 	return render_template("inferno.html")
 
@@ -33,7 +33,7 @@ def index():
 def logout():
     logout_user()
     return redirect(url_for("index"))
-    
+
 #backend
 @app.route('/admin')
 @login_required
@@ -48,13 +48,13 @@ def login():
     if  request.values.get('login') is not None:
         user = handle_authentification(request.form.get('login'), request.form.get('pass'))
         return redirect(request.values.get('next')  or url_for("index"))
-    pprint(current_user)   
+    pprint(current_user)
     return render_template("auth.login.html")
 
 
 @app.before_request
 def before_request():
     g.user = current_user
-    
+
 if __name__ == '__main__':
 	app.run("0.0.0.0", debug=True)

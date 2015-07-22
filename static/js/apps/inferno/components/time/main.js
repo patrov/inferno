@@ -9,6 +9,7 @@ define(['jquery', 'text!../time/templates/layout.html'], function (jQuery, layou
     /* create a component constructor
      * Handle and trigger events
      * Parse component actions
+     * send messages other components that will be handled
      * actions allow us to match
      * content must have an id.
      *  */
@@ -24,7 +25,7 @@ define(['jquery', 'text!../time/templates/layout.html'], function (jQuery, layou
         getId: function () {
             return "time";
         },
-        
+
         bindEvents: function () {
             jQuery('body').on('click', "#qs6d7qs6d4sd", function () {
                 console.log("this is the way it should Work");
