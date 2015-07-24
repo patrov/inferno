@@ -12,6 +12,9 @@ define(['Kimo/core', 'text!../translationslist/templates/layout.html', '../trans
             ItemRenderer.init(Kimo.ParamsContainer.get("config"));
             this.dataView = new Kimo.DataView({
                 itemRenderer: $.proxy(ItemRenderer.render, ItemRenderer),
+                emptyItemRenderer: function () {
+                    return "<p style='color: orange'><strong>Poko gen tradiksyon...</strong></p>";
+                },
                 width: 'auto'
 
             });
