@@ -59,7 +59,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             }
             this.showLanguages($(clonedNode));
         },
-        
+
 
         this.showTranslationBoard = function (lang) {
             var self = this;
@@ -142,25 +142,27 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 Kimo.Observable.trigger("CantoLoaded", noCanto, response);
             });
         },
-        
+
         this.showStanzaInfos = function (terzaNode) {
             $("#terza-infos").remove();
             var infoTpl = $("<span/>"),
-                terzaNo = $(terzaNode).data("no");
+                terzaNo = $(terzaNode).data("pos");
                 $(infoTpl).addClass("pull-right");
             $(infoTpl).attr("id","terza-infos").html("<strong>canto</strong> " + this.currentCanto + ":" + terzaNo);
             terzaNode.append(infoTpl);
         },
-                
+
         this.populateStanzas = function (stanzas, lang) {
             lang = lang || 'it';
             var tpl,
             render,
-            ctn = $("."+lang+"-canto-container");
+            ctn = $("." + lang + "-canto-container");
             $(ctn).empty();
-            tpl = '<p class="stz no-{{no_terza}}" data-no="{{no_terza}}">{{content}}</p>';
-            
+            tpl = '<p class="stz no-{{no_terza}}" data-pos="{{terzaPos}}" data-no="{{no_terza}}">{{content}}</p>';
+
             $.each(stanzas, function (i) {
+                var cpt = i + 1;
+                stanzas[i].terzaPos = cpt;
                 render = Mustache.render(tpl, stanzas[i]);
                 $(ctn).append(render);
             });
@@ -173,11 +175,11 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
         this.getCurrentTerza = function () {
             return this.currentTerzaNo;
         }
-        
+
         this.getFocusedTerza = function () {
             return $("#editing-zone").find(".current-translation").eq(0);
         }
-        
+
         this.showLanguages = function () {
              var focusedTerza = this.getFocusedTerza();
             var actions = $(this.stzAction).clone();
