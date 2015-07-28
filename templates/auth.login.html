@@ -26,41 +26,71 @@
     <body style="background:url(js/adpps/inferno/assets/images/blue-bg.jpg) 0 0 fixed;">
         <!-- Static navbar -->
 
+			<header>
+			
+				<div class="navbar navbar-default" role="navigation">
+						
+						<div class="container">
+							
+							<div class="row">
+								<div class="col-sm-12">
 
-        <div class="container-fluid">
-            <div class="navbar navbar-default navbar-static-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/index">Babelio inferno : Dante An Kreyol</a>
-                </div>
-            </div>
-        </div>
-            <div class="col-sm-6">Pouki?
-                An n tradwi Dante
-                Yon plafòm pou n trawi Infernoti kontribisyon nan efò poun ranfòse krey
+									<div class="navbar-header">
+										<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+											<span class="sr-only">Toggle navigation</span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+										</button>
+										<a class="navbar-brand" href="/index">Babelio inferno : Dante An Kreyol</a>
+									</div>
+								
+								</div>
+							</div>
 
+						</div>
+						
+				</div>
+				
+			</header>
+			
+		<div class="container">
+
+            <div class="col-sm-6">
+               <div class="jumbotron"> 
+				<h2>Babelio inferno</h2>
+					Yon kontribisyon nan efò poun ranfòse lang kreyòl la.
+					<strong>Inferno</strong> se yon platfòm ki pèmèt nou tradwi
+					an kreyòl poèm <em>Inferno</em> ke Dante te ekri.
+				</div>
             </div>
 
             <div class="col-sm-6">
-                <form action="{{url_for('login')}}" method='POST'>
-                    <p>
-                        <label>Login</label>
-                        <input name='login' type='text' />
-                    </p>
-                    <p>
-                        <label>Pass</label>
-                        <input name='pass' type='password' />
-                    </p>
-                    <input type='submit' value='Konecte'/>
-                </form>
-            </div>
-        </div>
+				<form class="form-horizontal" action="{{url_for('login')}}" method='POST'>
+				  
+				  <div class="form-group">
+					<label class="col-sm-2 control-label" for="inputEmail3">Login</label>
+					<div class="col-sm-10">
+					  <input name="login" type="login" placeholder="Email" id="inputEmail3" class="form-control">
+					</div>
+				  </div>
+				  
+				  <div class="form-group">
+					<label class="col-sm-2 control-label" for="inputPassword3">Modpas</label>
+					<div class="col-sm-10">
+					  <input name="pass" type="password" placeholder="pass" id="inputPassword3" class="form-control">
+					</div>
+				  </div>
+				  
+				  <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					  <button class="btn btn-default" type="submit">Konekte</button>
+					</div>
+				  </div>
+				</form>
+			</div>
+		</div>
+			
     </body>
 </html>
 
