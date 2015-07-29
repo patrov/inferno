@@ -138,7 +138,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             }
             this.currentCanto = noCanto;
             $.ajax(restParams).done(function (response) {
-                self.populateStanzas(response);
+                self.populateStanzas(response, self.currentLang);
                 Kimo.Observable.trigger("CantoLoaded", noCanto, response);
             });
         },
@@ -159,7 +159,6 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             ctn = $("." + lang + "-canto-container");
             $(ctn).empty();
             tpl = '<p class="stz no-{{no_terza}}" data-pos="{{terzaPos}}" data-no="{{no_terza}}">{{content}}</p>';
-
             $.each(stanzas, function (i) {
                 var cpt = i + 1;
                 stanzas[i].terzaPos = cpt;
