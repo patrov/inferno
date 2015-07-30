@@ -17,7 +17,7 @@ p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom
 .vote {color: green}
 
 .pointable { cursor: pointer}
-
+#canto-pager { top: 150px}
 .stz-actions { top:0px; right:0px; margin-right: 5px; font-size: 0.6em; padding-right: 15px}
 
 .stz.selected { padding-left: 8px;/*margin-left:-5px; margin-top:-10px ; margin-right:-5px;padding-left:5px; padding-right:5px;*/ cursor:pointer; border-left: 2px solid orange; }
@@ -38,7 +38,7 @@ p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom
 
 .tab-pane { padding-top: 10px}
 
-.available-lang { background-color: white; border-bottom: 1px solid #ebebeb; margin-bottom: 30px; position: fixed; height: 60px; top: 51px; width: 550px; z-index: 999999}
+.available-lang {padding-top: 30px; background-color: white; border-bottom: 1px solid #ebebeb; margin-bottom: 30px; position: fixed; height: 60px; top: 51px; width: 550px; z-index: 999999}
 
 #user-translation-text {white-space: pre-wrap; font-family: "Garamond","Georgia",serif; font-size: 1.3em;}
 
