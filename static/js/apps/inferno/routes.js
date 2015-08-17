@@ -22,12 +22,12 @@ define(["Kimo.NavigationManager"], function (NvgManager) {
             url: "#/inferno/admin",
             action: "AdminActivity:index"
         },
-
+        
         "inferno:usercreate": {
             url: "#/inferno/user/create",
             action: "AdminActivity:createUser"
         }
-
+        
 
     });
 

@@ -93,8 +93,7 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
 
                 homeAction: function() {
                     var self = this;
-                     Kimo.NavigationManager.getRouter().updateRoute("#/inferno/canto/1");
-                     location.reload();
+                    self.templateReady(1);
                 },
 
                 /* deal with template and manager here
