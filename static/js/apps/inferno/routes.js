@@ -15,7 +15,10 @@ define(["Kimo.NavigationManager"], function (NvgManager) {
         "inferno:showcanto": {
             url: "#/inferno/canto/{no}",
             action: "MainActivity:showCanto",
-            templateName: 'home'
+            templateName: 'home',
+            defaultParams : {
+                no: 1
+            }
         },
 
         "inferno:admin": {
@@ -26,7 +29,7 @@ define(["Kimo.NavigationManager"], function (NvgManager) {
         "inferno:usercreate": {
             url: "#/inferno/user/create",
             action: "AdminActivity:createUser"
-        }
+        }            
         
 
     });

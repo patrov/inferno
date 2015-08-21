@@ -98,7 +98,6 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
 
                 /* deal with template and manager here
                  * template ayan
-                 *
                  * */
                 showCantoAction: function(no) {
                     var self = this;

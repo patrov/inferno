@@ -26,7 +26,7 @@ define(["Kimo/core", "bi.route", "vendor.mustache", "Kimo.localstorage"], functi
         _settings: {
             mainViewContainer: ".jumbotron",
             mainActivity: "MainActivity",
-            route: "inferno:home",
+            route: "inferno:showcanto",
             viewSettings: {
                 id: "inferno-app",
                 cls: "babelio-inferno",
