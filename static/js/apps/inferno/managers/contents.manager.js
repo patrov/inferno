@@ -37,7 +37,8 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "bi.views"
 
                 /*... Translation list ...*/
                 translationList = Kimo.createEntityView("TranslationListView", {
-                    entity: Models.TranslationRepository
+                    entity: Models.TranslationRepository,
+                    height: $(document).height() - 350
                 });
 
                 bindEvents();

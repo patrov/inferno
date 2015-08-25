@@ -8,6 +8,7 @@ define(['Kimo/core', 'text!../translationslist/templates/layout.html', '../trans
     Kimo.registerEntityView({
         name: "TranslationListView",
         init: function() {
+            console.log("height", this.height);
             this.root = $(layout).clone();
             ItemRenderer.init(Kimo.ParamsContainer.get("config"));
             this.dataView = new Kimo.DataView({
@@ -15,8 +16,8 @@ define(['Kimo/core', 'text!../translationslist/templates/layout.html', '../trans
                 emptyItemRenderer: function () {
                     return "<p style='color: orange'><strong>Poko gen tradiksyon...</strong></p>";
                 },
-                width: 'auto'
-
+                width: 'auto',
+                height: this.height + "px"
             });
             this.isRendered = false;
             this.translationRepository = this.entity;
