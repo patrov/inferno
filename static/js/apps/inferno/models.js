@@ -83,7 +83,6 @@ define(["Kimo/core"], function(Kimo) {
 
     return {
         TranslationItem: TranslationItem,
-        //terzaItem : terzaItem,
         TranslationRepository: TranslationRepository,
         CommentItem: CommentItem,
         CommentRepository: CommentRepository

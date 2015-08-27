@@ -35,7 +35,6 @@ comment_fields = {
     'pubdate': fields.DateTime(attribute='pub_date')
 }
 
-pprint(dir(fields))
 
 class CantoService(restful.Resource):
     @marshal_with(terza_fields)

@@ -1,5 +1,5 @@
 define(["Kimo.FormManager"], function (FormManager) {
-    var UserForm = FormManager.createForm("BookImport", {
+    var UserForm = FormManager.createForm("UserForm", {
 
         data: {},
 

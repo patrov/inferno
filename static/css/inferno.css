@@ -67,7 +67,7 @@ p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom
 #user-translation {background-color: #d9edf7; padding: 5px; border-bottom: 1px solid #3498db}
 
 .user-context-wrapper {position: fixed; top:70px; width: 457px;}
-*.commentZone-wrapper { position : fixed }
+.comment-zone {position: fixed}
 
 #add-translation {margin-top: 5px;}
 
@@ -97,5 +97,7 @@ p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom
 .comment-zone-title {border-bottom: 1px solid orange; font-size: large; margin-top: 15px;}
 
 .prev-canto {margin-bottom: 5px;}
+
+.contrib-time {font-size: 0.7em; font-weight: bold;}
 
 .prev-canto, .next-canto {cursor: pointer; height: 50px; text-align: center; border: 1px solid #67b168}

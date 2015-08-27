@@ -7,10 +7,11 @@ define(["bi.models", 'bi.components/commentlist/main'], function(Models) {
 
         CommentsManager = {
              config: null, 
+             commentList : null,
+             
             showCommentList: function(translation) {
                 try {
                     if (!this.commentList) {
-                        console.log("there", this.config);
                         this.commentList = Kimo.createEntityView("CommentList", {
                             entity: Models.CommentRepository,
                             root : this.config.root

@@ -8,7 +8,7 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
         name: "CommentList",
 
         init: function() {
-            this.isRendered = false;
+            this.currentTarget = null;
             this.templatePath = "bi.components/commentlist/templates/";
             this.commentDataView = new Kimo.DataView({
                 itemRenderer: $.proxy(ItemRenderer.render, ItemRenderer),
@@ -28,6 +28,8 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
         },
 
         setTranslation: function (translation) {
+            if (this.currentTarget === translation.id) { return false; }
+            this.currentTarget = translation.id;
             var currentTranslation = Kimo.TemplateManager.render(this.templatePath + "selectedTranslation.html", {data: translation});
             this.loadTranslationComments(translation);
             this.commentEditor.setTarget(translation);
@@ -51,11 +53,11 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
         },
 
         render: function() {
-            if (!this.isRendered) {
-                this.commentDataView.render("#commentlist-wrapper");
-                $("#editor-wrapper").append(this.commentEditor.render());
-            }
-            this.isRendered = true;
+            //if (!this.isRendered) {
+            this.commentDataView.render("#commentlist-wrapper");
+            $("#editor-wrapper").append(this.commentEditor.render());
+            //}
+            //this.isRendered = true;
         }
 
 
