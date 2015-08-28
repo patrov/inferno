@@ -15,7 +15,9 @@ p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom
 .fr-canto-container, .eng-canto-container, it-canto-container {font-size: 0.8em;}
 .col-sm-4 #editing-zone {font-size: 0.8em}
 
-.vote {color: green}
+.vote-btn { color: orange }
+.comment-btn { color: green }
+
 .fa-angle-up, .fa-angle-down{ border: 1px solid #67b168; margin-left: 2px; padding: 3px; cursor: pointer}
 
 .pointable { cursor: pointer}

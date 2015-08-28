@@ -1,5 +1,13 @@
 <div class="trad-sugg">
-    <span class="fa text-success fa-user"> {{author.login}}</span> . Vendredi à 10h <strong>propoze...</strong>
-    <p class="prewrap">{{content}}</p>
-    <span class="fa fa-angle-up vote-up"></span> <span class="fa fa-angle-down vote-down"></span> <i class="pointable fa show-comment badge fa-comment-o pull-right"> 11</i>
+    <div class="row">
+        <div class="col-sm-2" style="padding-top: 10px">
+            <p><i class="vote-btn fa fa-star-o pointable"></i> 123</p>
+            <p><i class="comment-btn fa fa-comment-o pointable"></i> 40</p>
+        </div>
+
+        <div class="col-sm-10">
+            <span class="fa text-success fa-user"> {{author.login}}</span> . Vendredi à 10h <strong>propoze...</strong>
+            <p class="prewrap">{{content}}</p>
+        </div>
+    </div>
 </div>

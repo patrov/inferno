@@ -25,6 +25,7 @@ define(["Kimo/core"], function(Kimo) {
             return false;
         }
     }),
+    
     /* Comment Item */
     CommentItem = Kimo.ModelManager.createEntity({
         name: "Comment",
@@ -36,6 +37,31 @@ define(["Kimo/core"], function(Kimo) {
             return "/rest/comment"
         }
     }),
+    
+    /* Vote item */
+    VoteItem = Kimo.ModelManager.createEntity({
+        name : "Vote",
+        
+        defaults: {
+            translation: null,
+            user: null,
+            value: null
+        },
+        
+        getPath: function () {
+            return "/rest/vote";
+        }
+    }),
+    
+    VoteRepository = Kimo.ModelManager.createRepository({
+        repositoryName: "VoteRepository",
+        model: VoteItem,
+        
+        getPath: function () {
+            return "/rest/vote";
+        }
+    }), 
+    
 
     CommentRepository = Kimo.ModelManager.createRepository({
         repositoryName: "CommentRepository",
@@ -54,7 +80,7 @@ define(["Kimo/core"], function(Kimo) {
             return dfd.promise();
         }
     }),
-
+    
     TranslationRepository = Kimo.ModelManager.createRepository({
         repositoryName: "TranslationRepository",
         model: TranslationItem,
@@ -80,13 +106,15 @@ define(["Kimo/core"], function(Kimo) {
 
     TranslationRepository = new TranslationRepository;
     CommentRepository = new CommentRepository;
+    VoteRepository = new VoteRepository;
 
     return {
         TranslationItem: TranslationItem,
-        //terzaItem : terzaItem,
-        TranslationRepository: TranslationRepository,
         CommentItem: CommentItem,
+        VoteItem : VoteItem,
+        
+        VoteRepository: VoteRepository,
+        TranslationRepository: TranslationRepository,
         CommentRepository: CommentRepository
-
     }
 });
