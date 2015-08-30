@@ -118,6 +118,7 @@ define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza'
                 menuComponent: function() {
                     return "<ul><li>Home</li><li>User</li><li>Contribution</li></ul>"
                 },
+                
                 showProfileAction: function() {
                     this.data = {sdsd: 'sdsd'};
                     return {name: "Tema "};

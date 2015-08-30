@@ -141,4 +141,25 @@ class Translation(db.Model):
         
     def __repr__(self):
         return "<translation %s>"% self.content
+
+        
+#vote
+class Vote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    #translation
+    translation_id = db.Column(db.Integer, db.ForeignKey("translation.id"))
+    translation = db.relationship('Translation', backref=db.backref('votes', lazy='dynamic'))
     
+    #voter
+    voter_id = db.Column(db.Integer, db.ForeignKey("user.id")) 
+    voter = db.relationship('User', backref=db.backref('votes'))
+    
+    value = db.Column(db.Integer)
+    
+    def __init__(self, translation_id, voter, value = 1):
+        self.translation_id = translation_id
+        self.voter = voter
+        self.value = value
+    
+    def __repr__(self):
+        return "<vote voter:%s, translation:%s>" % (self.voter.id, self.translation_id)

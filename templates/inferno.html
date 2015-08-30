@@ -2,7 +2,7 @@
 <html lang="en_EN">
     <head>
         <meta encoding="utf-8">
-        <title>Showroom</title>
+        <title>Inferno</title>
         <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/bootstrap/dist/css/bootstrap.min.css')}}"/>
         <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/fontawesome/css/font-awesome.min.css')}}"/>
         <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/nanoscroller/nanoscroller.css')}}"/>
@@ -18,13 +18,12 @@
         <script>
             require.config({
                 paths: {
-                    "sw.app": "apps/swannsway/main",
                     "inferno.app": "apps/inferno/main"
                 }
             });
         </script>
     </head>
-    <body style="background:url(js/adpps/inferno/assets/images/blue-bg.jpg) 0 0 fixed;">
+    <body>
         <!-- Static navbar -->
         <div class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">
@@ -73,6 +72,12 @@
                 </div>
             </div>
         </div>
+        
+        <footer style="margin-top: 100px; border-top: 1px solid #DBDFEA; padding: 20px">
+            <div class="container">
+                <p>this is my footer</p>
+            </div>
+        </footer>
         <script>
 
             var _errorHandler = function(reason){

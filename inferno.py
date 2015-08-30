@@ -1,8 +1,9 @@
 #! python
 # -*- coding:utf-8 -*-
 from flask import Flask, session, request, g, redirect, abort, url_for, render_template
-from rest.TerzaService import TerzaService, TranslationService, CantoService, UserService, CommentService
+from rest.TerzaService import * #TerzaService, TranslationService, CantoService, UserService, CommentService, VoteService
 from rest.ConfigService import ConfigService
+from rest.VoteService import VoteService
 from auth.AuthManager import login_manager, handle_authentification, load_anonymous_user
 from flask.ext import restful
 from flask.ext.login import login_user, logout_user, login_required, current_user
@@ -22,6 +23,9 @@ api.add_resource(TranslationService, '/rest/translation')
 api.add_resource(CommentService, '/rest/comment')
 api.add_resource(UserService, '/rest/user')
 api.add_resource(ConfigService, '/rest/config')
+api.add_resource(VoteService, '/rest/vote')
+
+
 #home
 @app.route('/app')
 #@login_required

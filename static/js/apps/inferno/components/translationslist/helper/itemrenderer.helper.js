@@ -16,12 +16,22 @@ define(['Kimo/core', 'manager!inferno:viewmode'], function(Kimo, ViewModeManager
                
         attachEvents: function(item, itemData) {
             item = $(item);
-            item.on("click", ".show-comment", $.proxy(this.showCommentField, this, item, itemData));
+            item.on("click", ".comment-btn", $.proxy(this.showCommentField, this, item, itemData));
             item.on("click", ".add-comment", $.proxy(this.saveComment, this, itemData));
             item.on("click", ".comment-close-btn", $.proxy(this.hideEditor, this));
+            item.on("click", ".vote-btn", this.doVote.bind(this));
             return item;
         },
-                
+        
+        doVote: function (e) {
+            /* check content */
+            if ($(e.target).hasClass("fa-star-o")) {
+                $(e.target).removeClass("fa-star-o").addClass("fa-star");
+            } else {
+                $(e.target).removeClass("fa-star").addClass("fa-star-o");
+            }
+        },
+        
         showCommentField: function(itemHtml, item) {
             if (this.translationManager.getCurrentMode() === "comment") { 
                 Kimo.Observable.trigger("EnterCommentMode", item);
