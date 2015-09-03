@@ -8,7 +8,6 @@ define(['Kimo/core', 'text!../translationslist/templates/layout.html', '../trans
     Kimo.registerEntityView({
         name: "TranslationListView",
         init: function() {
-            console.log("height", this.height);
             this.root = $(layout).clone();
             ItemRenderer.init(Kimo.ParamsContainer.get("config"));
             this.dataView = new Kimo.DataView({
@@ -44,7 +43,7 @@ define(['Kimo/core', 'text!../translationslist/templates/layout.html', '../trans
             } else {
                 $(container).append(this.root);
             }
-            this.dataView.render("#list-container");
+            this.dataView.render("#translation-ctn");
             this.isRendered = true;
         }
     });

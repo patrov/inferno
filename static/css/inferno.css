@@ -15,6 +15,7 @@ p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom
 .fr-canto-container, .eng-canto-container, it-canto-container {font-size: 0.8em;}
 .col-sm-4 #editing-zone {font-size: 0.8em}
 
+.simple-card { padding: 5px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);}
 .vote-btn { color: orange }
 .comment-btn { color: green }
 
