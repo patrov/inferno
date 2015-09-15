@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-define(['Kimo/core', 'manager!inferno:viewmode'], function(Kimo, ViewModeManager) {
+define(['Kimo/core', 'vendor.moment', 'manager!inferno:viewmode'], function(Kimo, moment, ViewModeManager) {
 
     var ItemRenderer = {
-        
         init: function(settings) {
+
             this.settings = settings;
             this.templatePath = "apps/inferno/components/translationslist/templates/";
             this.commentField = null;
@@ -58,6 +58,7 @@ define(['Kimo/core', 'manager!inferno:viewmode'], function(Kimo, ViewModeManager
         },
                 
         render: function(itemData, mode) {
+            itemData.pubdate = moment(itemData.pubdate).fromNow();
             var itemRender = Kimo.TemplateManager.render(this.templatePath + this.viewMode + ".item.html", {data: itemData});
             return this.attachEvents(itemRender, itemData);
         }

@@ -14,7 +14,9 @@ Kimo.require.config({
         "bi.components": "apps/inferno/components/",
         "bi.viewsContainer": "apps/inferno/views/",
         "Kimo.localstorage": "kimonic/core/Kimo.adapter.localstorage",
-        "vendor.mustache": "kimonic/vendor/mustache/mustache"
+        "vendor.mustache": "kimonic/vendor/mustache/mustache",
+		"vendor.moment": "apps/inferno/bower_components/moment/min/moment.min"
+		
     }
 });
 

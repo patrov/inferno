@@ -1,0 +1,25 @@
+{
+  "name": "inferno",
+  "version": "0.0.1",
+  "homepage": "https://github.com/patrov/inferno",
+  "authors": [
+    "Harris Baptiste <harris.baptiste@gmail.com>"
+  ],
+  "description": "Dante an kreyol",
+  "main": "main.js",
+  "keywords": [
+    "digital",
+    "humanities"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "~2.10.6"
+  }
+}
