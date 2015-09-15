@@ -2,6 +2,8 @@
 from datetime import datetime
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import column_property
+from sqlalchemy import select, func
 from flask.ext.login import AnonymousUserMixin
 from pprint import pprint
 
@@ -28,7 +30,14 @@ class Terza(db.Model):
     
     def setContent(self, content):
         self.content = content
+    
+    @staticmethod
+    def get_stats(no_terza):
+        response =  {'translation': 0}
+        response['translation'] = Translation.query.filter_by(no_terza=no_terza).count()
+        return response
         
+    
     def __repr__(self):
         return '<Terza %r>' % self.no_terza
         
@@ -120,12 +129,14 @@ class Translation(db.Model):
     pub_date = db.Column(db.DateTime)
     update_date = db.Column(db.DateTime)
     
+    comments_count = column_property(select([func.count(Comment.id)]).where(Comment.target_id==id).correlate_except(Comment))
+    
     def __init__(self, content, terza, state=1):
         self.content = content
         self.terza = terza
         self.state = state
         self.pub_date = datetime.utcnow()
-        self.update_date = datetime.utcnow();
+        self.update_date = datetime.utcnow()
     
     def setContent(self, content):
         self.content = content
@@ -135,6 +146,9 @@ class Translation(db.Model):
         self.author = author
         return self
     
+    def getVote(self):
+        pass
+             
     def setState(self, state):
         self.state = state 
         return self

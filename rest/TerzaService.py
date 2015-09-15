@@ -20,10 +20,10 @@ author_fields = {
 
 translation_fields = {
     'id': fields.Integer(attribute='id'),
-    'terza': fields.Nested(terza_fields),
     'content': fields.String,
     'uid': fields.Integer(attribute='id'),
     'author': fields.Nested(author_fields),
+    'comments': fields.Integer(attribute='comments_count'),
 }
 
 comment_fields = {
@@ -32,7 +32,7 @@ comment_fields = {
     'content': fields.String,
     'translation': fields.Nested(translation_fields),
     'author': fields.Nested(author_fields),
-    'pubdate': fields.DateTime(attribute='pub_date')
+    'pubdate': fields.DateTime(attribute='pub_date'),
 }
 
 

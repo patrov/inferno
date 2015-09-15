@@ -12,6 +12,7 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
             this.templatePath = "bi.components/commentlist/templates/";
             this.commentDataView = new Kimo.DataView({
                 itemRenderer: $.proxy(ItemRenderer.render, ItemRenderer),
+                height: $(window).height() - 350,
                 width: "auto"
             });
             this.commentReposirory = this.entity;

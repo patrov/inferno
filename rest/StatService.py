@@ -10,16 +10,34 @@ import json
 
 class StatService(restful.Resource):
     
-    def get(self, content_type, id):
-        pprint(content_type)
-        pprint(id)
-        pprint(dir(reqparse))
+    available_services = {'terza' : None, 'user': None, 'comment': None}
+    
+    
+    def getModel(self, name):
+        try :
+            if name == 'canto':
+                StatService.available_services['terza'] = Terza
+            
+            if name == 'user':
+                StatService.available_services['user'] = User
+            
+            if name == 'comment':
+                StatService.available_services['comment'] = Comment
+            
+            return StatService.available_services[name]
+
+            
+        except KeyError, e:
+            return None
+            
         
-        #lang as parameters
-        #parser = reqparse.RequestParser()
-        #parser.add_argument('lang', type=str)
-        #results = []
-        return "ok"
+    def get(self, content_type, id):
+        
+        model = self.getModel(content_type)
+        if model :
+            stats = model.get_stats(id)            
+            return stats
+        
         
         
 

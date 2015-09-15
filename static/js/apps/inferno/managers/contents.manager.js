@@ -82,8 +82,17 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "bi.views"
                 Kimo.Observable.on("TranslationEditTask", editContent);
                 Kimo.Observable.on("TerzaSelection", setCurrentTerza);
                 Kimo.Observable.on("TerzaSelection", handleTranslation);
+                Kimo.Observable.on("TerzaSelection", handleTerzaStats);
             },
 
+            handleTerzaStats = function (html, terzaNo) {
+                $.get("/rest/stats/terza/"+terzaNo).done(function (stats){
+                    if (stats && stats.hasOwnProperty('translation')) {
+                        $("#contrib_stats_label").text(stats.translation);
+                    }
+                });
+            },
+                    
             displayTerzaEditor = function () {
                 var translationItem = new Models.TranslationItem({}),
                     currentTerza = terzaManager.getCurrentTerza();
