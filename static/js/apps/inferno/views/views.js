@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-define(["Kimo/core", "vendor.mustache"], function(Kimo, Mustache) {
+define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustache, Moment) {
 
     var translationItemTpl = "<p class='contrib'>{{{content}}}</p>";
     var itemActions = "<div class='contrib-actions'>\n\
@@ -123,6 +123,7 @@ define(["Kimo/core", "vendor.mustache"], function(Kimo, Mustache) {
             this.widget.find(".btn").hide();
             this.userTranslationCtn = $(this.widget).find("#user-translation-text");
             this.editFields = $(this.widget).find(".edit-field");
+            this.pubdateField = $(this.widget).find("#user-contrib-pubdate");
         },
 
         bindEvents: function() {
@@ -177,6 +178,7 @@ define(["Kimo/core", "vendor.mustache"], function(Kimo, Mustache) {
                 this.showEditForm();
             } else {
                 this.userTranslationCtn.html(translationItem.get("content"));
+                this.pubdateField.html(Moment(translationItem.get("pubdate")).fromNow());
                 this.showUserTranslation();
             }
         },

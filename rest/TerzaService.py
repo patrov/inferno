@@ -24,6 +24,9 @@ translation_fields = {
     'uid': fields.Integer(attribute='id'),
     'author': fields.Nested(author_fields),
     'comments': fields.Integer(attribute='comments_count'),
+    'pubdate': fields.DateTime(attribute='pub_date'),
+    'votes': fields.Integer(attribute='votes_count'),
+    'userLiked': fields.Integer(attribute='user_liked')
 }
 
 comment_fields = {

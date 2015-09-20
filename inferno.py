@@ -15,6 +15,9 @@ from pprint import pprint
 app = Flask(__name__)
 api = restful.Api(app)
 
+def test():
+    return "test"
+    
 #handle login here
 login_manager.init_app(app)
 app.secret_key = "raidxlblaze"
@@ -56,7 +59,6 @@ def login():
     if  request.values.get('login') is not None:
         user = handle_authentification(request.form.get('login'), request.form.get('pass'))
         return redirect(request.values.get('next')  or url_for("index"))
-    pprint(current_user)
     return render_template("auth.login.html")
 
 

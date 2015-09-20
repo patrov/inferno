@@ -25,7 +25,9 @@ define(['jquery', 'text!../time/templates/layout.html'], function (jQuery, layou
         getId: function () {
             return "time";
         },
-
+        
+        set: function () {},
+        
         bindEvents: function () {
             jQuery('body').on('click', "#qs6d7qs6d4sd", function () {
                 console.log("this is the way it should Work");

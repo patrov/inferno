@@ -57,7 +57,7 @@ define(["Kimo/core", "bi.components/cantopager/main"], function(Kimo) {
                     root: settings.root,
                     settings: {
                         itemRenderer: function(page) {
-                            return Kimo.jQuery("<div/>").text("Chan " + toRoman(page)).addClass("canto-link");
+                            return Kimo.jQuery("<div/>").html("Chan<br /> " + toRoman(page)).addClass("canto-link");
                         }
                     }
                 });

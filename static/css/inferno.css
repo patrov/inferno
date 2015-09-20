@@ -1,19 +1,24 @@
+body { font-family: helvetica,arial,"lucida grande",sans-serif; }
 #inferno-app {padding-top:70px!important;}
 
 .navbar-static-top {position: fixed; top: 0; left: 0; right: 0;}
 
-p.stz {padding-left: 10px; position: relative; font-family: 'Georgia', sans-serif; white-space:pre-wrap; font-size: 1.2em; margin:0px; margin-bottom: 0.75em; }
+p.stz {padding-left: 10px; position: relative; color: #333; font-family: 'Georgia', sans-serif; white-space:pre-wrap; font-size: 1.2em; margin:0px; margin-bottom: 0.75em; }
 
-#terza-infos {color: #555; right: 5px; top: 22px; display: inline-block; position: absolute; font-size: 0.6em; font-family: 'Georgia', sans-serif;}
-
-p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom: 0.75em;}
-
-.trad-sugg {font-family: 'Georgia', sans-serif; margin-bottom: 10px; background-color: white; padding: 5px; border-bottom: 1px dotted #e5e5e5; box-shaddow: 0 1px 2px rgba(0,0,0,.1);}
+#terza-infos {font-family: helvetica,arial,"lucida grande",sans-serif; color: #999; right: 5px; display: inline-block; position: absolute; margin-right: 100px; font-size: 0.6em;}
+#editing-zone #terza-infos {margin-right: 0px; bottom: 0px;}
+p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom: 0.75em;}
+.nano > .nano-content {outline: none !important}
+.trad-sugg { margin-bottom: 10px; background-color: white; padding: 5px; border-bottom: 1px dotted #e5e5e5; box-shaddow: 0 1px 2px rgba(0,0,0,.1);}
 
 #trad-container {margin-top: 30px}
-
+.lang-choice {font-family: helvetica,arial,"lucida grande",sans-serif;}
 .fr-canto-container, .eng-canto-container, it-canto-container {font-size: 0.8em;}
 .col-sm-4 #editing-zone {font-size: 0.8em}
+
+.trad-pubdate {font-family: helvetica,arial,"lucida grande",sans-serif}
+
+.helvetica {font-family: helvetica,arial,"lucida grande",sans-serif}
 
 .simple-card { padding: 5px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);}
 .vote-btn { color: orange }
@@ -57,7 +62,7 @@ p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom
 
 #editing { margin-bottom : 5px;}
 
-.prewrap {white-space: pre-wrap}
+.prewrap {white-space: pre-wrap; padding-top: 5px}
 
 .block-title {border-bottom : 1px solid #eee;  margin-bottom: 10px}
 
@@ -78,9 +83,10 @@ p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom
 
 .csanto-ctn { max-height: 726px; overflow-y: auto }
 
-.canto-link { border: 1px solid orange; cursor: pointer; height: 50px; width: 100%; margin-bottom: 5px; text-align: center; color: green}
+.canto-link { padding-top: 10px; line-height: 14px; border: 1px solid #23527c; cursor: pointer; height: 50px; width: 100%; margin-bottom: 5px; text-align: center; color: #666}
 
-.canto-link.selected {padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 1px solid #d9edf9}
+.canto-link.selected {text-align: center; border: 2px solid orange}
+.prev-canto, .next-canto {cursor: pointer; height: 50px; text-align: center; border: 1px solid #23527c}
 
 .canto-link-ctn { /*position: absolute; top: 62px*/ width: 68px; position: fixed; top: 90px;}
 
@@ -103,4 +109,3 @@ p.trad-stz {font-family: 'PT Serif', sans-serif; font-size: 1.2em; margin-bottom
 
 .contrib-time {font-size: 0.7em; font-weight: bold;}
 
-.prev-canto, .next-canto {cursor: pointer; height: 50px; text-align: center; border: 1px solid #67b168}

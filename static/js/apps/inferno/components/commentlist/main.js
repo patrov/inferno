@@ -29,17 +29,13 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
         },
 
         setTranslation: function (translation) {
-            if (this.currentTarget === translation.id) { return false; }
+            
             this.currentTarget = translation.id;
             var currentTranslation = Kimo.TemplateManager.render(this.templatePath + "selectedTranslation.html", {data: translation});
             this.loadTranslationComments(translation);
             this.commentEditor.setTarget(translation);
             $("#trans-ctn").html(currentTranslation);
             this.render();
-        },
-
-        bindEditorEvent: function (render) {
-
         },
 
         displayCommentEditor: function () {

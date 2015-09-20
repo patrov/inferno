@@ -1,7 +1,7 @@
 /***
  * handle save
  */
-define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "bi.views", "bi.components/translationslist/main"], function (Kimo, require, Models, terzaManager) {
+define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!inferno:viewmode", "bi.views", "bi.components/translationslist/main"], function (Kimo, require, Models, terzaManager, viewmodeManager) {
     var ContentManager = (function () {
         var config = {
             "editZone": "#edit-zone",
@@ -83,8 +83,16 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "bi.views"
                 Kimo.Observable.on("TerzaSelection", setCurrentTerza);
                 Kimo.Observable.on("TerzaSelection", handleTranslation);
                 Kimo.Observable.on("TerzaSelection", handleTerzaStats);
+                Kimo.Observable.on("TerzaSelection", hideCommentZone);
             },
 
+            hideCommentZone = function () {
+        
+                if (viewmodeManager.getCurrentMode() === "comment") {
+                    viewmodeManager.switchViewMode("terza");
+                }
+            },
+       
             handleTerzaStats = function (html, terzaNo) {
                 $.get("/rest/stats/terza/"+terzaNo).done(function (stats){
                     if (stats && stats.hasOwnProperty('translation')) {

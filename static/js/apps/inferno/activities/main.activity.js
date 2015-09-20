@@ -9,8 +9,8 @@ window.onerror = function(response) {
     console.log(response);
 };
 
-define(["Kimo/core", 'require', 'manager!inferno:pager', 'manager!inferno:terza', 'manager!inferno:comment', 'manager!inferno:contents'],
-        function(Kimo, require, Pager, terzaManager, CommentManager, ContentMananager) {
+define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!inferno:comment', 'manager!inferno:contents'],
+        function(Kimo, Pager, terzaManager, CommentManager, ContentMananager) {
 
             Kimo.ActivityManager.createActivity("MainActivity", {
                 appname: "Inferno",

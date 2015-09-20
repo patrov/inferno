@@ -1,18 +1,23 @@
-
 from datetime import datetime
-from flask import Flask
+from flask import Flask, g
 from flask.ext.sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import column_property
-from sqlalchemy import select, func
+from sqlalchemy.orm import column_property, object_session
+from sqlalchemy import select, func, and_
 from flask.ext.login import AnonymousUserMixin
 from pprint import pprint
-
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/inferno'
 db = SQLAlchemy(app)
 
-
+with app.app_context():    
+        if hasattr(g,'user') and g.user is not None:
+            cUserId = g.user.id
+            pprint(cUserId)
+        else:
+            cUserId = 0
+        
+        
 class Terza(db.Model):
     no_terza = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
@@ -111,52 +116,7 @@ class Comment(db.Model):
         self.pub_date = datetime.utcnow()
 
         
-    
-#Translation model
-class Translation(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.Text)
-    pub_date = db.Column(db.DateTime)
-    
-    no_terza = db.Column(db.Integer, db.ForeignKey("terza.no_terza"))
-    terza = db.relationship('Terza', backref = db.backref('translations', lazy='dynamic'))
-    
-    state = db.Column(db.Integer)
-    vote = db.Column(db.Integer) 
-    
-    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    author = db.relationship('User', backref=db.backref('translations', lazy='dynamic'))
-    pub_date = db.Column(db.DateTime)
-    update_date = db.Column(db.DateTime)
-    
-    comments_count = column_property(select([func.count(Comment.id)]).where(Comment.target_id==id).correlate_except(Comment))
-    
-    def __init__(self, content, terza, state=1):
-        self.content = content
-        self.terza = terza
-        self.state = state
-        self.pub_date = datetime.utcnow()
-        self.update_date = datetime.utcnow()
-    
-    def setContent(self, content):
-        self.content = content
-        return self
-        
-    def setAuthor(self, author):
-        self.author = author
-        return self
-    
-    def getVote(self):
-        pass
-             
-    def setState(self, state):
-        self.state = state 
-        return self
-        
-    def __repr__(self):
-        return "<translation %s>"% self.content
-
-        
+       
 #vote
 class Vote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -177,3 +137,50 @@ class Vote(db.Model):
     
     def __repr__(self):
         return "<vote voter:%s, translation:%s>" % (self.voter.id, self.translation_id)
+
+        
+#Translation model
+class Translation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text)
+    pub_date = db.Column(db.DateTime)
+    
+    no_terza = db.Column(db.Integer, db.ForeignKey("terza.no_terza"))
+    terza = db.relationship('Terza', backref = db.backref('translations', lazy='dynamic'))
+    
+    state = db.Column(db.Integer)
+    
+    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    author = db.relationship('User', backref=db.backref('translations', lazy='dynamic'))
+    pub_date = db.Column(db.DateTime)
+    update_date = db.Column(db.DateTime)
+    
+    comments_count = column_property(select([func.count(Comment.id)]).where(Comment.target_id==id).correlate_except(Comment))
+    votes_count = column_property(select([func.count(Vote.id)]).where(Vote.translation_id==id).correlate_except(Vote))
+    user_liked = column_property(select([func.count(Vote.id)]).where(and_(Vote.translation_id==id, Vote.voter_id == 1)))
+    
+    
+    def __init__(self, content, terza, state=1):
+        self.content = content
+        self.terza = terza
+        self.state = state
+        self.pub_date = datetime.utcnow()
+        self.update_date = datetime.utcnow()
+    
+    def setContent(self, content):
+        self.content = content
+        return self
+        
+    def setAuthor(self, author):
+        self.author = author
+        return self
+        
+             
+    def setState(self, state):
+        self.state = state 
+        return self
+        
+    def __repr__(self):
+        return "<translation %s>"% self.content
+
+   

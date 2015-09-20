@@ -136,9 +136,10 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                     lang:this.currentLang
                     };
             }
+            
             this.currentCanto = noCanto;
             $.ajax(restParams).done(function (response) {
-                self.populateStanzas(response);
+                self.populateStanzas(response, self.currentLang);
                 Kimo.Observable.trigger("CantoLoaded", noCanto, response);
             });
         },
@@ -148,7 +149,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             var infoTpl = $("<span/>"),
                 terzaNo = $(terzaNode).data("pos");
                 $(infoTpl).addClass("pull-right");
-            $(infoTpl).attr("id","terza-infos").html("<strong>canto</strong> " + this.currentCanto + ":" + terzaNo);
+            $(infoTpl).attr("id","terza-infos").html("<strong>canto</strong> [" + this.currentCanto + " : " + terzaNo+"]");
             terzaNode.append(infoTpl);
         },
 

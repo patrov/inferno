@@ -44,11 +44,7 @@ define(['Kimo/core', 'vendor.moment', 'manager!inferno:viewmode'], function(Kimo
         hideEditor: function() {
             $("#comment-wrapper").remove();
         },
-                
-        appendNewComment: function(commentItem) {
-
-        },
-                
+            
         saveComment: function(itemData, e) {
             e.preventDefault();
             var content = $("#comment-field").val(),

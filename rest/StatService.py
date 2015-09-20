@@ -15,7 +15,7 @@ class StatService(restful.Resource):
     
     def getModel(self, name):
         try :
-            if name == 'canto':
+            if name == 'terza':
                 StatService.available_services['terza'] = Terza
             
             if name == 'user':
@@ -28,15 +28,17 @@ class StatService(restful.Resource):
 
             
         except KeyError, e:
-            return None
+            return restful.abort(404, msg=e) 
             
         
     def get(self, content_type, id):
         
         model = self.getModel(content_type)
         if model :
-            stats = model.get_stats(id)            
+            stats = model.get_stats(id)  
             return stats
+        else:
+            restful.abort(400, msg="Bad request exception") 
         
         
         

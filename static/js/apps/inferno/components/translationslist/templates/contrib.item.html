@@ -1,12 +1,13 @@
 <div class="trad-sugg">
     <div class="row">
         <div class="col-sm-2" style="padding-top: 10px">
-            <p><i class="vote-btn fa fa-star-o pointable"></i> 123</p>
+            
+            <p><i class="vote-btn fa {{#if userLiked}}fa-star{{else}}fa-star-o {{/if}} pointable"></i> {{votes}}</p>
             <p><i class="comment-btn fa fa-comment-o pointable"></i> {{comments}}</p>
         </div>
 
         <div class="col-sm-10">
-            <span class="fa text-success fa-user"> {{author.login}}</span> . {{pubdate}} <strong>propoze...</strong>
+            <i class="fa text-success fa-user"></i><span class="helvetica"> {{author.login}}</span> . <span class="trad-pubdate">{{pubdate}}</span> <strong><span class="helvetica">propoze...</span></strong>
             <p class="prewrap">{{content}}</p>
         </div>
     </div>

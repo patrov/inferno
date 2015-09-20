@@ -11,6 +11,7 @@
         <link href='{{url_for('static', filename='css/inferno.css')}}' rel='stylesheet' type='text/css'/>
         <script type="text/javascript" src="{{url_for('static', filename='js/kimonic/vendor/requirejs/require.js')}}"></script>
 
+
         <script>
             var appPath = "/static/";
         </script>
@@ -73,7 +74,7 @@
             </div>
         </div>
         
-        <footer style="margin-top: 100px; border-top: 1px solid #DBDFEA; padding: 20px">
+        <footer style="bottom: 0px; border-top: 1px solid #DBDFEA; padding: 10px">
             <div class="container">
                 <p>this is my footer</p>
             </div>
@@ -87,6 +88,7 @@
                 Inferno.onError = function () {
                     console.log("error");
                 }
+                Kimo.jQuery(".jumbotron").css("height", Kimo.jQuery(window).height()+"px");
                 Inferno.start({});
 
             },_errorHandler);
