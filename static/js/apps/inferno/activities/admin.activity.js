@@ -35,7 +35,11 @@ define(['Kimo/core', 'bi.forms/user.form'], function (Kimo, UserForm) {
                 UserForm.render("#form-ctn");
             }, 500);
         },
-
+        
+        contributionAction: function () {
+            return {name: "radical"}
+        },
+        
         postAction: function () {},
 
         loginUser: function () {

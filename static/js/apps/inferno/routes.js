@@ -26,6 +26,11 @@ define(["Kimo.NavigationManager"], function (NvgManager) {
             action: "AdminActivity:index"
         },
         
+        "admin:contribution": {
+          url: "#/inferno/admin/contribution",
+          action: "AdminActivity:contribution"
+        },
+        
         "inferno:usercreate": {
             url: "#/inferno/user/create",
             action: "AdminActivity:createUser"

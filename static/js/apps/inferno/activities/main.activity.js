@@ -14,6 +14,8 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
 
             Kimo.ActivityManager.createActivity("MainActivity", {
                 appname: "Inferno",
+                useLayout: false,
+                
                 initView: function() {
                     var rootView = {
                         name: "main-board",
@@ -28,8 +30,15 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                 },
 
                 actionDependencies: {
+                    /* use injector instead :)*/
                 },
-
+                /* @ */
+                indexAction: function(pagerManager, kimoReqest, kimoManager, infernoBlaze) {
+            
+                },
+                
+                
+                
                 onCreate: function () {
                     var self = this;
                     this.currentMode = Kimo.ParamsContainer.get("config");
@@ -67,8 +76,8 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                             return;
                         }
                         self.terzaManager.loadCantoTranslation(lang);
-                        $(".btn-link").removeClass("selected");
-                        $(e.currentTarget).addClass("selected");
+                        $(".available-lang > li").removeClass("active");
+                        $(e.currentTarget).parent("li").addClass("active");
 
                         $(".canto-ctn").hide();
                         var className = lang + "-canto-container";
