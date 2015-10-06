@@ -66,6 +66,17 @@ class User(db.Model):
     
     def get_id(self):
         return unicode(self.id)
+        
+        
+    @staticmethod
+    def get_current_user():
+        current_id = 0
+        with app.app_context():
+            if hasattr(g,'user') and g.user is not None:
+                current_id = g.user.id
+                pprint("user: " + str(cUserId))
+        pprint("strange :" + str(current_id))
+        return current_id
     
     def __rep__(self):
         return '<User %s id: %r>' % (self.login, self.id)
@@ -131,16 +142,6 @@ class Vote(db.Model):
     def __repr__(self):
         return "<vote voter:%s, translation:%s>" % (self.voter.id, self.translation_id)
     
-    @staticmethod
-    def get_current_voter():
-        current_id = 0
-        with app.app_context():
-            if hasattr(g,'user') and g.user is not None:
-                current_id = g.user.id
-                pprint("user: " + str(cUserId))
-        pprint("strange :" + str(current_id))
-        return current_id
-    
     
         
 #Translation model
@@ -179,7 +180,7 @@ class Translation(db.Model):
     
     @property    
     def user_liked(self):
-        return db.session.query(func.count(Vote.id)).filter(Vote.translation_id==self.id).filter(Vote.voter_id ==1).scalar()
+        return db.session.query(func.count(Vote.id)).filter(Vote.translation_id == self.id).filter(Vote.voter_id == Vote.get_current_user()).scalar()
         
     def setState(self, state):
         self.state = state 
