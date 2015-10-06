@@ -46,7 +46,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 
 .tab-pane { padding-top: 10px}
 
-.available-lang {/*padding-top: 30px; */ background-color: white; border-bottom: 1px solid #ebebeb; margin-bottom: 30px; position: fixed; height: 60px; top: 51px; width: 550px; z-index: 999999}
+.available-lang {padding-top: 19px; background-color: white; border-bottom: 1px solid #ebebeb; margin-bottom: 30px; position: fixed; height: 60px; top: 51px; width: 550px; z-index: 999999}
 .available-lang .selected { padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 2px solid #d9edf9 }
 
 #user-translation-text {white-space: pre-wrap; font-family: "Garamond","Georgia",serif; font-size: 1.3em;}
@@ -63,6 +63,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 
 .prewrap {white-space: pre-wrap; padding-top: 5px}
 
+.footer {position: fixed}
 .block-title {border-bottom : 1px solid #eee;  margin-bottom: 10px}
 
 #editor-ctn {background-color: #ecf0f1;}

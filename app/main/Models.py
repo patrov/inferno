@@ -2,19 +2,15 @@ from datetime import datetime
 from flask import Flask, g
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import column_property, object_session
+from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy import select, func, and_
 from flask.ext.login import AnonymousUserMixin
 from pprint import pprint
+from flask.ext.login import current_user
 from app import app, db
+from random import random
 
-with app.app_context():    
-        if hasattr(g,'user') and g.user is not None:
-            cUserId = g.user.id
-            pprint(cUserId)
-        else:
-            cUserId = 0
-        
-        
+              
 class Terza(db.Model):
     no_terza = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
@@ -134,7 +130,18 @@ class Vote(db.Model):
     
     def __repr__(self):
         return "<vote voter:%s, translation:%s>" % (self.voter.id, self.translation_id)
-
+    
+    @staticmethod
+    def get_current_voter():
+        current_id = 0
+        with app.app_context():
+            if hasattr(g,'user') and g.user is not None:
+                current_id = g.user.id
+                pprint("user: " + str(cUserId))
+        pprint("strange :" + str(current_id))
+        return current_id
+    
+    
         
 #Translation model
 class Translation(db.Model):
@@ -154,9 +161,7 @@ class Translation(db.Model):
     
     comments_count = column_property(select([func.count(Comment.id)]).where(Comment.target_id==id).correlate_except(Comment))
     votes_count = column_property(select([func.count(Vote.id)]).where(Vote.translation_id==id).correlate_except(Vote))
-    user_liked = column_property(select([func.count(Vote.id)]).where(and_(Vote.translation_id==id, Vote.voter_id == 1)))
-    
-    
+        
     def __init__(self, content, terza, state=1):
         self.content = content
         self.terza = terza
@@ -171,8 +176,11 @@ class Translation(db.Model):
     def setAuthor(self, author):
         self.author = author
         return self
+    
+    @property    
+    def user_liked(self):
+        return db.session.query(func.count(Vote.id)).filter(Vote.translation_id==self.id).filter(Vote.voter_id ==1).scalar()
         
-             
     def setState(self, state):
         self.state = state 
         return self
