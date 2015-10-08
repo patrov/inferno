@@ -147,7 +147,7 @@ class Translation(db.Model):
     
     no_terza = db.Column(db.Integer, db.ForeignKey("terza.no_terza"))
     terza = db.relationship('Terza', backref = db.backref('translations', lazy='dynamic'))
-    
+    canto_id = db.Column(db.Integer) 
     state = db.Column(db.Integer)
     
     author_id = db.Column(db.Integer, db.ForeignKey("user.id"))

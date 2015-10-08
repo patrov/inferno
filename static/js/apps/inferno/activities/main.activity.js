@@ -9,13 +9,13 @@ window.onerror = function(response) {
     console.log(response);
 };
 
-define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!inferno:comment', 'manager!inferno:contents'],
-        function(Kimo, Pager, terzaManager, CommentManager, ContentMananager) {
+define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!inferno:comment', 'manager!inferno:contents', 'manager!inferno:vote'],
+        function(Kimo, Pager, terzaManager, CommentManager, ContentMananager, VoteManager) {
 
             Kimo.ActivityManager.createActivity("MainActivity", {
                 appname: "Inferno",
                 useLayout: false,
-                
+
                 initView: function() {
                     var rootView = {
                         name: "main-board",
@@ -26,7 +26,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                 },
 
                 events: {
-                    // '.test click': 'sayHello'
+                    '.vote-btn click': 'vote'
                 },
 
                 actionDependencies: {
@@ -34,11 +34,11 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                 },
                 /* @ */
                 indexAction: function(pagerManager, kimoReqest, kimoManager, infernoBlaze) {
-            
+
                 },
-                
-                
-                
+
+
+
                 onCreate: function () {
                     var self = this;
                     this.currentMode = Kimo.ParamsContainer.get("config");
@@ -105,6 +105,15 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     self.templateReady(1);
                 },
 
+                vote: function (e) {
+                    var currentTranslation = $(e.currentTarget).closest('.item').eq(0);
+                    VoteManager.like($(currentTranslation).data("uid"));
+                },
+
+                unVote: function () {
+                    aler("unvote");
+                },
+
                 /* deal with template and manager here
                  * template ayan
                  * */
@@ -127,7 +136,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                 menuComponent: function() {
                     return "<ul><li>Home</li><li>User</li><li>Contribution</li></ul>"
                 },
-                
+
                 showProfileAction: function() {
                     this.data = {sdsd: 'sdsd'};
                     return {name: "Tema "};

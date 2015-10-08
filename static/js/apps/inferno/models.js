@@ -18,14 +18,24 @@ define(["Kimo/core"], function(Kimo) {
         isEmpty: function() {
             return (!this.get("content")) ? true : false;
         },
+
         getPath: function() {
             return "/rest/translation"
         },
+
+        like: function() {
+            return $.ajax({ url: '/rest/vote', type: 'POST',   data :{ data: JSON.stringify({'translation': this.getUid() })}});
+        },
+
+        unLike: function () {
+            //return $.ajax({ url: '/vote/vote', TYPE: 'POST', data: {'translation': translationId }});
+        },
+
         checkData: function() {
             return false;
         }
     }),
-    
+
     /* Comment Item */
     CommentItem = Kimo.ModelManager.createEntity({
         name: "Comment",
@@ -37,31 +47,32 @@ define(["Kimo/core"], function(Kimo) {
             return "/rest/comment"
         }
     }),
-    
+
     /* Vote item */
     VoteItem = Kimo.ModelManager.createEntity({
         name : "Vote",
-        
+
         defaults: {
             translation: null,
             user: null,
             value: null
         },
-        
+
         getPath: function () {
             return "/rest/vote";
         }
     }),
-    
+
     VoteRepository = Kimo.ModelManager.createRepository({
         repositoryName: "VoteRepository",
         model: VoteItem,
-        
+
         getPath: function () {
             return "/rest/vote";
         }
-    }), 
-    
+
+    }),
+
 
     CommentRepository = Kimo.ModelManager.createRepository({
         repositoryName: "CommentRepository",
@@ -80,7 +91,7 @@ define(["Kimo/core"], function(Kimo) {
             return dfd.promise();
         }
     }),
-    
+
     TranslationRepository = Kimo.ModelManager.createRepository({
         repositoryName: "TranslationRepository",
         model: TranslationItem,
@@ -96,7 +107,7 @@ define(["Kimo/core"], function(Kimo) {
                 url: this.getPath(),
                 data: {terza: terza, type: 'contrib'}
             }).done(function(response) {
-                var data = self.setData(response);
+                self.setData(response);
                 dfd.resolve(self.toJson());
             }).fail(dfd.reject);
             return dfd.promise();
@@ -112,7 +123,7 @@ define(["Kimo/core"], function(Kimo) {
         TranslationItem: TranslationItem,
         CommentItem: CommentItem,
         VoteItem : VoteItem,
-        
+
         VoteRepository: VoteRepository,
         TranslationRepository: TranslationRepository,
         CommentRepository: CommentRepository

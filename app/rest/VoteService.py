@@ -24,7 +24,6 @@ class VoteService(restful.Resource):
         vote = None 
         if not hasattr(jsonData, 'id'):
             vote = Vote(jsonData['translation'], g.user)
-            pprint(vote)
         #persist
         db.session.add(vote)
         db.session.commit()

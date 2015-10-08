@@ -3,6 +3,7 @@ from flask import Flask, g
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import column_property, object_session
 from sqlalchemy.ext.declarative import declared_attr
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy import select, func, and_
 from flask.ext.login import AnonymousUserMixin
 from pprint import pprint
@@ -66,18 +67,7 @@ class User(db.Model):
     
     def get_id(self):
         return unicode(self.id)
-        
-        
-    @staticmethod
-    def get_current_user():
-        current_id = 0
-        with app.app_context():
-            if hasattr(g,'user') and g.user is not None:
-                current_id = g.user.id
-                pprint("user: " + str(cUserId))
-        pprint("strange :" + str(current_id))
-        return current_id
-    
+            
     def __rep__(self):
         return '<User %s id: %r>' % (self.login, self.id)
         
@@ -151,6 +141,7 @@ class Translation(db.Model):
     pub_date = db.Column(db.DateTime)
     
     no_terza = db.Column(db.Integer, db.ForeignKey("terza.no_terza"))
+    canto_id = db.Column(db.Integer)
     terza = db.relationship('Terza', backref = db.backref('translations', lazy='dynamic'))
     
     state = db.Column(db.Integer)
@@ -159,7 +150,6 @@ class Translation(db.Model):
     author = db.relationship('User', backref=db.backref('translations', lazy='dynamic'))
     pub_date = db.Column(db.DateTime)
     update_date = db.Column(db.DateTime)
-    
     comments_count = column_property(select([func.count(Comment.id)]).where(Comment.target_id==id).correlate_except(Comment))
     votes_count = column_property(select([func.count(Vote.id)]).where(Vote.translation_id==id).correlate_except(Vote))
         
@@ -178,9 +168,13 @@ class Translation(db.Model):
         self.author = author
         return self
     
-    @property    
+    @property
     def user_liked(self):
-        return db.session.query(func.count(Vote.id)).filter(Vote.translation_id == self.id).filter(Vote.voter_id == Vote.get_current_user()).scalar()
+        if hasattr(current_user, 'id'):
+            current_user_id = int(current_user.id)
+        else:
+            current_user_id = 0
+        return db.session.query(func.count(Vote.id)).filter(Vote.translation_id == self.id).filter(Vote.voter_id == current_user_id).scalar()
         
     def setState(self, state):
         self.state = state 
