@@ -2,15 +2,22 @@ from datetime import datetime
 from flask import Flask, g
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import column_property, object_session
-from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy import select, func, and_
 from flask.ext.login import AnonymousUserMixin
 from pprint import pprint
-from flask.ext.login import current_user
-from app import app, db
-from random import random
 
-              
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/inferno'
+db = SQLAlchemy(app)
+
+with app.app_context():    
+        if hasattr(g,'user') and g.user is not None:
+            cUserId = g.user.id
+            pprint(cUserId)
+        else:
+            cUserId = 0
+        
+        
 class Terza(db.Model):
     no_terza = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
@@ -66,17 +73,6 @@ class User(db.Model):
     
     def get_id(self):
         return unicode(self.id)
-        
-        
-    @staticmethod
-    def get_current_user():
-        current_id = 0
-        with app.app_context():
-            if hasattr(g,'user') and g.user is not None:
-                current_id = g.user.id
-                pprint("user: " + str(cUserId))
-        pprint("strange :" + str(current_id))
-        return current_id
     
     def __rep__(self):
         return '<User %s id: %r>' % (self.login, self.id)
@@ -141,8 +137,8 @@ class Vote(db.Model):
     
     def __repr__(self):
         return "<vote voter:%s, translation:%s>" % (self.voter.id, self.translation_id)
-    
-    
+
+        
 #Translation model
 class Translation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -151,12 +147,8 @@ class Translation(db.Model):
     
     no_terza = db.Column(db.Integer, db.ForeignKey("terza.no_terza"))
     terza = db.relationship('Terza', backref = db.backref('translations', lazy='dynamic'))
-    
+    canto_no = db.Column(db.Integer)
     state = db.Column(db.Integer)
-    no_canto = db.Column(db.Integer)
-    type = db.Column(db.Integer)
-    
-    vote = db.Column(db.Integer)
     
     author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     author = db.relationship('User', backref=db.backref('translations', lazy='dynamic'))
@@ -165,7 +157,9 @@ class Translation(db.Model):
     
     comments_count = column_property(select([func.count(Comment.id)]).where(Comment.target_id==id).correlate_except(Comment))
     votes_count = column_property(select([func.count(Vote.id)]).where(Vote.translation_id==id).correlate_except(Vote))
-        
+    user_liked = column_property(select([func.count(Vote.id)]).where(and_(Vote.translation_id==id, Vote.voter_id == 1)))
+    
+    
     def __init__(self, content, terza, state=1):
         self.content = content
         self.terza = terza
@@ -176,31 +170,17 @@ class Translation(db.Model):
     def setContent(self, content):
         self.content = content
         return self
-    
-    def setCanto(self, no_canto):
-        self.no_canto = no_canto
-    
-    def incrementVote(self):
-        self.vote = self.vote + 1
-        
-    def decrementVote(self):
-        self.vote = self.vote - 1
-        
-    @property
-    def getCanto(self):
-        return self.no_canto
         
     def setAuthor(self, author):
         self.author = author
         return self
-    
-    @property    
-    def user_liked(self):
-        return db.session.query(func.count(Vote.id)).filter(Vote.translation_id == self.id).filter(Vote.voter_id == Vote.get_current_user()).scalar()
         
+             
     def setState(self, state):
         self.state = state 
         return self
         
     def __repr__(self):
-        return "<translation %s>"% self.content   
+        return "<translation %s>"% self.content
+
+   

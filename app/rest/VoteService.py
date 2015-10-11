@@ -1,6 +1,6 @@
 from flask.ext import restful
 from flask import request, g
-from models.Models import db, Translation, User, Vote
+from app.main.Models import db, Translation, User, Vote
 from flask.ext.restful import Resource, reqparse, fields, marshal_with
 
 from pprint import pprint
@@ -24,10 +24,14 @@ class VoteService(restful.Resource):
         vote = None 
         if not hasattr(jsonData, 'id'):
             vote = Vote(jsonData['translation'], g.user)
-            pprint(vote)
         #persist
         db.session.add(vote)
         db.session.commit()
         
         return vote
+        
+    def increment_vote(translationID):
+        translation = db.query(Translation).get(translationID)
+        translation.incrementVote()
+        db.session.commit()
         

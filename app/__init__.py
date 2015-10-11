@@ -29,8 +29,6 @@ from pprint import pprint
 from main.main_app import main_app
 from rest import api_mod
 from auth.mod_auth import auth_mod
-
-
 app.register_blueprint(main_app, url_prefix='/radical')
 app.register_blueprint(api_mod)
 app.register_blueprint(auth_mod)

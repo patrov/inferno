@@ -3,7 +3,7 @@ from flask.ext.login import LoginManager, login_user, current_user
 
 #db & models
 from app import db
-from models.Models import User, AnonymousUser
+from app.main.Models import User, AnonymousUser
 #from pprint import pprint
 
 login_manager = LoginManager()

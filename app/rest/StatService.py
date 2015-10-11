@@ -1,6 +1,6 @@
 from flask.ext import restful
 from flask import request, g
-from models.Models import db, Terza, Translation, User, Comment
+from app.main.Models import db, Terza, Translation, User, Comment
 from flask.ext.restful import Resource, reqparse, fields, marshal_with
 
 from pprint import pprint
