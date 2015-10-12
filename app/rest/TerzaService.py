@@ -2,12 +2,9 @@ from flask.ext import restful
 from flask import request, g
 from app.main.Models import Terza, Translation, User, Comment
 from flask.ext.restful import Resource, reqparse, fields, marshal_with
-import app as t
-
-
-from pprint import pprint
-pprint(dir(t))
+from app import db
 from flask.ext.restful import reqparse
+from pprint import pprint
 import json
 
 terza_fields = {
@@ -16,6 +13,14 @@ terza_fields = {
     'canto': fields.Integer,
     'lang': fields.String,
 }
+
+kreyol_fields = {
+    'no_terza': fields.Integer,
+    'content': fields.String,
+    'canto': fields.Integer(attribute="no_canto"),
+    'lang': fields.String(default='kr')
+}
+
 
 author_fields = {
     'login': fields.String
@@ -29,6 +34,7 @@ translation_fields = {
     'comments': fields.Integer(attribute='comments_count'),
     'pubdate': fields.DateTime(attribute='pub_date'),
     'votes': fields.Integer(attribute='votes_count'),
+    'canto': fields.Integer(attribute='no_canto'), 
     'userLiked': fields.Integer(attribute='user_liked')
 }
 
@@ -42,8 +48,26 @@ comment_fields = {
 }
 
 
+def conditional_marshal(func):
+    '''if lang is kr marshal with kreyol'''
+    def func_wrap(*args, **kwargs):
+        parser = reqparse.RequestParser()
+        parser.add_argument('lang', type=str)
+        args = parser.parse_args()
+        
+        wrapped_func = marshal_with(terza_fields)(func)
+        
+        if hasattr(args, 'lang') and args['lang']== 'kr':
+            wrapped_func = marshal_with(kreyol_fields)(func)
+            
+        return wrapped_func(*args, **kwargs)
+            
+    return func_wrap
+    
+
 class CantoService(restful.Resource):
-    @marshal_with(terza_fields)
+    
+    @conditional_marshal
     def get(self, canto):
         #lang as parameters
         parser = reqparse.RequestParser()
@@ -51,12 +75,17 @@ class CantoService(restful.Resource):
         results = []
         args = parser.parse_args()
         if args['lang'] is not None:
-            results = Terza.query.filter_by(canto = canto, lang=args['lang']).all()
+        
+            if args['lang'] == 'kr':
+                results = Translation.query.filter_by(no_canto = canto).all()
+            else:
+                results = Terza.query.filter_by(canto = canto, lang=args['lang']).all()
         else:
             results = Terza.query.filter_by(canto = canto, lang='it').all()
         
         return results
-        
+    
+    
     
 class TerzaService(restful.Resource):
     
@@ -72,7 +101,7 @@ class TerzaService(restful.Resource):
         if args['lang'] is not None:
             results = Terza.query.filter_by(no_terza = no_terza, lang=args['lang']).first()
         else:
-            results = Terza.query.filter_by(no_terza = no_terza).all()
+            results = Terza.query.filter_by(no_terza = no_terza).all() 
         return results
             
     def put(self): pass
@@ -118,6 +147,9 @@ class TranslationService(restful.Resource):
         else:
             translation = Translation.query.get(jsonData['id'])
             translation.setContent(jsonData['content'])
+        
+        #set Canto
+        translation.setCanto(terza.canto)
         #persist
         db.session.add(translation)
         db.session.commit()
