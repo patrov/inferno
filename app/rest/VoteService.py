@@ -19,19 +19,30 @@ vote_fields = {
 class VoteService(restful.Resource):
     
     @marshal_with(vote_fields)
-    def post(self, translation = None):
-        jsonData = json.loads(request.form['data'])
-        vote = None 
-        if not hasattr(jsonData, 'id'):
-            vote = Vote(jsonData['translation'], g.user)
-        #persist
-        db.session.add(vote)
+    def get(self, no_translation = None, type = 'up'):
+        try :
+            translation = db.session.query(Translation).get(no_translation)
+            vote = Vote.query.filter_by(translation=translation, voter=g.user).first()
+            
+            if type == 'up':
+                if vote is None:
+                    vote = Vote(no_translation,  g.user)
+                    db.session.add(vote)
+                    translation.increment_vote()
+                elif vote.value == 0:
+                    vote.value = 1
+                    translation.increment_vote()                    
+                            
+            if type == 'down':
+                vote = Vote.query.filter_by(translation=translation, voter=g.user).first()
+                vote.value = 0
+                translation.decrement_vote()
+                   
+            db.session.commit()
+            
+        except Exception:
+            raise
+                
         db.session.commit()
-        
-        return vote
-        
-    def increment_vote(translationID):
-        translation = db.query(Translation).get(translationID)
-        translation.incrementVote()
-        db.session.commit()
-        
+        return vote     
+    

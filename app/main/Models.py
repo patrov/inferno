@@ -140,14 +140,13 @@ class Translation(db.Model):
     pub_date = db.Column(db.DateTime)
     
     no_terza = db.Column(db.Integer, db.ForeignKey("terza.no_terza"))
-    canto_id = db.Column(db.Integer)
     terza = db.relationship('Terza', backref = db.backref('translations', lazy='dynamic'))
     
     state = db.Column(db.Integer)
     no_canto = db.Column(db.Integer)
     type = db.Column(db.Integer)
     
-    vote = db.Column(db.Integer)
+    vote = db.Column(db.Integer, default=0)
     
     author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     author = db.relationship('User', backref=db.backref('translations', lazy='dynamic'))
@@ -170,11 +169,15 @@ class Translation(db.Model):
     def setCanto(self, no_canto):
         self.no_canto = no_canto
     
-    def incrementVote(self):
+    def increment_vote(self):
         self.vote = self.vote + 1
         
-    def decrementVote(self):
-        self.vote = self.vote - 1
+    def decrement_vote(self):
+        vote = self.vote - 1
+        if vote < 0:
+            vote = 0
+        return vote
+        
         
     @property
     def getCanto(self):
