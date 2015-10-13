@@ -24,11 +24,11 @@ define(["Kimo/core"], function(Kimo) {
         },
 
         like: function() {
-            return $.ajax({ url: '/rest/vote', type: 'POST',   data :{ data: JSON.stringify({'translation': this.getUid() })}});
+            return $.ajax({ url: this.getPath() + '/vote/' + this.getUid() + '/up', type: 'POST'});
         },
 
         unLike: function () {
-            //return $.ajax({ url: '/vote/vote', TYPE: 'POST', data: {'translation': translationId }});
+            return $.ajax({ url: this.getPath() + '/vote/' + this.getUid() + '/down', type: 'POST'});
         },
 
         checkData: function() {

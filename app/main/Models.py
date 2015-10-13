@@ -189,7 +189,7 @@ class Translation(db.Model):
     
     @property
     def user_liked(self):
-        if hasattr(current_user, 'id'):
+        if hasattr(current_user, 'id') and current_user.id is not None :
             current_user_id = int(current_user.id)
         else:
             current_user_id = 0

@@ -19,7 +19,7 @@ vote_fields = {
 class VoteService(restful.Resource):
     
     @marshal_with(vote_fields)
-    def get(self, no_translation = None, type = 'up'):
+    def post(self, no_translation = None, type = 'up'):
         try :
             translation = db.session.query(Translation).get(no_translation)
             vote = Vote.query.filter_by(translation=translation, voter=g.user).first()
