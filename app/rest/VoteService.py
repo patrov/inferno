@@ -28,14 +28,10 @@ class VoteService(restful.Resource):
                 if vote is None:
                     vote = Vote(no_translation,  g.user)
                     db.session.add(vote)
-                    translation.increment_vote()
-                elif vote.value == 0:
-                    vote.value = 1
-                    translation.increment_vote()                    
+                    translation.increment_vote()                
                             
             if type == 'down':
-                vote = Vote.query.filter_by(translation=translation, voter=g.user).first()
-                vote.value = 0
+                vote = Vote.query.filter_by(translation=translation, voter=g.user).delete()
                 translation.decrement_vote()
                    
             db.session.commit()

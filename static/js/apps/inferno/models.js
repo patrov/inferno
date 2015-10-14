@@ -27,7 +27,7 @@ define(["Kimo/core"], function(Kimo) {
             return $.ajax({ url: this.getPath() + '/vote/' + this.getUid() + '/up', type: 'POST'});
         },
 
-        unLike: function () {
+        disLike: function () {
             return $.ajax({ url: this.getPath() + '/vote/' + this.getUid() + '/down', type: 'POST'});
         },
 

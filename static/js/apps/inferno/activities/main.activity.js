@@ -25,10 +25,6 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     this.setContentView(rootView);
                 },
 
-                events: {
-                    '.vote-btn click': 'vote'
-                },
-
                 actionDependencies: {
                     /* use injector instead :)*/
                 },
@@ -36,7 +32,6 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                 indexAction: function(pagerManager, kimoReqest, kimoManager, infernoBlaze) {
 
                 },
-
 
 
                 onCreate: function () {
@@ -104,16 +99,6 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     var self = this;
                     self.templateReady(1);
                 },
-
-                vote: function (e) {
-                    var currentTranslation = $(e.currentTarget).closest('.item').eq(0);
-                    VoteManager.like($(currentTranslation).data("uid"));
-                },
-
-                unVote: function () {
-                    aler("unvote");
-                },
-
                 /* deal with template and manager here
                  * template ayan
                  * */

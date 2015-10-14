@@ -94,7 +94,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 
 #comment-wrapper{ border-top: 1px solid #3498db;}
 
-#comment-field {padding: 3px; margin: auto; margin-top: 5px; position: relative; border: 2px #3498db solid;  word-wrap: break-word; cursor: text; min-height: 35px; max-height: 50px }
+#comment-field {padding: 3px; margin: auto; margin-top: 5px; position: relative; border: 2px #3498db solid;  word-wrap: break-word; overflow-y: auto; cursor: text; min-height: 35px; max-height: 100px }
 .comment-close-btn { margin-right: -1px !important;}
 
 .comment-list-trad-wrapper {background-color: #ecf0f1; padding: 5px}
