@@ -1,13 +1,20 @@
 from flask import Blueprint, g, request, render_template, redirect, url_for
 from flask.ext import restful
 from pprint import pprint
-
-from app import app
-from flask.ext.login import logout_user, login_required, current_user
+from app.main.Models import User
+from app import app, db
+from flask.ext.login import logout_user, current_user
 from app.auth.AuthManager import login_manager, handle_authentification
+
+# handler flask-user
+from flask.ext.user import UserManager, login_required, SQLAlchemyAdapter, roles_required
 
 auth_mod = Blueprint("auth", __name__)
 login_manager.init_app(app)
+
+# register flask user
+db_adapter = SQLAlchemyAdapter(db, User)
+user_manager = UserManager(db_adapter, app)
 
  
 @auth_mod.route('/logout')
@@ -26,13 +33,28 @@ def login():
         return redirect(request.values.get('next')  or url_for("main.index"))
     return render_template("auth.login.html")
 
+    
+@auth_mod.route('/user/create', methods=['POST','GET'])    
+def create_user():
+    return "create user"
 
+# Edit    
+@auth_mod.route('/user/edit', methods=['POST','GET'])
+@roles_required('admin')
+def edit_user():
+    return "user edited"
+
+@login_required
+@auth_mod.route("/user/members")
+def members_page():
+    return "members page"
+  
+    
 @app.before_request
 def before_request():
     g.user = current_user
     with app.app_context():
         g.user = current_user
-        g.uid = current_user.id
 
 
 

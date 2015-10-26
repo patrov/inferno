@@ -18,14 +18,14 @@ def load_user(userid):
     
     
 def handle_authentification(login, password):
-    user = User.query.filter_by(login=login, password=password).first()
+    user = User.query.filter_by(username=login, password=password).first()
     if user is not None:
         login_user(user)
     else:
         flash("you are in!")
             
 def load_anonymous_user():
-    anonymous_user = User.query.filter_by(login="anonymous").first()
+    anonymous_user = User.query.filter_by(username="anonymous").first()
     if anonymous_user is None:
         db.session.add(current_user)    
         db.session.commit()

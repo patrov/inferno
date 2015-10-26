@@ -8,11 +8,14 @@ from sqlalchemy import select, func, and_
 from flask.ext.login import AnonymousUserMixin
 from pprint import pprint
 from flask.ext.login import current_user
+from flask.ext.user import UserMixin
+
+
 from app import app, db
 from random import random
 
               
-class Terza(db.Model):
+class Terza(db.Model, UserMixin):
     no_terza = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
     canto = db.Column(db.Integer)
@@ -41,23 +44,44 @@ class Terza(db.Model):
         return '<Terza %r>' % self.no_terza
         
 
+        
+#Role and UserRole
+class Role(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(50), unique=True)
+
+class UserRoles(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id', ondelete='CASCADE')) 
+    role_id = db.Column(db.Integer(), db.ForeignKey('role.id', ondelete='CASCADE'))
+    
 #User model
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    login = db.Column(db.String(80), unique=True)
+    username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(120))
     email = db.Column(db.String(120), unique=True)
+    reset_password_token = db.Column(db.String(100), nullable=False, default='')
+    confirmed_at = db.Column(db.DateTime()) 
     #__mapper_args__ = {'polymorphic_on': login}
-        
-    def __init__(self, login, password):
-        self.login = login
+    
+    #User infos
+    is_enabled = db.Column(db.Boolean(), nullable=False, default=False)
+    first_name = db.Column(db.String(50), nullable=False, default='')
+    last_name = db.Column(db.String(50), nullable=False, default='')
+    
+    # Role
+    roles = db.relationship('Role', secondary='user_roles', backref=db.backref('users', lazy='dynamic'))
+    
+    def __init__(self, username, password):
+        self.username = username
         self.password = password
     
     def is_authenticated(self):
         return True
     
     def is_active(self):
-        return True
+        return self.is_enabled
     
     def is_anonymous(self):
         return False
@@ -69,12 +93,13 @@ class User(db.Model):
         return unicode(self.id)
             
     def __rep__(self):
-        return '<User %s id: %r>' % (self.login, self.id)
+        return '<User %s id: %r>' % (self.username, self.id)
         
     def __repr__(self):
         return '<User %s id: %r>' % (self.login, self.id) 
 
 class AnonymousUser(AnonymousUserMixin, User):
+    #id = db.Column(db.Integer, primary_key=True)
     __mapper_args__ = {'polymorphic_identity': 'anonymous'}
     
     def __init__(self):
