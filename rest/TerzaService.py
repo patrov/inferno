@@ -15,7 +15,7 @@ terza_fields = {
 }
 
 author_fields = {
-    'login': fields.String
+    'login': fields.String(attribute='username')
 }
 
 translation_fields = {
@@ -95,7 +95,7 @@ class TranslationService(restful.Resource):
     
     #add pagination after
     def get_contrib_translation(self, terza):
-        results = Translation.query.filter_by(no_terza=terza).filter(User.login != g.user.login).all()
+        results = Translation.query.filter_by(no_terza=terza).filter(User.username != g.user.username).all()
         return results
     
     
@@ -124,9 +124,9 @@ class TranslationService(restful.Resource):
 class UserService(restful.Resource):
     
     def post(self):
-        user =  User.query.filter_by(login=request.form['login']).first()
+        user =  User.query.filter_by(username=request.form['username']).first()
         if user is None:
-            user = User(request.form.get('login'), request.form.get('password'))
+            user = User(request.form.get('username'), request.form.get('password'))
             user.setEmail(request.form.get('email'))
             db.session.add(user)
             db.session.commit()

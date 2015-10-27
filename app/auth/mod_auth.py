@@ -44,8 +44,8 @@ def create_user():
 def edit_user():
     return "user edited"
 
-@login_required
 @auth_mod.route("/user/members")
+@login_required
 def members_page():
     return "members page"
   

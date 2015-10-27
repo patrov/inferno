@@ -11,11 +11,11 @@ from flask.ext.login import current_user
 from flask.ext.user import UserMixin
 
 
-from app import app, db
+from app import db
 from random import random
 
               
-class Terza(db.Model, UserMixin):
+class Terza(db.Model):
     no_terza = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
     canto = db.Column(db.Integer)
@@ -73,9 +73,10 @@ class User(db.Model, UserMixin):
     # Role
     roles = db.relationship('Role', secondary='user_roles', backref=db.backref('users', lazy='dynamic'))
     
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
+    #def __init__(self, username, password, is_enabled=True):
+    #    self.username = username
+    #    self.password = password
+    #    super(User, self).__init__(args)
     
     def is_authenticated(self):
         return True
@@ -95,15 +96,16 @@ class User(db.Model, UserMixin):
     def __rep__(self):
         return '<User %s id: %r>' % (self.username, self.id)
         
-    def __repr__(self):
-        return '<User %s id: %r>' % (self.login, self.id) 
 
-class AnonymousUser(AnonymousUserMixin, User):
+class AnonymousUser(User, AnonymousUserMixin):
     #id = db.Column(db.Integer, primary_key=True)
     __mapper_args__ = {'polymorphic_identity': 'anonymous'}
-    
+    username = "anonymous"
     def __init__(self):
         return None
+    
+    def is_active():
+        return False
         
     def is_authenticated(self):
         return False

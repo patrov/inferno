@@ -23,7 +23,7 @@ kreyol_fields = {
 
 
 author_fields = {
-    'login': fields.String
+    'login': fields.String(attribute='username')
 }
 
 translation_fields = {
@@ -122,12 +122,13 @@ class TranslationService(restful.Resource):
         if args.type is not None :
             results = self.get_contrib_translation(args['terza'])
         else:
+            print g.user
             results = Translation.query.filter_by(author=g.user, no_terza=args['terza']).first() #deal with version
         return results
     
     #add pagination after
     def get_contrib_translation(self, terza):
-        results = Translation.query.filter_by(no_terza=terza).filter(User.login != g.user.login).all()
+        results = Translation.query.filter_by(no_terza=terza).filter(User.username != g.user.username).all()
         return results
     
     
