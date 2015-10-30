@@ -63,7 +63,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 
 .prewrap {white-space: pre-wrap; padding-top: 5px}
 
-.footer {position: fixed}
+footer {position: fixed; right: 0; left: 0}
 .block-title {border-bottom : 1px solid #eee;  margin-bottom: 10px}
 
 #editor-ctn {background-color: #ecf0f1;}

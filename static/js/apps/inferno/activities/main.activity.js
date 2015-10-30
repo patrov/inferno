@@ -48,8 +48,10 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
 
                     /* canto change */
                     this.pagerManager.getPager().on("cantoSelection", function(e, canto) {
+                        Kimo.ParamsContainer.set("currentCanto", canto);
                         self.terzaManager.loadCanto(canto);
                         Kimo.NavigationManager.getRouter().updateRoute("#/inferno/canto/"+canto);
+
                     });
 
                     Kimo.Observable.on('CantoLoaded', function() {
@@ -104,18 +106,15 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                  * */
                 showCantoAction: function(no) {
                     var self = this;
-                    /*
-                     * ComponentHandler.on("pager:id", "selected", function () {});
-                     **/
+
                     this.on("viewReady", function(render) {
+
                         self.pagerManager.showCantoPager(render.find(".col-sm-1").eq(0));
                         self.pagerManager.selectCanto(parseInt(no, 10));
+                        Kimo.ParamsContainer.set("currentCanto", no);
+
                     });
                     self.templateReady(no);
-                },
-
-                sayHello: function() {
-                    alert("sdsd");
                 },
 
                 menuComponent: function() {

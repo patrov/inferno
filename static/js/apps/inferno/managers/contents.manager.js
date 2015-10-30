@@ -69,6 +69,9 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 try {
                     loadTranslation(noTerza).done(function (response) {
                         var translation = new Models.TranslationItem(response);
+                        if (translation.isEmpty()) {
+                            translation.set("canto", parseInt(Kimo.ParamsContainer.get("currentCanto")));
+                        }
                         terzaEditor.setTranslation(translation);
                     });
                 } catch (e) {
@@ -87,12 +90,12 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             },
 
             hideCommentZone = function () {
-        
+
                 if (viewmodeManager.getCurrentMode() === "comment") {
                     viewmodeManager.switchViewMode("terza");
                 }
             },
-       
+
             handleTerzaStats = function (html, terzaNo) {
                 $.get("/rest/stats/terza/"+terzaNo).done(function (stats){
                     if (stats && stats.hasOwnProperty('translation')) {
@@ -100,10 +103,11 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                     }
                 });
             },
-                    
+
             displayTerzaEditor = function () {
                 var translationItem = new Models.TranslationItem({}),
                     currentTerza = terzaManager.getCurrentTerza();
+
                 translationItem.set("terza", currentTerza);
                 terzaEditor.configure({
                     mode: "create",
@@ -121,6 +125,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 var editorView;
                 $(terzaEditor).val(translationItem.get("content"));
                 $(render).hide();
+
                 terzaEditor.configure({
                     mode: "edit",
                     translation: translationItem,

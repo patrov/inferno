@@ -10,17 +10,17 @@ from app.auth.AuthManager import login_manager, handle_authentification
 from flask.ext.user import UserManager, login_required, SQLAlchemyAdapter, roles_required
 
 auth_mod = Blueprint("auth", __name__)
-login_manager.init_app(app)
 
 # register flask user
 db_adapter = SQLAlchemyAdapter(db, User)
-user_manager = UserManager(db_adapter, app)
+
+#handle AnonymousUser
+user_manager = UserManager(db_adapter, app, login_manager = login_manager)
 
  
 @auth_mod.route('/logout')
 @login_required
 def logout():
-    logout_user()
     return redirect(url_for("index"))   
 
     
@@ -38,7 +38,8 @@ def login():
 def create_user():
     return "create user"
 
-# Edit    
+# Edit
+
 @auth_mod.route('/user/edit', methods=['POST','GET'])
 @roles_required('admin')
 def edit_user():
@@ -48,13 +49,15 @@ def edit_user():
 @login_required
 def members_page():
     return "members page"
-  
+
+@auth_mod.route("/user/anonymous")
+def test_member():
+    pprint(g.user)
+    return "strange"
     
 @app.before_request
 def before_request():
     g.user = current_user
-    with app.app_context():
-        g.user = current_user
 
 
 

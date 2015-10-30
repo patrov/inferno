@@ -134,24 +134,21 @@ class TranslationService(restful.Resource):
     
     @marshal_with(translation_fields)
     def post(self):
-        """parser = reqparse.RequestParser()
-        parser.add_argument('no_terza', type=str, required=True)
-        request_params = parser.parse_args()"""
-        
+           
         jsonData = json.loads(request.form['data']) 
         terza = Terza.query.filter_by(no_terza=jsonData['terza']).first()
         
         #should be provided by flask user hasttr instead
         if jsonData['id'] == 0 :
             translation = Translation(jsonData['content'], terza, jsonData['state'])
-            translation.setAuthor(g.user)
+            with db.session.no_autoflush:
+                translation.setAuthor(g.user)
+                translation.setCanto(jsonData['canto'])
         else:
             translation = Translation.query.get(jsonData['id'])
             translation.setContent(jsonData['content'])
-        
-        #set Canto
-        translation.setCanto(terza.canto)
-        #persist
+            translation.setCanto(terza.canto)
+            
         db.session.add(translation)
         db.session.commit()
         return translation

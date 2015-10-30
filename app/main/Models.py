@@ -182,19 +182,25 @@ class Translation(db.Model):
     comments_count = column_property(select([func.count(Comment.id)]).where(Comment.target_id==id).correlate_except(Comment))
     votes_count = column_property(select([func.count(Vote.id)]).where(Vote.translation_id==id).correlate_except(Vote))
         
-    def __init__(self, content, terza, state=1):
+    def __init__(self, content, terza, state=1, type=0):
         self.content = content
         self.terza = terza
         self.state = state
         self.pub_date = datetime.utcnow()
         self.update_date = datetime.utcnow()
+        self.type = type 
     
     def setContent(self, content):
         self.content = content
         return self
     
+    def setType(self, type):
+        self.type = type
+        return self
+        
     def setCanto(self, no_canto):
         self.no_canto = no_canto
+        return self
     
     def increment_vote(self):
         self.vote = self.vote + 1

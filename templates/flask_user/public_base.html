@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en_EN">
+    <head>
+        <meta encoding="utf-8">
+        <title>Showroom</title>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/bootstrap/dist/css/bootstrap.min.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/fontawesome/css/font-awesome.min.css')}}"/>
+
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+        <link href='{{url_for('static', filename='css/inferno.css')}}' rel='stylesheet' type='text/css'/>
+    </head>
+    <body style="background:url(js/adpps/inferno/assets/images/blue-bg.jpg) 0 0 fixed;">
+        <!-- Static navbar -->
+
+			<header>
+			
+				<div class="navbar navbar-default" role="navigation">
+						
+						<div class="container">
+							
+							<div class="row">
+								<div class="col-sm-12">
+
+									<div class="navbar-header">
+										<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+											<span class="sr-only">Toggle navigation</span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+										</button>
+										<a class="navbar-brand" href="/index">Babelio inferno : Dante An Kreyol</a>
+									</div>
+								
+								</div>
+							</div>
+
+						</div>
+						
+				</div>
+				
+			</header>
+			
+		<div class="container">
+		
+            <div class="col-sm-6">
+				<h2>Babelio inferno</h2>
+				<div class="jumbotron"> 
+					<p>
+						Yon kontribisyon nan efd poun ranfse lang kreyòl la.
+						<strong>Inferno</strong> se yon platfòm ki pèmèt nou tradwi
+						an kreyòl poèm <em>Inferno</em> ke Dante te ekri.
+					</p>
+				</div>
+            </div>
+
+            <div class="col-sm-6">{% block content %}{% endblock %} </div>
+		</div>
+    </body>
+</html>
+
+

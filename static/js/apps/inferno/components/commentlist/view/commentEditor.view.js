@@ -10,7 +10,7 @@ require(["Kimo/core", "text!bi.components/commentlist/templates/comment.editor.h
         events: {
             ".add-comment click": "saveComment"
         },
-       
+
         init: function () {
             this.currentValue = "";
             this.root = $(editor).clone();
@@ -56,8 +56,16 @@ require(["Kimo/core", "text!bi.components/commentlist/templates/comment.editor.h
 
         saveComment: function () {
             this.disableEditor();
+            var result = [],
+                commentHtml = this.editableField.html();
+                
+             Kimo.jQuery(commentHtml).each(function(i) {
+                result.push(Kimo.jQuery.text(commentHtml[i]));
+             });
+
+
             this.entity.create({
-                content: this.editableField.html(),
+                content: result.join("\n"),
                 target: this.target.id
                 });
                 this.reset();

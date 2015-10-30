@@ -60,10 +60,15 @@ define(['Kimo/core', 'jquery', 'bootstrap'], function(Kimo, jQuery) {
             this.select(prevPage);
         },
 
-        selectCanto: function(no) {
+        selectCanto: function(no, triggerEvent) {
+
             this.state.selected = no;
-            var currentPage = Math.ceil(no / this.settings.itemsOnPage);
+            var currentPage = Math.ceil(no / this.settings.itemsOnPage),
+            triggerEvent = triggerEvent || false;
             this.select(currentPage);
+            if (triggerEvent) {
+                this.trigger("cantoSelection", {}, no);
+            }
         },
 
         select: function(noPage, silent) {

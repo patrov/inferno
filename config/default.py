@@ -8,7 +8,10 @@ class InfernoConfig(object):
     USER_ENABLE_LOGIN_WITHOUT_CONFIRM = False
     USER_AFTER_LOGIN_ENDPOINT = 'main.index'
     USER_AFTER_LOGOUT_ENDPOINT = 'main.index'
-    USER_AFTER_REGISTER_ENDPOINT = 'main.idex'
+    USER_AFTER_REGISTER_ENDPOINT = 'main.index'
+    
+    # Flask-User Login
+                 
     
     # Flask-Mail
     MAIL_USERNAME = ''

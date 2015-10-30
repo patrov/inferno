@@ -112,9 +112,12 @@ class TranslationService(restful.Resource):
         if jsonData['id'] == 0 :
             translation = Translation(jsonData['content'], terza, jsonData['state'])
             translation.setAuthor(g.user)
+            translation.setCanto(jsonData['canto'])
         else:
             translation = Translation.query.get(jsonData['id'])
             translation.setContent(jsonData['content'])
+            if translation.no_canto == 0:
+               translation.setCanto(terza.canto) 
         #persist
         db.session.add(translation)
         db.session.commit()
