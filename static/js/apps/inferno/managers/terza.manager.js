@@ -55,7 +55,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             clonedNode = $(terzaNode).clone(true);
             $(terzaNode).addClass("selected");
             if (triggerEvent) {
-                Kimo.Observable.trigger("TerzaSelection", $(clonedNode), this.currentTerzaNo);
+                Kimo.Observable.trigger("TerzaSelection", $(clonedNode), this.currentTerzaNo, terzaNode);
             }
             this.showLanguages($(clonedNode));
         },
@@ -136,7 +136,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                     lang:this.currentLang
                     };
             }
-            
+
             this.currentCanto = noCanto;
             $.ajax(restParams).done(function (response) {
                 self.populateStanzas(response, self.currentLang);
