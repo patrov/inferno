@@ -1,6 +1,8 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 import jinja2
+import os
+import os.path
 
 class MyApp(Flask):
     
@@ -22,6 +24,11 @@ class MyApp(Flask):
 
 app = Flask(__name__, static_folder='../static', template_folder='../templates')
 app.config.from_object("config.default.InfernoConfig")
+
+# ROOT
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
+APP_ROOT = os.path.abspath(os.path.join(APP_ROOT, os.pardir))
+
 # load prod settings
 db = SQLAlchemy(app)
 

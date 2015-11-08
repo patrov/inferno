@@ -16,11 +16,12 @@ from random import random
 
               
 class Terza(db.Model):
-    no_terza = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.Text)
+    id = db.Column(db.Integer, primary_key=True)
+    no_terza = db.Column(db.Integer)
     canto = db.Column(db.Integer)
+    content = db.Column(db.Text)
     lang = db.Column(db.String(4))
-
+    
     def __init__(self, no_terza, content, canto, lang):
         self.no_terza = no_terza
         self.content = content
@@ -166,7 +167,7 @@ class Translation(db.Model):
     content = db.Column(db.Text)
     pub_date = db.Column(db.DateTime)
     
-    no_terza = db.Column(db.Integer, db.ForeignKey("terza.no_terza"))
+    no_terza = db.Column(db.Integer, db.ForeignKey("terza.id"))
     terza = db.relationship('Terza', backref = db.backref('translations', lazy='dynamic'))
     
     state = db.Column(db.Integer)
