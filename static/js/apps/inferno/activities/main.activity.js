@@ -29,7 +29,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     /* use injector instead :)*/
                 },
                 /* @ */
-                indexAction: function(pagerManager, kimoReqest, kimoManager, infernoBlaze) {
+                indexAction: function(pagerManager, kimoRequest, kimoManager, infernoBlaze) {
 
                 },
 

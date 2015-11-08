@@ -13,6 +13,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             terzaNode = null,
             isConfigured = false,
             previousEditedContent = null,
+            previousSelection = null,
 
             configure = function (userConfig) {
                 if (isConfigured == true) {
@@ -87,7 +88,20 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 Kimo.Observable.on("TerzaSelection", handleTranslation);
                 Kimo.Observable.on("TerzaSelection", handleTerzaStats);
                 Kimo.Observable.on("TerzaSelection", hideCommentZone);
+                Kimo.Observable.on("TerzaSelection", showEditorForm);
             },
+
+            showEditorForm = function (clonedNode, noTerza, currentSelection) {
+                if (previousSelection) {
+                    $(previousSelection).show();
+                }
+                var ctn = $("<div/>");
+                displayTerzaEditor(ctn);
+                $(currentSelection).after(ctn);
+                $(currentSelection).hide();
+                previousSelection = currentSelection;
+            },
+
 
             hideCommentZone = function () {
 
@@ -104,8 +118,9 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 });
             },
 
-            displayTerzaEditor = function () {
+            displayTerzaEditor = function (container) {
                 var translationItem = new Models.TranslationItem({}),
+                    container = container || "#editor-ctn",
                     currentTerza = terzaManager.getCurrentTerza();
 
                 translationItem.set("terza", currentTerza);
@@ -114,7 +129,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                     repository: Models.TranslationRepository,
                     translation: translationItem
                 });
-                terzaEditor.render("#editor-ctn");
+                terzaEditor.render(container);
             },
 
             /* create a stranza editor */
