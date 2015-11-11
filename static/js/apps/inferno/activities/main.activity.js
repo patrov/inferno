@@ -28,6 +28,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                 actionDependencies: {
                     /* use injector instead :)*/
                 },
+				
                 /* @ */
                 indexAction: function(pagerManager, kimoRequest, kimoManager, infernoBlaze) {
 
@@ -36,28 +37,31 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
 
                 onCreate: function () {
                     var self = this;
+                    Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded', 'EnterCommentMode', 'disabledCanto']);
                     this.currentMode = Kimo.ParamsContainer.get("config");
                     this.terzaManager = terzaManager;
                     this.contentsManager = ContentMananager;
-                    this.pagerManager = Pager.configure({root: this.view.view});
-                    this.commentManager = CommentManager.configure({root: this.view.view, viewMode: this.currentMode.mode });
-                    this.terzaManager.configure({ root: this.view.view, canto: 1, viewMode: this.currentMode.mode});
-                    this.contentsManager.configure({root: this.view.view, viewMode: this.currentMode.mode });
+                    this.pagerManager = Pager.configure({ root: this.view.view, viewMode: this.currentMode.mode });
+                    this.commentManager = CommentManager.configure({ root: this.view.view, viewMode: this.currentMode.mode });
+                    this.terzaManager.configure({ root: this.view.view, canto: 1, viewMode: this.currentMode.mode });
+                    this.contentsManager.configure({ root: this.view.view, viewMode: this.currentMode.mode });
                     this.initTabs();
-                    Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded', 'EnterCommentMode']);
 
                     /* canto change */
                     this.pagerManager.getPager().on("cantoSelection", function(e, canto) {
                         Kimo.ParamsContainer.set("currentCanto", canto);
                         self.terzaManager.loadCanto(canto);
                         Kimo.NavigationManager.getRouter().updateRoute("#/inferno/canto/"+canto);
-
                     });
 
                     Kimo.Observable.on('CantoLoaded', function() {
                         self.terzaManager.selectTerzaByPosition(1);
                     });
-
+                    
+                    Kimo.Observable.on('disabledCanto', function() {
+                       alert("O poko ka editer chan sa a. ");
+                    });
+                    
                     Kimo.Observable.on('CantoTranslationLoaded', function() {
                         self.terzaManager.selectTerza(self.terzaManager.getCurrentTerza(), false);
                     });

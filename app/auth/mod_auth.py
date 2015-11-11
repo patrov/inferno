@@ -5,7 +5,7 @@ from app.main.Models import User
 from app import app, db
 from flask.ext.login import logout_user, current_user
 from app.auth.AuthManager import login_manager, handle_authentification
-
+from app.auth.validators import inferno_password_validator
 # handler flask-user
 from flask.ext.user import UserManager, login_required, SQLAlchemyAdapter, roles_required
 
@@ -15,7 +15,7 @@ auth_mod = Blueprint("auth", __name__)
 db_adapter = SQLAlchemyAdapter(db, User)
 
 #handle AnonymousUser
-user_manager = UserManager(db_adapter, app, login_manager = login_manager)
+user_manager = UserManager(db_adapter, app, password_validator = inferno_password_validator, login_manager = login_manager)
 
  
 @auth_mod.route('/logout')

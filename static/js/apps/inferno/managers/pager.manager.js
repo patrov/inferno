@@ -44,30 +44,31 @@ define(["Kimo/core", "bi.components/cantopager/main"], function(Kimo) {
             return roman;
         }
         ,
-                pagerInstance = null,
-                selectCanto = function(no) {
+        pagerInstance = null,
+        selectCanto = function(no) {
             pagerInstance.selectCanto(no);
         },
-                showPager = function(container) {
+        showPager = function(container) {
             pagerInstance.render(container);
         },
-                configure = function(settings) {
-            try {
-                pagerInstance = Kimo.createEntityView("CantoPager", {
-                    root: settings.root,
-                    settings: {
-                        itemRenderer: function(page) {
-                            return Kimo.jQuery("<div/>").html("Chan<br /> " + toRoman(page)).addClass("canto-link");
-                        }
-                    }
-                });
+        configure = function(settings) {
+			try {
+				pagerInstance = Kimo.createEntityView("CantoPager", {
+					root: settings.root,
+					settings: {
+						itemRenderer: function(page) {
+							return Kimo.jQuery("<div/>").html("Chan<br /> " + toRoman(page)).addClass("canto-link");
+						}
+					}
+				});
 
-                return getApi();
-            } catch (e) {
-                console.log(e);
-            }
+				return getApi();
+			} catch (e) {
+				console.log(e);
+			}
         },
-                getApi = function() {
+		
+        getApi = function() {
             return {
                 selectCanto: selectCanto,
                 showCantoPager: showPager,
@@ -78,6 +79,7 @@ define(["Kimo/core", "bi.components/cantopager/main"], function(Kimo) {
         }
         return {configure: configure};
     }());
+	
     return PagerManager;
 
 });
