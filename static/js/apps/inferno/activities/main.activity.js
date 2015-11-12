@@ -28,7 +28,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                 actionDependencies: {
                     /* use injector instead :)*/
                 },
-				
+
                 /* @ */
                 indexAction: function(pagerManager, kimoRequest, kimoManager, infernoBlaze) {
 
@@ -39,9 +39,11 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     var self = this;
                     Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded', 'EnterCommentMode', 'disabledCanto']);
                     this.currentMode = Kimo.ParamsContainer.get("config");
+                    Kimo.ParamsContainer.set("translated", 1);
                     this.terzaManager = terzaManager;
                     this.contentsManager = ContentMananager;
-                    this.pagerManager = Pager.configure({ root: this.view.view, viewMode: this.currentMode.mode });
+
+                    this.pagerManager = Pager.configure({ root: this.view.view, viewMode: this.currentMode});
                     this.commentManager = CommentManager.configure({ root: this.view.view, viewMode: this.currentMode.mode });
                     this.terzaManager.configure({ root: this.view.view, canto: 1, viewMode: this.currentMode.mode });
                     this.contentsManager.configure({ root: this.view.view, viewMode: this.currentMode.mode });
@@ -57,11 +59,11 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     Kimo.Observable.on('CantoLoaded', function() {
                         self.terzaManager.selectTerzaByPosition(1);
                     });
-                    
+
                     Kimo.Observable.on('disabledCanto', function() {
                        alert("O poko ka editer chan sa a. ");
                     });
-                    
+
                     Kimo.Observable.on('CantoTranslationLoaded', function() {
                         self.terzaManager.selectTerza(self.terzaManager.getCurrentTerza(), false);
                     });

@@ -9,6 +9,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
         },
             currentTerza = null,
             terzaEditor = null,
+            terzaEditorForm = null,
             translationList = null,
             terzaNode = null,
             isConfigured = false,
@@ -32,6 +33,12 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 terzaEditor = Kimo.createEntityView("terzaEditorView", {
                     root: config.root,
                     viewMode: config.viewMode
+                });
+
+                terzaEditorForm = Kimo.createEntityView("terzaEditorView", {
+                  entity: Models.TranslationRepository,
+                  root: config.root,
+                  viewMode: config.viewMode
                 });
 
                 $("#contributions").html(translationsView.render());
@@ -91,7 +98,12 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 Kimo.Observable.on("TerzaSelection", showEditorForm);
             },
 
+            /*
+             * show edition actions
+             **/
             showEditorForm = function (clonedNode, noTerza, currentSelection) {
+
+                //return;
                 if (previousSelection) {
                     $(previousSelection).show();
                 }

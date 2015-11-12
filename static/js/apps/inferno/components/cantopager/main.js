@@ -16,7 +16,7 @@ define(['Kimo/core', 'jquery', 'bootstrap'], function(Kimo, jQuery) {
             items: 34,
             itemsOnPage: 7,
             selected: 1,
-            disabledRange: [2, 'max'],
+            disabledRange: [],
             ellipsis: "...",
             currentPage: 1,
             selectedCls: "selected"
@@ -136,13 +136,11 @@ define(['Kimo/core', 'jquery', 'bootstrap'], function(Kimo, jQuery) {
             }
 
             /* compute ranges */
-            result = [];
-            console.log(this.disabledRange);
+            var result = [];
             for (var i = this.disabledRange[0]; i <= this.disabledRange[1]; i++) {
                 result.push(i);
             }
             this.disabledRange = result;
-
         }
 
     });

@@ -52,6 +52,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         },
 
         showActions: function(e) {
+            alert("read");
             var item = e.currentTarget;
             $(item).append(itemActions);
         },

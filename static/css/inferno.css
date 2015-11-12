@@ -13,7 +13,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 
 #trad-container {margin-top: 30px}
 .lang-choice {font-family: helvetica,arial,"lucida grande",sans-serif;}
-.fr-canto-container, .eng-canto-container, it-canto-container {font-size: 0.8em;}
+.fr-canto-container, .eng-canto-container, it-canto-container {}
 .col-sm-4 #editing-zone {font-size: 0.8em}
 
 .trad-pubdate {font-family: helvetica,arial,"lucida grande",sans-serif}
@@ -37,7 +37,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 .shadowed-box {box-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; background-color: white}
 
 .stz-editor { margin: 5px; background-color: white; box-shadow: 0 1px 2px rgba(0,0,0,.1); text-align: center }
-.canto-ctn {padding-top : 65px }
+.canto-ctn {padding-top : 65px; padding-bottom: 30px; background-color: #f8f8f8 }
 .other-translation { margin-top: 10px; padding-top: 10px}
 
 .save-btn { margin-top: 5px }
@@ -63,7 +63,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 
 .prewrap {white-space: pre-wrap; padding-top: 5px}
 
-footer {position: fixed; right: 0; left: 0}
+footer {position: fixed; right: 0; left: 0; background-color: #f8f8f8; height: 30px; padding: 0px}
 .block-title {border-bottom : 1px solid #eee;  margin-bottom: 10px}
 
 #editor-ctn {background-color: #ecf0f1;}
