@@ -97,20 +97,19 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 Kimo.Observable.on("TerzaSelection", handleTranslation);
                 Kimo.Observable.on("TerzaSelection", handleTerzaStats);
                 Kimo.Observable.on("TerzaSelection", hideCommentZone);
-                //Kimo.Observable.on("TerzaSelection", showEditorForm);
+                Kimo.Observable.on("TerzaSelection", showEditorForm);
             },
 
             /*
              * show edition actions
              **/
             showEditorForm = function (clonedNode, noTerza, currentSelection) {
-
-                return;
+                //return;
                 if (previousSelection) {
                     $(previousSelection).show();
                 }
                 var ctn = $("<div/>");
-                displayTerzaWidget(ctn);
+                displayTerzaForm(ctn);
                 $(currentSelection).after(ctn);
                 $(currentSelection).hide();
                 previousSelection = currentSelection;
@@ -125,11 +124,26 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             },
 
             handleTerzaStats = function (html, terzaNo) {
-                $.get("/rest/stats/terza/"+terzaNo).done(function (stats){
+                $.get("/rest/stats/terza/"+terzaNo).done(function (stats) {
                     if (stats && stats.hasOwnProperty('translation')) {
                         $("#contrib_stats_label").text(stats.translation);
                     }
                 });
+            },
+
+            displayTerzaForm = function (ctn) {
+                var translationItem = new Models.TranslationItem({}),
+                    currentTerza = terzaManager.getCurrentTerza();
+                translationItem.set("terza", currentTerza);
+
+               if (terzaEditorForm) {
+                   terzaEditorForm.configure({
+                       mode: "edit",
+                       repository: Model.TranslationRepository,
+                       translation:  translationItem
+                   });
+                   terzaEditorForm.render(ctn);
+               }
             },
 
             displayTerzaWidget = function (container) {
