@@ -109,7 +109,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                     $(previousSelection).show();
                 }
                 var ctn = $("<div/>");
-                displayTerzaForm(ctn);
+                displayTerzaForm(clonedNode, ctn);
                 $(currentSelection).after(ctn);
                 $(currentSelection).hide();
                 previousSelection = currentSelection;
@@ -131,10 +131,12 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 });
             },
 
-            displayTerzaForm = function (ctn) {
+            displayTerzaForm = function (terzaNode, ctn) {
                 var translationItem = new Models.TranslationItem({}),
                     currentTerza = terzaManager.getCurrentTerza();
                 translationItem.set("terza", currentTerza);
+                terzaEditorForm.setTerzaRender($(terzaNode).html());
+                terzaEditorForm.setTerza(currentTerza);
 
                if (terzaEditorForm) {
                    terzaEditorForm.configure({
