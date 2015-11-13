@@ -139,7 +139,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                if (terzaEditorForm) {
                    terzaEditorForm.configure({
                        mode: "edit",
-                       repository: Model.TranslationRepository,
+                       repository: Models.TranslationRepository,
                        translation:  translationItem
                    });
                    terzaEditorForm.render(ctn);
