@@ -100,6 +100,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
     Kimo.registerEntityView({
         CREATE_MODE: "create",
         EDIT_MODE: "edit",
+        SHOW_MODE: "show",
         name: "terzaEditorView",
         events: {
             "#cancel-btn click": "doCancel",
@@ -146,9 +147,13 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             if (config.mode == this.CREATE_MODE) {
                 this.widget.find("#save-draft-btn, #propose-btn, #cancel-btn").show();
             }
-
             if (config.mode == this.EDIT_MODE) {
                 this.widget.find("#save-draft-btn, #cancel-btn").show();
+            }
+            if (config.mode == this.SHOW_MODE) {
+                this.widget.find(".current-translation").hide();
+                this.widget.find(".fa-edit").hide();
+                this.widget.find(".fa-remove").hide();
             }
             this.bindEvents();
         },

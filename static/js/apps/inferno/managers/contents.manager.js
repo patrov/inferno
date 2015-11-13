@@ -8,7 +8,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             contentTpl: "<p class='stz'>{{content}} <span><strong>Mwen menm</strong></span></p>"
         },
             currentTerza = null,
-            terzaEditor = null,
+            terzaWidget = null,
             terzaEditorForm = null,
             translationList = null,
             terzaNode = null,
@@ -30,7 +30,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                     contentBadge: ".content-badge"
                 });
 
-                terzaEditor = Kimo.createEntityView("terzaEditorView", {
+                terzaWidget = Kimo.createEntityView("terzaEditorView", {
                     root: config.root,
                     viewMode: config.viewMode
                 });
@@ -53,12 +53,14 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 isConfigured = true;
             },
 
-            setCurrentTerza = function (html, no) {
+            showUserTranslation = function (html, no) {
                 currentTerza = no;
                 terzaNode = html;
-                terzaEditor.setTerzaRender($(terzaNode).html());
-                terzaEditor.setTerza(currentTerza);
-                displayTerzaEditor();
+                terzaWidget.setTerzaRender($(terzaNode).html());
+                terzaWidget.setTerza(currentTerza);
+                displayTerzaWidget();
+
+                /* transalation list */
                 displayUserContributions(currentTerza);
             },
 
@@ -80,7 +82,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                         if (translation.isEmpty()) {
                             translation.set("canto", parseInt(Kimo.ParamsContainer.get("currentCanto")));
                         }
-                        terzaEditor.setTranslation(translation);
+                        terzaWidget.setTranslation(translation);
                     });
                 } catch (e) {
                     console.log(e);
@@ -91,11 +93,11 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             bindEvents = function () {
                 Kimo.Observable.registerEvents(['TranslationEditTask', 'TerzaSelection']);
                 Kimo.Observable.on("TranslationEditTask", editContent);
-                Kimo.Observable.on("TerzaSelection", setCurrentTerza);
+                Kimo.Observable.on("TerzaSelection", showUserTranslation);
                 Kimo.Observable.on("TerzaSelection", handleTranslation);
                 Kimo.Observable.on("TerzaSelection", handleTerzaStats);
                 Kimo.Observable.on("TerzaSelection", hideCommentZone);
-                Kimo.Observable.on("TerzaSelection", showEditorForm);
+                //Kimo.Observable.on("TerzaSelection", showEditorForm);
             },
 
             /*
@@ -103,12 +105,12 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
              **/
             showEditorForm = function (clonedNode, noTerza, currentSelection) {
 
-                //return;
+                return;
                 if (previousSelection) {
                     $(previousSelection).show();
                 }
                 var ctn = $("<div/>");
-                displayTerzaEditor(ctn);
+                displayTerzaWidget(ctn);
                 $(currentSelection).after(ctn);
                 $(currentSelection).hide();
                 previousSelection = currentSelection;
@@ -130,18 +132,18 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 });
             },
 
-            displayTerzaEditor = function (container) {
+            displayTerzaWidget = function (container) {
                 var translationItem = new Models.TranslationItem({}),
                     container = container || "#editor-ctn",
                     currentTerza = terzaManager.getCurrentTerza();
 
                 translationItem.set("terza", currentTerza);
-                terzaEditor.configure({
-                    mode: "create",
+                terzaWidget.configure({
+                    mode: "show",
                     repository: Models.TranslationRepository,
                     translation: translationItem
                 });
-                terzaEditor.render(container);
+                terzaWidget.render(container);
             },
 
             /* create a stranza editor */
@@ -150,7 +152,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                     $(previousEditedContent).show();
                 }
                 var editorView;
-                $(terzaEditor).val(translationItem.get("content"));
+                $(terzaWidget).val(translationItem.get("content"));
                 $(render).hide();
 
                 terzaEditor.configure({
@@ -163,7 +165,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                         }
                     }
                 });
-                editorView = terzaEditor.render();
+                editorView = terzaWidget.render();
                 $(render).after(editorView);
                 previousEditedContent = render;
             },
