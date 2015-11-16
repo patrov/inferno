@@ -23,14 +23,16 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         },
 
         init: function() {
-            this.widget = $("<div/>");
+            this.widget = Kimo.jQuery("<div/>").clone();
             this.translationRepository = this.entity;
             this.selectedTranslation = null;
             this.translationRepository.on("save", $.proxy(this.handleContentChange, this));
             this.translationRepository.on("change", $.proxy(this.handleContentChange, this));
-            this.translationRepository.getAll({
+           /* this.translationRepository.getAll({
                 triggerCreateEvent: true
             }).done($.proxy(this.populate, this));
+            */
+           this.root = this.widget;
         },
 
         showEditForm: function() {
@@ -115,9 +117,10 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         },
 
         init: function() {
-            this.widget = $("<div></div>").clone();
+            this.widget = $("<div/>").clone();
             this.widget.append(Kimo.TemplateManager.render(this.templateMap[this.viewMode], { onRender : this.onTemplateReady.bind(this) }));
             this.isVisible = false;
+            this.root = this.widget;
         },
 
         onTemplateReady: function () {

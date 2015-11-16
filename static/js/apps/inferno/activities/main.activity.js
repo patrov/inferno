@@ -1,14 +1,3 @@
- requirejs.onError = function(err) {
-    console.log(err.requireType);
-    console.log(err);
-    console.log('modules: ' + err.requireModules);
-    throw err;
-};
-
-window.onerror = function(response) {
-    console.log(response);
-};
-
 define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!inferno:comment', 'manager!inferno:contents', 'manager!inferno:vote'],
         function(Kimo, Pager, terzaManager, CommentManager, ContentMananager, VoteManager) {
 
