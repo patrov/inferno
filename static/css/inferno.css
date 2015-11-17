@@ -85,6 +85,7 @@ footer {position: fixed; right: 0; left: 0; background-color: #f8f8f8; height: 3
 
 .canto-link { padding-top: 10px; line-height: 14px; border: 1px solid #23527c; cursor: pointer; height: 50px; width: 100%; margin-bottom: 5px; text-align: center; color: #666}
 
+.canto-link .fa-lock{position: absolute; bottom:0; right: 5px}
 .canto-link.selected {text-align: center; border: 2px solid orange}
 .prev-canto, .next-canto {cursor: pointer; height: 50px; text-align: center; border: 1px solid #23527c}
 

@@ -32,7 +32,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     this.terzaManager = terzaManager;
                     this.contentsManager = ContentMananager;
 
-                    this.pagerManager = Pager.configure({ root: this.view.view, viewMode: this.currentMode});
+                    this.pagerManager = Pager.configure({ root: this.view.view, viewMode: this.currentMode.mode});
                     this.commentManager = CommentManager.configure({ root: this.view.view, viewMode: this.currentMode.mode });
                     this.terzaManager.configure({ root: this.view.view, canto: 1, viewMode: this.currentMode.mode });
                     this.contentsManager.configure({ root: this.view.view, viewMode: this.currentMode.mode });

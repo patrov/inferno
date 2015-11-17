@@ -62,11 +62,12 @@ define(["Kimo/core", "bi.components/cantopager/main"], function(Kimo) {
             try {
 
                 var disabledRange = [];
-                if (settings.viewMode === "viewMode") {
+                console.log(settings);
+                if (settings.viewMode === "contrib") {
                     disabledRange.push(parseInt(Kimo.ParamsContainer.get("translated")) + 1);
                     disabledRange.push("max");
                 }
-
+                console.log(disabledRange);
                 pagerInstance = Kimo.createEntityView("CantoPager", {
                     root: settings.root,
                     settings: {

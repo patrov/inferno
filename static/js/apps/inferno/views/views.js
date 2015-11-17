@@ -28,10 +28,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             this.selectedTranslation = null;
             this.translationRepository.on("save", $.proxy(this.handleContentChange, this));
             this.translationRepository.on("change", $.proxy(this.handleContentChange, this));
-           /* this.translationRepository.getAll({
-                triggerCreateEvent: true
-            }).done($.proxy(this.populate, this));
-            */
+
            this.root = this.widget;
         },
 
@@ -107,8 +104,8 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         events: {
             "#cancel-btn click": "doCancel",
             "#save-draft-btn click": "doSave",
-            ".fa-edit click": "doEdit"
-        //".fa-remove click": "deDelete"
+            ".fa-edit click": "doEdit",
+            ".fa-remove click": "doDelete"
         },
 
         templateMap: {
@@ -134,11 +131,23 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         bindEvents: function() {
             var self = this;
             this.repository.on("change", function (reason, entity) {
-                if(reason=="create") {
+                if (reason === "create") {
                     self.setTranslation(entity);
+                }
+                if (reason === "remove") {
+                   
                 }
             });
             this.bindEvents = $.noop;
+        },
+
+        doDelete: function () {
+          if (!this.translationItem) { return; }
+
+          if (this.repository) {
+              this.repository.remove(this.translationItem);
+          }
+
         },
 
         configure: function(config) {

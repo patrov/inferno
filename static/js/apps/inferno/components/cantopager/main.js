@@ -93,6 +93,8 @@ define(['Kimo/core', 'jquery', 'bootstrap'], function(Kimo, jQuery) {
                 /* disable canto here */
                 if (this.disabledRange.indexOf(this.state.range[i]) !== -1) {
                     item.addClass("disabled");
+                    Kimo.jQuery(item).css({position: 'relative'});
+                    Kimo.jQuery(item).append("<i class='fa fa-lock'/>");
                     item.data("disabled", true);
                 }
 

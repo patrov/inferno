@@ -126,6 +126,15 @@ class TranslationService(restful.Resource):
             results = Translation.query.filter_by(author=g.user, no_terza=args['terza']).first() #deal with version
         return results
     
+    def delete(self, no_translation):    
+        try:
+            translation = Translation.query.get(no_translation)
+            print translation
+            db.session.delete(translation)
+        except e:
+            print e
+        return None , 204
+        
     #add pagination after
     def get_contrib_translation(self, terza):
         results = Translation.query.filter_by(no_terza=terza).filter(User.username != g.user.username).all()
