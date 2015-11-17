@@ -129,10 +129,11 @@ class TranslationService(restful.Resource):
     def delete(self, no_translation):    
         try:
             translation = Translation.query.get(no_translation)
-            print translation
             db.session.delete(translation)
-        except e:
-            print e
+            db.session.commit()
+        except Exception as e:
+            msg = e
+            print msg
         return None , 204
         
     #add pagination after
