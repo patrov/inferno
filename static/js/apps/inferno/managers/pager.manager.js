@@ -7,6 +7,9 @@ define(["Kimo/core", "bi.components/cantopager/main"], function(Kimo) {
             pageContainer: "#canto-pager",
             selectedCls: "selected"
         },
+
+        pagerInstance = null,
+
         cantoMapping = {
             1: "I",
             5: "V",
@@ -40,46 +43,62 @@ define(["Kimo/core", "bi.components/cantopager/main"], function(Kimo) {
                     roman = roman + "I";
                 }
             }
-
             return roman;
-        }
-        ,
-        pagerInstance = null,
+        },
+
         selectCanto = function(no) {
             pagerInstance.selectCanto(no);
         },
+
         showPager = function(container) {
             pagerInstance.render(container);
         },
-        configure = function(settings) {
-			try {
-				pagerInstance = Kimo.createEntityView("CantoPager", {
-					root: settings.root,
-					settings: {
-						itemRenderer: function(page) {
-							return Kimo.jQuery("<div/>").html("Chan<br /> " + toRoman(page)).addClass("canto-link");
-						}
-					}
-				});
 
-				return getApi();
-			} catch (e) {
-				console.log(e);
-			}
+        computeDisabledCanto = function (range) {
+            return pagerInstance.disabledRange;
         },
-		
+
+        configure = function(settings) {
+            try {
+
+                var disabledRange = [];
+                console.log(settings);
+                if (settings.viewMode === "contrib") {
+                    disabledRange.push(parseInt(Kimo.ParamsContainer.get("translated")) + 1);
+                    disabledRange.push("max");
+                }
+                console.log(disabledRange);
+                pagerInstance = Kimo.createEntityView("CantoPager", {
+                    root: settings.root,
+                    settings: {
+                        disabledRange: disabledRange,
+                        itemRenderer: function(page) {
+                            return Kimo.jQuery("<div/>").html("Chan<br /> " + toRoman(page)).addClass("canto-link");
+                        }
+                    }
+                });
+
+                return getApi();
+            } catch (e) {
+                console.log(e);
+            }
+        },
+
         getApi = function() {
             return {
                 selectCanto: selectCanto,
                 showCantoPager: showPager,
+                getDisabledCanto: computeDisabledCanto,
                 getPager: function() {
                     return pagerInstance;
                 }
             }
         }
-        return {configure: configure};
+        return {
+            configure: configure
+        };
     }());
-	
+
     return PagerManager;
 
 });

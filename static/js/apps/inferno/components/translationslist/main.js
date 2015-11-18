@@ -3,13 +3,16 @@
  * and open the template in the editor.
  */
 
-define(['Kimo/core', 'text!../translationslist/templates/layout.html', '../translationslist/helper/itemrenderer.helper'], function(Kimo, layout, ItemRenderer) {
+define(['Kimo/core', '../translationslist/helper/itemrenderer.helper'], function(Kimo, ItemRenderer) {
 
     Kimo.registerEntityView({
+
         name: "TranslationListView",
+
         init: function() {
-            this.root = $(layout).clone();
+            this.root = $("<div/>").clone();
             ItemRenderer.init(Kimo.ParamsContainer.get("config"));
+
             this.dataView = new Kimo.DataView({
                 itemRenderer: $.proxy(ItemRenderer.render, ItemRenderer),
                 idKey: 'uid',
@@ -19,6 +22,7 @@ define(['Kimo/core', 'text!../translationslist/templates/layout.html', '../trans
                 width: 'auto',
                 height: this.height + "px"
             });
+
             this.isRendered = false;
             this.translationRepository = this.entity;
         },

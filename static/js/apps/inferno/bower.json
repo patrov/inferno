@@ -20,6 +20,7 @@
     "tests"
   ],
   "dependencies": {
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "annotator": "https://github.com/openannotation/annotator.git#~2.1.10"
   }
 }

@@ -23,14 +23,13 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         },
 
         init: function() {
-            this.widget = $("<div/>");
+            this.widget = Kimo.jQuery("<div/>").clone();
             this.translationRepository = this.entity;
             this.selectedTranslation = null;
             this.translationRepository.on("save", $.proxy(this.handleContentChange, this));
             this.translationRepository.on("change", $.proxy(this.handleContentChange, this));
-            this.translationRepository.getAll({
-                triggerCreateEvent: true
-            }).done($.proxy(this.populate, this));
+
+           this.root = this.widget;
         },
 
         showEditForm: function() {
@@ -52,6 +51,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         },
 
         showActions: function(e) {
+            alert("read");
             var item = e.currentTarget;
             $(item).append(itemActions);
         },
@@ -99,12 +99,13 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
     Kimo.registerEntityView({
         CREATE_MODE: "create",
         EDIT_MODE: "edit",
+        SHOW_MODE: "show",
         name: "terzaEditorView",
         events: {
             "#cancel-btn click": "doCancel",
             "#save-draft-btn click": "doSave",
-            ".fa-edit click": "doEdit"
-        //".fa-remove click": "deDelete"
+            ".fa-edit click": "doEdit",
+            ".fa-remove click": "doDelete"
         },
 
         templateMap: {
@@ -113,9 +114,10 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         },
 
         init: function() {
-            this.widget = $("<div></div>").clone();
+            this.widget = $("<div/>").clone();
             this.widget.append(Kimo.TemplateManager.render(this.templateMap[this.viewMode], { onRender : this.onTemplateReady.bind(this) }));
             this.isVisible = false;
+            this.root = this.widget;
         },
 
         onTemplateReady: function () {
@@ -129,11 +131,23 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         bindEvents: function() {
             var self = this;
             this.repository.on("change", function (reason, entity) {
-                if(reason=="create") {
+                if (reason === "create") {
                     self.setTranslation(entity);
+                }
+                if (reason === "remove") {
+                   
                 }
             });
             this.bindEvents = $.noop;
+        },
+
+        doDelete: function () {
+          if (!this.translationItem) { return; }
+
+          if (this.repository) {
+              this.repository.remove(this.translationItem);
+          }
+
         },
 
         configure: function(config) {
@@ -145,9 +159,13 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             if (config.mode == this.CREATE_MODE) {
                 this.widget.find("#save-draft-btn, #propose-btn, #cancel-btn").show();
             }
-
             if (config.mode == this.EDIT_MODE) {
                 this.widget.find("#save-draft-btn, #cancel-btn").show();
+            }
+            if (config.mode == this.SHOW_MODE) {
+                this.widget.find(".current-translation").hide();
+                this.widget.find(".fa-edit").hide();
+                this.widget.find(".fa-remove").hide();
             }
             this.bindEvents();
         },

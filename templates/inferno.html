@@ -73,10 +73,10 @@
                 </div>
             </div>
         </div>
-        
+
         <footer style="bottom: 0px; border-top: 1px solid #DBDFEA; padding: 10px">
             <div class="container">
-                <p>this is my footer</p>
+                <p class="pull-right"><strong>Inferno</strong> - Yon eksperyans <a href="mailto:harris.baptiste@gmail.com">Harris.Baptiste</a></p>
             </div>
         </footer>
         <script>
@@ -85,8 +85,8 @@
                 console.log(" error", reason);
             }
             require(['Kimo/core','inferno.app'], function (Kimo, Inferno) {
-                Inferno.onError = function () {
-                    console.log("error");
+                Inferno.onError = function (error) {
+                    console.log(error);
                 }
                 Kimo.jQuery(".jumbotron").css("height", Kimo.jQuery(window).height()+"px");
                 Inferno.start({});
