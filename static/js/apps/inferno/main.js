@@ -1,5 +1,6 @@
 Kimo.require.config({
     waitSeconds: 10,
+    urlArgs: null,
     paths: {
         "bi.route": "apps/inferno/routes",
         "bi.managers": "apps/inferno/managers",
@@ -15,7 +16,6 @@ Kimo.require.config({
         "Kimo.localstorage": "kimonic/core/Kimo.adapter.localstorage",
         "vendor.mustache": "kimonic/vendor/mustache/mustache",
         "vendor.moment": "apps/inferno/bower_components/moment/min/moment.min"
-
     }
 });
 

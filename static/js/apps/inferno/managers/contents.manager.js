@@ -58,6 +58,8 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 terzaNode = html;
                 terzaWidget.setTerzaRender($(terzaNode).html());
                 terzaWidget.setTerza(currentTerza);
+
+                /* Display the widget */
                 displayTerzaWidget();
 
                 /* transalation list */
@@ -82,7 +84,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                         if (translation.isEmpty()) {
                             translation.set("canto", parseInt(Kimo.ParamsContainer.get("currentCanto")));
                         }
-                        terzaWidget.setTranslation(translation);
+                        terzaEditorForm.setTranslation(translation);
                     });
                 } catch (e) {
                     console.log(e);
@@ -134,7 +136,9 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             displayTerzaForm = function (terzaNode, ctn) {
                 var translationItem = new Models.TranslationItem({}),
                     currentTerza = terzaManager.getCurrentTerza();
+
                 translationItem.set("terza", currentTerza);
+
                 terzaEditorForm.setTerzaRender($(terzaNode).html());
                 terzaEditorForm.setTerza(currentTerza);
 

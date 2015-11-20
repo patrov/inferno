@@ -135,7 +135,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
                     self.setTranslation(entity);
                 }
                 if (reason === "remove") {
-                   
+
                 }
             });
             this.bindEvents = $.noop;
@@ -150,9 +150,9 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
 
         },
 
+
         configure: function(config) {
-            this.onAction = (typeof config.onAction == "function") ? config.onAction : function() {
-            };
+            this.onAction = (typeof config.onAction == "function") ? config.onAction : Kimo.jQuery.noop;
             this.repository = config.repository;
             this.widget.find(".btn").hide();
 
