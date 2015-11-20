@@ -23,6 +23,17 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
 
                 },
 
+                /*
+                 *avant chaque
+                 **/
+                handleActionDecorators: function(action) {
+
+                 Kimo.decorateWith(action, function (a, b) {
+
+
+                 });
+                 return action;
+                },
 
                 onCreate: function () {
                     var self = this;
