@@ -1,15 +1,16 @@
 <div id="editing-zone" class="tab-pane">
 
     <p class="current-translation"></p>
-    <p class="action-container" style="display: none">
-        <button class="btn-sm btn-link"><i class="fa fa-plus"></i> Propose yon vèsyon</button>
-    </p>
-    <div class="user-translation edit-field shadowed-box">
+	
+    <div class="user-translation edit-field shadowed-box panel;">
         <i class="fa fa-user"></i> <span id="user-contrib-pubdate">{{pubdate}}</span>
         <span><i class="fa fa-remove pull-right pointable"></i></span>
         <span><i class="fa fa-edit pull-right pointable" style="margin-left: 5px"></i></span>
         <p id="user-translation-text"></p>
     </div>
+	<div class="empty-panel shadowed-box panel">
+		<p class="infos">Propoze yon vèsyon !</p>
+	</div>
 
     <div class="stz-editor clearfix edit-field" style="display : none">
         <textarea id="edit-zone" class="form-control" placeholder="Propoze yon tradiksyon" style="border: 1px solid #95a5a6; background-color: #fbfcfc"></textarea>

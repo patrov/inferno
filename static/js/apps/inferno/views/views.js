@@ -51,7 +51,6 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         },
 
         showActions: function(e) {
-            alert("read");
             var item = e.currentTarget;
             $(item).append(itemActions);
         },
@@ -72,11 +71,9 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             if (reason == "create") {
                 this.widget.append($(html));
                 this.updateContentCount();
+				$(this.selectedTranslation).replaceWith(html);
             }
-
-            if (reason == "create") {
-                $(this.selectedTranslation).replaceWith(html);
-            }
+			
             if (reason == "remove") {
                 $(this.selectedTranslation).remove();
                 this.updateContentCount();
@@ -124,16 +121,22 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             this.editor = $(this.widget).find("#edit-zone");
             this.widget.find(".btn").hide();
             this.userTranslationCtn = $(this.widget).find("#user-translation-text");
+			this.emptyTranslationPanel = $(this.widget).find(".empty-panel");
             this.editFields = $(this.widget).find(".edit-field");
             this.pubdateField = $(this.widget).find("#user-contrib-pubdate");
+			this.panels = $(this.widget).find(".panel");
         },
 
         bindEvents: function() {
             var self = this;
+			if (!this.repository) { return false; }
+			
             this.repository.on("change", function (reason, entity) {
-                if (reason === "create") {
+                
+				if (reason === "create") {
                     self.setTranslation(entity);
                 }
+				
                 if (reason === "remove") {
 
                 }
@@ -155,19 +158,25 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             this.onAction = (typeof config.onAction == "function") ? config.onAction : Kimo.jQuery.noop;
             this.repository = config.repository;
             this.widget.find(".btn").hide();
-
-            if (config.mode == this.CREATE_MODE) {
+			this.currentMode = config.mode;  
+            
+			if (this.currentMode === this.CREATE_MODE) {
                 this.widget.find("#save-draft-btn, #propose-btn, #cancel-btn").show();
             }
-            if (config.mode == this.EDIT_MODE) {
+			
+            if (this.currentMode === this.EDIT_MODE) {
                 this.widget.find("#save-draft-btn, #cancel-btn").show();
             }
-            if (config.mode == this.SHOW_MODE) {
+			
+            if (this.currentMode === this.SHOW_MODE) {
                 this.widget.find(".current-translation").hide();
                 this.widget.find(".fa-edit").hide();
                 this.widget.find(".fa-remove").hide();
+				this.setTerza(config.currentTerza);
+				
             }
-            this.bindEvents();
+			
+			this.bindEvents();
         },
 
         doEdit: function() {
@@ -188,32 +197,61 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             if (!translationItem || typeof translationItem.set !== "function") {
                 return;
             }
+			
             /* hide all fields */
             $(this.editFields).hide();
+			this.hidePanels();
             this.translationItem = translationItem;
             if (this.translationItem.isEmpty()) {
-                $(this.editor).val(translationItem.get("content"));
-                this.showEditForm();
+				if (this.isEditMode()) {
+					$(this.editor).val(translationItem.get("content"));
+					this.showEditForm();
+				} else {
+					this.showEmptyTransaltionPanel();
+				}
+               
             } else {
                 this.userTranslationCtn.html(translationItem.get("content"));
                 this.pubdateField.html(Moment(translationItem.get("pubdate")).fromNow());
                 this.showUserTranslation();
             }
         },
-        setTerza: function(terza) {
+        
+		isShowMode: function () {
+			return this.currentMode === this.SHOW_MODE;
+		},
+		
+		hidePanels: function () {
+			this.panels.hide();
+		},
+		
+		showEmptyTransaltionPanel: function () {
+			this.emptyTranslationPanel.show();	
+		},
+		
+		isEditMode: function () {
+			return this.currentMode === this.EDIT_MODE;
+		},
+		
+		
+		setTerza: function(terza) {
             this.currentTerza = terza;
         },
-        setTerzaRender: function(terzaNode) {
+        
+		setTerzaRender: function(terzaNode) {
             $(this.widget).find('.current-translation').html(terzaNode);
         },
-        hide: function() {
+        
+		hide: function() {
             $(this.widget).hide();
             this.onAction("hide");
         },
-        show: function() {
+        
+		show: function() {
             (this.widget).show();
             this.onAction("show");
         },
+		
         isVisible: function() {
             return this.isVisible;
         },
@@ -223,6 +261,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             this.showUserTranslation();
             this.onAction("cancel");
         },
+		
         doSave: function() {
             var content = $(this.editor).val();
             this.translationItem.set("content", content);
@@ -232,6 +271,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             /*whait and show the new translation*/
             this.onAction("save");
         },
+		
         render: function(container) {
             this.show();
             //if (container && !this.isVisible) {

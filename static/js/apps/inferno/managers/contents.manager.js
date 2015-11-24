@@ -53,17 +53,23 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                 isConfigured = true;
             },
 
-            showUserTranslation = function (html, no) {
-                currentTerza = no;
-                terzaNode = html;
-                terzaWidget.setTerzaRender($(terzaNode).html());
-                terzaWidget.setTerza(currentTerza);
-
+            showUserTranslation = function (transalation) {
+                
+				currentTerza = terzaManager.getCurrentTerza();
+				
                 /* Display the widget */
-                displayTerzaWidget();
-
+                container = "#editor-ctn";		
+				
+				terzaWidget.setTranslation(transalation);
+				terzaWidget.configure({
+                    mode: "show",
+					currentTerza: currentTerza
+                });
+				
+                terzaWidget.render(container);
+								
                 /* transalation list */
-                displayUserContributions(currentTerza);
+                //displayUserContributions(currentTerza); // moveOutside
             },
 
             displayUserContributions = function (terza) {
@@ -80,11 +86,16 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             handleTranslation = function (html, noTerza) {
                 try {
                     loadTranslation(noTerza).done(function (response) {
+						
                         var translation = new Models.TranslationItem(response);
                         if (translation.isEmpty()) {
                             translation.set("canto", parseInt(Kimo.ParamsContainer.get("currentCanto")));
                         }
+						
+						// show the edit widget
                         terzaEditorForm.setTranslation(translation);
+						// show user contribution
+						showUserTranslation(translation);
                     });
                 } catch (e) {
                     console.log(e);
@@ -94,11 +105,10 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
 
             bindEvents = function () {
                 Kimo.Observable.registerEvents(['TranslationEditTask', 'TerzaSelection']);
-                Kimo.Observable.on("TranslationEditTask", editContent);
-                Kimo.Observable.on("TerzaSelection", showUserTranslation);
-                Kimo.Observable.on("TerzaSelection", handleTranslation);
-                Kimo.Observable.on("TerzaSelection", handleTerzaStats);
-                Kimo.Observable.on("TerzaSelection", hideCommentZone);
+                //Kimo.Observable.on("TerzaSelection", showUserTranslation);
+				Kimo.Observable.on("TerzaSelection", handleTranslation);// 
+                //Kimo.Observable.on("TerzaSelection", handleTerzaStats); // displayStats
+                //Kimo.Observable.on("TerzaSelection", hideCommentZone); //  hide Comment Zone if visible
                 Kimo.Observable.on("TerzaSelection", showEditorForm);
             },
 
@@ -150,20 +160,6 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                    });
                    terzaEditorForm.render(ctn);
                }
-            },
-
-            displayTerzaWidget = function (container) {
-                var translationItem = new Models.TranslationItem({}),
-                    container = container || "#editor-ctn",
-                    currentTerza = terzaManager.getCurrentTerza();
-
-                translationItem.set("terza", currentTerza);
-                terzaWidget.configure({
-                    mode: "show",
-                    repository: Models.TranslationRepository,
-                    translation: translationItem
-                });
-                terzaWidget.render(container);
             },
 
             /* create a stranza editor */

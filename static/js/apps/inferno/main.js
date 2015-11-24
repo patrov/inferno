@@ -1,6 +1,6 @@
 Kimo.require.config({
     waitSeconds: 10,
-    urlArgs: null,
+    urlArgs: 'rand=' + Math.random(),
     paths: {
         "bi.route": "apps/inferno/routes",
         "bi.managers": "apps/inferno/managers",
@@ -42,19 +42,17 @@ define(["Kimo/core", "bi.route", "vendor.mustache", "Kimo.localstorage"], functi
             }
         },
         onStart: function() {
-            Kimo.jquery.get("/rest/config").done(function(response) {
-                Kimo.ParamsContainer.set("config", response);
-            });
             var restAdapter = Kimo.AdapterRegistry.get("restAdapter");
             restAdapter.settings.envelope = false;
             Kimo.ModelManager.useAdapter(restAdapter);
         },
         onError: function(e) {
-            console.log("error", e);
+            console.log(e);
         }
 
     });
 }, function(e) {
-    console.log("error", e);
+	console.log("Application Error");
+    console.log(arguments);
 });
 

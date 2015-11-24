@@ -82,15 +82,20 @@
         <script>
 
             var _errorHandler = function(reason){
-                console.log(" error", reason);
+                console.log( reason );
             }
             require(['Kimo/core','inferno.app'], function (Kimo, Inferno) {
-                Inferno.onError = function (error) {
+                
+				Inferno.onError = function (error) {
                     console.log(error);
                 }
-                Kimo.jQuery(".jumbotron").css("height", Kimo.jQuery(window).height()+"px");
-                Inferno.start({});
-
+				
+                Kimo.jquery.ajax({url: "/rest/config"}).done(function(response) {
+                    Kimo.ParamsContainer.set("config", response);
+                    Kimo.jQuery(".jumbotron").css("height", Kimo.jQuery(window).height()+"px");
+                    Inferno.start({});
+                });
+            
             },_errorHandler);
 
         </script>

@@ -119,8 +119,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             return $.ajax({
                 url: "/rest/translation",
                 data : {
-                    terza : terza,
-                    user: 'harris'
+                    terza : terza
                 }
             });
         },

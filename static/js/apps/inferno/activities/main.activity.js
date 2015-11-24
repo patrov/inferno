@@ -39,6 +39,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     var self = this;
                     Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded', 'EnterCommentMode', 'disabledCanto']);
                     this.currentMode = Kimo.ParamsContainer.get("config");
+                    
                     Kimo.ParamsContainer.set("translated", 1);
                     this.terzaManager = terzaManager;
                     this.contentsManager = ContentMananager;
@@ -112,7 +113,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                  * */
                 showCantoAction: function(no) {
                     var self = this;
-
+                    
                     this.on("viewReady", function(render) {
 
                         self.pagerManager.showCantoPager(render.find(".col-sm-1").eq(0));
