@@ -116,6 +116,9 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
 
 
         this.loadTranslations = function (terza) {
+			if (!terza) {
+				throw 'TerzaCantBeFound';
+			}
             return $.ajax({
                 url: "/rest/translation",
                 data : {
@@ -152,22 +155,61 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             terzaNode.append(infoTpl);
         },
 
+		
+		/* Populate terza translation */
+		this.populateTranslation = function (stanzas, lang) {
+			var max = $(".it-canto-container").find(".terza-item").length,
+				ctn = $("." + lang + "-canto-container"),
+				emptyTerza = "<div>Propoze yon tradiksyon.</div>";
+				$(emptyTerza).addClass("row terza-item empty");
+				$(ctn).empty();
+				tpl = '<div class="row terza-item"><span class="col-xs-1 terza-no">{{terzaPos}}</span><p class=" col-xs-11 stz no-{{no_terza}}" data-pos="{{terzaPos}}" data-no="{{no_terza}}">{{content}}</p></div>';
+				
+				
+				
+		},
+		
         this.populateStanzas = function (stanzas, lang) {
             lang = lang || 'it';
             var tpl,
-            render,
-            ctn = $("." + lang + "-canto-container");
+				emptyTpl,
+				max = $(".it-canto-container").find(".terza-item").length,
+				render,
+				config,
+				domFragment;
+				ctn = $("." + lang + "-canto-container");
+				
             $(ctn).empty();
-            tpl = '<p class="stz no-{{no_terza}}" data-pos="{{terzaPos}}" data-no="{{no_terza}}">{{content}}</p>';
+            tpl = '<div class="row terza-item"><span class="col-xs-1 terza-no">{{terzaPos}}</span><p class=" col-xs-11 stz no-{{no_terza}}" data-pos="{{terzaPos}}" data-no="{{no_terza}}">{{content}}</p></div>',
+			emptyTpl = '<div class="row terza-item"><span class="col-xs-1 terza-no">{{terzaPos}}</span><p class=" col-xs-11 stz no-{{no_terza}}" data-pos="{{terzaPos}}" data-no="{{no_terza}}"><strong>{{content}}</strong></p></div>';
 
-            $.each(stanzas, function (i) {
-                var cpt = i + 1;
-                stanzas[i].terzaPos = cpt;
-                render = Mustache.render(tpl, stanzas[i]);
-                $(ctn).append(render);
-            });
-
+			if (lang !== "kr") {
+				max = stanzas.length; 
+			}
+			domFragment = document.createDocumentFragment();
+			
+			for(var i = 0; i < max; i++) {
+				terzaItem = stanzas[i];
+				if (terzaItem && (terzaItem.no_terza === i + 1)) {
+					terzaItem.terzaPos = i + 1;
+					render = Mustache.render(tpl, terzaItem);
+				} else {
+					var config = Kimo.ParamsContainer.get("config");
+					content = "Ou poko propoze yon vèsyon.";
+					if (config.mode ==="view") {
+						content = "Poko gen tradiksyon."
+					}
+					
+					terzaItem = {content: content , terzaPos: i + 1}
+					render = Mustache.render(emptyTpl, terzaItem);
+					$(render).addClass("empty");
+				}
+				domFragment.appendChild($(render).get(0));				
+			}
+			
+			$(ctn).append($(domFragment));
         }
+		
         this.showTradContext = function () {
             $('#user-action-tab a[href="#translation"]').tab('show');
         }

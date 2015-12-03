@@ -5,15 +5,16 @@ define(["Kimo/core"], function(Kimo) {
         name: "Translation",
         defaults: {
             content: "",
+			id: 0,
             terza: "",
             canto: "",
-            pub_date: "",
+            pubdate: "",
             update_date: "",
             vote: 0,
             state: 0 //default draft
         },
         init: function() {
-
+			this.set("pubdate", new Date());
         },
         isEmpty: function() {
             return (!this.get("content")) ? true : false;

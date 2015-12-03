@@ -80,7 +80,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             }
         },
 
-        updateContentCount: function( ) {
+        updateContentCount: function () {
             var ctn = parseInt($(this.widget).find(".contrib").length);
             $(".content-badge").html(ctn);
         },
@@ -146,9 +146,15 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
 
         doDelete: function () {
           if (!this.translationItem) { return; }
-
+		  
           if (this.repository) {
-              this.repository.remove(this.translationItem);
+			  try {
+				this.repository.remove(this.translationItem);  
+			  }catch (e) {
+				  this.repository.add(this.translationItem, true, false);
+				  this.doDelete();
+			  }
+              
           }
 
         },
