@@ -20,14 +20,15 @@ class MyApp(Flask):
         Flask.register_blueprint(self, bp, url_prefix)
         self.jinja_loader.loaders[1].mapping[bp.name] = bp.jinja_loader
         
- 
 
-app = Flask(__name__, static_folder='../static', template_folder='../templates')
-app.config.from_object("config.default.InfernoConfig")
-
-# ROOT
+#App ROOT        
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
 APP_ROOT = os.path.abspath(os.path.join(APP_ROOT, os.pardir))
+
+print(APP_ROOT)
+app = Flask(__name__, static_folder=APP_ROOT + '/static', template_folder=APP_ROOT + '/templates')
+app.config.from_object("config.default.InfernoConfig")
+
 
 # load prod settings
 db = SQLAlchemy(app)
