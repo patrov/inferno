@@ -67,21 +67,24 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                     });
 
                     terzaWidget.render(container);
-
-                    /* transalation list */
-                    //displayUserContributions(currentTerza); // moveOutside
                 },
-                displayUserContributions = function(terza) {
+				
+                displayUserContributions = function(html, terza) {
+					if (!terza) { return; }
                     translationList.setTerza(terza);
-                    translationList.render("#trad-container");
+                    translationList.render("#translation-ctn");
                 },
+				
                 loadTranslation = function(noTerza) {
-                    return $.ajax({
+					return $.ajax({
                         url: "/rest/translation?terza=" + noTerza
                     });
                 },
 				
                 handleTranslation = function(html, noTerza) {
+					
+					if (!noTerza) { return; }
+					
 					var currentLang = Kimo.ParamsContainer.get("currentLang");
 					if (currentLang === KREYOL) {
 						return false;
@@ -103,11 +106,11 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             
                 bindEvents = function() {
                     Kimo.Observable.registerEvents(['TranslationEditTask', 'TerzaSelection']);
-                    //Kimo.Observable.on("TerzaSelection", showUserTranslation);
                     Kimo.Observable.on("TerzaSelection", handleTranslation);// 
-                    //Kimo.Observable.on("TerzaSelection", handleTerzaStats); // displayStats
-                    //Kimo.Observable.on("TerzaSelection", hideCommentZone); //  hide Comment Zone if visible
+                    Kimo.Observable.on("TerzaSelection", handleTerzaStats); // displayStats
+                    Kimo.Observable.on("TerzaSelection", hideCommentZone); //  hide Comment Zone if visible
                     Kimo.Observable.on("TerzaSelection", showEditorForm);
+					Kimo.Observable.on("TerzaSelection", displayUserContributions); // contributions
 					Models.TranslationRepository.on("change", handleUserContribution);
                 },
 				
@@ -133,11 +136,13 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                     if (previousSelection) {
                         $(previousSelection).show();
                     }
-                    var ctn = $("<div/>");
+                    var ctn = $("<div/>"),
+						terzaItem = currentSelection.parent(".terza-item").eq(0);
+					
                     displayTerzaForm(clonedNode, ctn);
-                    $(currentSelection).after(ctn);
-                    $(currentSelection).hide();
-                    previousSelection = currentSelection;
+                    $(terzaItem).after(ctn);
+                    terzaItem.hide();
+                    previousSelection = terzaItem;
                 },
                 hideCommentZone = function() {
 
@@ -145,7 +150,11 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
                         viewmodeManager.switchViewMode("terza");
                     }
                 },
+				
                 handleTerzaStats = function(html, terzaNo) {
+					
+					if (!terzaNo) { return false; }
+					
                     $.get("/rest/stats/terza/" + terzaNo).done(function(stats) {
                         if (stats && stats.hasOwnProperty('translation')) {
                             $("#contrib_stats_label").text(stats.translation);

@@ -52,7 +52,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
 
                     /* canto change */
                     this.pagerManager.getPager().on("cantoSelection", function(e, canto) {
-                        Kimo.ParamsContainer.set("currentCanto", canto);
+						Kimo.ParamsContainer.set("currentCanto", canto);
                         self.terzaManager.loadCanto(canto);
                         Kimo.NavigationManager.getRouter().updateRoute("#/inferno/canto/"+canto);
                     });

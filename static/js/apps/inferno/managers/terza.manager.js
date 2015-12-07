@@ -135,7 +135,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 };
             if (this.currentLang !== 'it' ) {
                 restParams.data = {
-                    lang:this.currentLang
+                    lang: this.currentLang
                     };
             }
 
@@ -151,7 +151,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             var infoTpl = $("<span/>"),
                 terzaNo = $(terzaNode).data("pos");
                 $(infoTpl).addClass("pull-right");
-            $(infoTpl).attr("id","terza-infos").html("<strong>canto</strong> [" + this.currentCanto + " : " + terzaNo+"]");
+            $(infoTpl).attr("id","terza-infos").html("canto <strong>" + this.currentCanto + "</strong> - Terza <strong>" + terzaNo + "</strong>");
             terzaNode.append(infoTpl);
         },
 
@@ -190,7 +190,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
 			
 			for(var i = 0; i < max; i++) {
 				terzaItem = stanzas[i];
-				if (terzaItem && (terzaItem.no_terza === i + 1)) {
+				 if (terzaItem ) {
 					terzaItem.terzaPos = i + 1;
 					render = Mustache.render(tpl, terzaItem);
 				} else {
