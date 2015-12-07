@@ -191,6 +191,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
 			for(var i = 0; i < max; i++) {
 				terzaItem = stanzas[i];
 				 if (terzaItem ) {
+
 					terzaItem.terzaPos = i + 1;
 					render = Mustache.render(tpl, terzaItem);
 				} else {
