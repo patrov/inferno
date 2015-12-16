@@ -4,6 +4,7 @@ from app.main.Models import Terza, Translation, User, Comment
 from flask.ext.restful import Resource, reqparse, fields, marshal_with
 from app import db
 from flask.ext.restful import reqparse
+from sqlalchemy import text
 from pprint import pprint
 import json
 
@@ -77,7 +78,12 @@ class CantoService(restful.Resource):
         if args['lang'] is not None:
         
             if args['lang'] == 'kr':
-                results = Translation.query.filter_by(no_canto = canto).all()
+                request = 'SELECT * FROM `translation`\
+                WHERE no_canto =:no_canto AND \
+                vote = (select max(vote) \
+                FROM translation as t where t.no_terza = translation.no_terza) \
+                ORDER BY translation.no_terza ASC'
+                results = Translation.query.from_statement(text(request).params(no_canto=canto)).all()              
             else:
                 results = Terza.query.filter_by(canto = canto, lang=args['lang']).all()
         else:
