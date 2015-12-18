@@ -36,7 +36,8 @@ db = SQLAlchemy(app)
 from main.main_app import main_app
 from rest import api_mod
 from auth.mod_auth import auth_mod
+from mail import mail_mod
 app.register_blueprint(main_app)
 app.register_blueprint(api_mod)
-app.register_blueprint(auth_mod)
+app.register_blueprint(mail_mod)
 

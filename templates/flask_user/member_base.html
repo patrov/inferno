@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en_EN">
+    <head>
+        <meta encoding="utf-8">
+        <title>Showroom</title>
+        <link type="text/css" rel="stylesheet" href="/static/js/kimonic/vendor/bootstrap/dist/css/bootstrap.min.css"/>
+        <link type="text/css" rel="stylesheet" href="/static/js/kimonic/vendor/fontawesome/css/font-awesome.min.css"/>
+
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+        <link href='/static/css/inferno.css' rel='stylesheet' type='text/css'/>
+    </head>
+    <body style="background:url(js/adpps/inferno/assets/images/blue-bg.jpg) 0 0 fixed;">
+        <!-- Static navbar -->
+
+        <header>
+
+            <div class="navbar navbar-default" role="navigation">
+
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="/index">Babelio inferno : Dante An Kreyol</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <div class="container-fluid">
+			<div class="row">
+			
+				<div class="col-sm-3 col-md-2 sidebar" style="background-color:#f5f5f5">
+				  
+				  <ul class="nav nav-sidebar">
+					<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+					<li><a href="#">Reports</a></li>
+					<li><a href="#">Analytics</a></li>
+					<li><a href="#">Export</a></li>
+				  </ul>
+				  <ul class="nav nav-sidebar">
+					<li><a href="">Nav item</a></li>
+					<li><a href="">Nav item again</a></li>
+					<li><a href="">One more nav</a></li>
+					<li><a href="">Another nav item</a></li>
+					<li><a href="">More navigation</a></li>
+				  </ul>
+				  <ul class="nav nav-sidebar">
+					<li><a href="">Nav item again</a></li>
+					<li><a href="">One more nav</a></li>
+					<li><a href="">Another nav item</a></li>
+				  </ul>
+				  
+				</div>
+				
+				<div class="col-sm-9 main"> {% extends 'flask_user/flask_user_base.html' %} </div>
+			</div>
+		</div>
+    </body>
+</html>
+

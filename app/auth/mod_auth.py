@@ -26,13 +26,7 @@ def logout():
     
 @auth_mod.route('/login', methods=['POST','GET'])
 def login():
-    if current_user.is_authenticated():
-        return redirect(request.values.get('next')  or url_for("index"))
-    if  request.values.get('login') is not None:
-        user = handle_authentification(request.form.get('login'), request.form.get('pass'))
-        return redirect(request.values.get('next')  or url_for("main.index"))
-    return render_template("auth.login.html")
-
+    redirect(url_for('user.login'))
     
 @auth_mod.route('/user/create', methods=['POST','GET'])    
 def create_user():
