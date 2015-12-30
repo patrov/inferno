@@ -4,8 +4,7 @@ class InfernoConfig(object):
     SECRET_KEY = 'fad01349425aab2d3d0a3cc33c538ddb'
     
     # Flask-User
-    #USER_ENABLE_CONFIRM_EMAIL = False
-    #USER_ENABLE_LOGIN_WITHOUT_CONFIRM = False
+    USER_ENABLE_CHANGE_USERNAME = False
     HOME_ENDPOINT = 'main.index'  
     
     USER_AFTER_LOGIN_ENDPOINT = HOME_ENDPOINT
