@@ -1,6 +1,4 @@
 class InfernoConfig(object):
-    DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://root@localhost/inferno'
     SECRET_KEY = 'fad01349425aab2d3d0a3cc33c538ddb'
     
     # Flask-User

@@ -1,8 +1,10 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+from config import getConfig
 import jinja2
 import os
 import os.path
+from pprint import pprint
 
 class MyApp(Flask):
     
@@ -25,9 +27,9 @@ class MyApp(Flask):
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
 APP_ROOT = os.path.abspath(os.path.join(APP_ROOT, os.pardir))
 
-print(APP_ROOT)
 app = Flask(__name__, static_folder=APP_ROOT + '/static', template_folder=APP_ROOT + '/templates')
-app.config.from_object("config.default.InfernoConfig")
+
+app.config.from_object(getConfig())
 
 
 # load prod settings
