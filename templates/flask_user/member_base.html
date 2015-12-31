@@ -28,7 +28,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" href="/index">Babelio inferno : Dante An Kreyol</a>
+                                <a class="navbar-brand" href="/">Babelio inferno : Dante An Kreyol</a>
                             </div>
 
                         </div>
@@ -43,30 +43,16 @@
         <div class="container-fluid">
 			<div class="row">
 			
-				<div class="col-sm-3 col-md-2 sidebar" style="background-color:#f5f5f5">
+				<div class="col-sm-6 col-md-2 sidebar" style="backgdround-color:#f5f5f5">
 				  
-				  <ul class="nav nav-sidebar">
-					<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">Reports</a></li>
-					<li><a href="#">Analytics</a></li>
-					<li><a href="#">Export</a></li>
-				  </ul>
-				  <ul class="nav nav-sidebar">
-					<li><a href="">Nav item</a></li>
-					<li><a href="">Nav item again</a></li>
-					<li><a href="">One more nav</a></li>
-					<li><a href="">Another nav item</a></li>
-					<li><a href="">More navigation</a></li>
-				  </ul>
-				  <ul class="nav nav-sidebar">
-					<li><a href="">Nav item again</a></li>
-					<li><a href="">One more nav</a></li>
-					<li><a href="">Another nav item</a></li>
+				  <ul class="nav nav-sidebar" style="display:none">
+					<li class="active"><a href="#">Profil <span class="sr-only"></span></a></li>
+					<li><a href="#">Change modpass</a></li>
 				  </ul>
 				  
 				</div>
 				
-				<div class="col-sm-9 main"> {% extends 'flask_user/flask_user_base.html' %} </div>
+				<div class="col-sm-5 main"> {% block content %}{% endblock %} </div>
 			</div>
 		</div>
     </body>
