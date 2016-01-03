@@ -14,6 +14,13 @@ from flask.ext.user import UserMixin
 from app import db
 from random import random
 
+class Annotation(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	target = db.Column(db.Integer)
+	target_type = db.Column(db.Text)
+	body = db.Column(db.Text)
+	position = db.Column(db.Integer)
+
               
 class Terza(db.Model):
     id = db.Column(db.Integer, primary_key=True)

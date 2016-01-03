@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, g
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.babel import Babel
 from config import getConfig
 import jinja2
 import os
@@ -28,8 +29,25 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_
 APP_ROOT = os.path.abspath(os.path.join(APP_ROOT, os.pardir))
 
 app = Flask(__name__, static_folder=APP_ROOT + '/static', template_folder=APP_ROOT + '/templates')
-
+app.root_path = APP_ROOT 
 app.config.from_object(getConfig())
+
+#deal with babel localization here
+babel = Babel(app)
+
+@babel.localeselector
+def get_local():
+	user = getattr(g, 'user', None)
+	if user is not None:
+		local = getattr(user, 'local', None)
+	if local is not None:
+		return local
+	else:
+		return 'fr'
+		
+		
+
+
 
 
 # load prod settings

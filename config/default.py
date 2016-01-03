@@ -23,4 +23,3 @@ class InfernoConfig(object):
     MAIL_PASSWORD = 'f65aa84cd3d4643360201c938869916a'
     MAIL_USE_TLS = False
     
-    #
