@@ -23,6 +23,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 $(self.stzAction).find(".lang-choice").removeClass("selected");
                 $(target).addClass("selected");
                 self.showTranslationBoard(lang);
+                self.showStanzaInfos($(target));
                 return false;
             });
 
@@ -40,6 +41,10 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 self.previousContent = null;
             });*/
             this.isConfigured = true;
+        },
+
+        this.getCurrentTerzaNode = function (terzaNo) {
+            return $(".no-" + terzaNo, $("." + this.currentLang + "-canto-container").eq(0));
         },
 
         this.selectTerza = function (terzaNo, silent) {
@@ -69,13 +74,14 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 this.loadTerza(this.currentTerzaNo, selectedLang).done(function (response) {
                     var tpl = "<p style='position:relative'>{{content}}</p>",
                     render = Mustache.render(tpl, response),
-                    translationCtn = $("#translation").find(".current-translation").eq(0);
+                    translationCtn = $("#editing-zone").find(".current-translation").eq(0);
                     $(translationCtn).html($(render));
                     self.showLanguages();
                 });
             } else {
                 var tpl = $("</p>").html($(terza).html());
-                $("#translation").find(".current-translation").html($(tpl));
+                $("#editing-zone").find(".current-translation").html($(tpl));
+                this.showStanzaInfos($(translationCtn));
                 self.showLanguages();
             }
         },
@@ -155,7 +161,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             terzaNode.append(infoTpl);
         },
 
-		
+
 		/* Populate terza translation */
 		this.populateTranslation = function (stanzas, lang) {
 			var max = $(".it-canto-container").find(".terza-item").length,
@@ -164,11 +170,11 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
 				$(emptyTerza).addClass("row terza-item empty");
 				$(ctn).empty();
 				tpl = '<div class="row terza-item"><span class="col-xs-1 terza-no">{{terzaPos}}</span><p class=" col-xs-11 stz no-{{no_terza}}" data-pos="{{terzaPos}}" data-no="{{no_terza}}">{{content}}</p></div>';
-				
-				
-				
+
+
+
 		},
-		
+
         this.populateStanzas = function (stanzas, lang) {
             lang = lang || 'it';
             var tpl,
@@ -178,16 +184,16 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
 				config,
 				domFragment;
 				ctn = $("." + lang + "-canto-container");
-				
+
             $(ctn).empty();
             tpl = '<div class="row terza-item"><span class="col-xs-1 terza-no">{{terzaPos}}</span><p class=" col-xs-11 stz no-{{no_terza}}" data-pos="{{terzaPos}}" data-no="{{no_terza}}">{{content}}</p></div>',
 			emptyTpl = '<div class="row terza-item"><span class="col-xs-1 terza-no">{{terzaPos}}</span><p class=" col-xs-11 stz no-{{no_terza}}" data-pos="{{terzaPos}}" data-no="{{no_terza}}"><strong>{{content}}</strong></p></div>';
 
 			if (lang !== "kr") {
-				max = stanzas.length; 
+				max = stanzas.length;
 			}
 			domFragment = document.createDocumentFragment();
-			
+
 			for(var i = 0; i < max; i++) {
 				terzaItem = stanzas[i];
 				 if (terzaItem ) {
@@ -200,17 +206,17 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
 					if (config.mode ==="view") {
 						content = "Poko gen tradiksyon."
 					}
-					
+
 					terzaItem = {content: content , terzaPos: i + 1}
 					render = Mustache.render(emptyTpl, terzaItem);
 					$(render).addClass("empty");
 				}
-				domFragment.appendChild($(render).get(0));				
+				domFragment.appendChild($(render).get(0));
 			}
-			
+
 			$(ctn).append($(domFragment));
         }
-		
+
         this.showTradContext = function () {
             $('#user-action-tab a[href="#translation"]').tab('show');
         }
