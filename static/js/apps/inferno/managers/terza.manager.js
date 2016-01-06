@@ -23,7 +23,6 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 $(self.stzAction).find(".lang-choice").removeClass("selected");
                 $(target).addClass("selected");
                 self.showTranslationBoard(lang);
-                self.showStanzaInfos($(target));
                 return false;
             });
 
@@ -81,7 +80,6 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             } else {
                 var tpl = $("</p>").html($(terza).html());
                 $("#editing-zone").find(".current-translation").html($(tpl));
-                this.showStanzaInfos($(translationCtn));
                 self.showLanguages();
             }
         },

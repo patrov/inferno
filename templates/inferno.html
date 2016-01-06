@@ -35,7 +35,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/index">Inferno Eksperyans : Dante An Kreyol</a>
+                    <a class="navbar-brand" href="{{url_for('main.index')}}">Inferno Eksperyans : Dante An Kreyol</a>
 
                 </div>
                 <div class="collapse navbar-collapse">
@@ -85,17 +85,17 @@
                 console.log( reason );
             }
             require(['Kimo/core','inferno.app'], function (Kimo, Inferno) {
-                
+
 				Inferno.onError = function (error) {
                     console.log(error);
                 }
-				
+
                 Kimo.jquery.ajax({url: "/rest/config"}).done(function(response) {
                     Kimo.ParamsContainer.set("config", response);
                     Kimo.jQuery(".jumbotron").css("height", Kimo.jQuery(window).height()+"px");
                     Inferno.start({});
                 });
-            
+
             },_errorHandler);
 
         </script>

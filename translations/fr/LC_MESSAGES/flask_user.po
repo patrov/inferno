@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2016-01-03 17:35+0100\n"
-"PO-Revision-Date: 2016-01-03 18:39+0100\n"
+"PO-Revision-Date: 2016-01-06 10:48+0100\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +34,7 @@ msgstr "Ou sèlman ka mete lèt, chif, '-', '.','_' nan non itilizatè a "
 
 #: flask_user/forms.py:52
 msgid "This Username is already in use. Please try another one."
-msgstr "Itilizatè sa a ekziste deja. Silvouplè esaye yon lòt"
+msgstr "Non Itilizatè sa a ekziste deja. Silvouplè esaye yon lòt"
 
 #: flask_user/forms.py:59
 msgid "This Email is already in use. Please try another one."
@@ -109,7 +109,7 @@ msgstr "Chanje itilizatè"
 
 #: flask_user/forms.py:146 flask_user/forms.py:297
 msgid "Your email address"
-msgstr "Adrès imel ou"
+msgstr "Adrès imel ou a"
 
 #: flask_user/forms.py:147 flask_user/forms.py:298
 msgid "Email address is required"
@@ -121,12 +121,12 @@ msgstr "Adrès imel sa a pa bon"
 
 #: flask_user/forms.py:150
 msgid "Send reset password email"
-msgstr "Voye yon imel pou ka renouvle modpas ou"
+msgstr "Voye yon imel pou mwen ka renouvle modpas mwen an"
 
 #: flask_user/forms.py:157 flask_user/forms.py:231
 #, python-format
 msgid "%(username_or_email)s does not exist"
-msgstr "%(username_or_email)s pa ekziste"
+msgstr "%(username_or_email)s sa a pa ekziste"
 
 #: flask_user/forms.py:164 flask_user/forms.py:223 flask_user/forms.py:251
 msgid "Username"
