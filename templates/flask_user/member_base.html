@@ -1,60 +1,20 @@
-<!DOCTYPE html>
-<html lang="en_EN">
-    <head>
-        <meta encoding="utf-8">
-        <title>Showroom</title>
-        <link type="text/css" rel="stylesheet" href="/static/js/kimonic/vendor/bootstrap/dist/css/bootstrap.min.css"/>
-        <link type="text/css" rel="stylesheet" href="/static/js/kimonic/vendor/fontawesome/css/font-awesome.min.css"/>
+{% extends "layout.html" %}
 
-        <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-        <link href='/static/css/inferno.css' rel='stylesheet' type='text/css'/>
-    </head>
-    <body style="background:url(js/adpps/inferno/assets/images/blue-bg.jpg) 0 0 fixed;">
-        <!-- Static navbar -->
-
-        <header>
-
-            <div class="navbar navbar-default" role="navigation">
-
-                <div class="container">
-
-                    <div class="row">
-                        <div class="col-sm-12">
-
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                                <a class="navbar-brand" href="/">Babelio inferno : Dante An Kreyol</a>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </header>
-
-        <div class="container-fluid">
-			<div class="row">
-			
-				<div class="col-sm-6 col-md-2 sidebar" style="backgdround-color:#f5f5f5">
-				  
-				  <ul class="nav nav-sidebar" style="display:none">
-					<li class="active"><a href="#">Profil <span class="sr-only"></span></a></li>
-					<li><a href="#">Change modpass</a></li>
-				  </ul>
-				  
-				</div>
-				
-				<div class="col-sm-5 main"> {% block content %}{% endblock %} </div>
-			</div>
+{% block main %}
+	<div class="row" style="margin-top: 80px">
+	
+		<div class="col-sm-6 col-md-2 sidebar" style="backgdround-color:#f5f5f5">
+		  
+		  <ul class="nav nav-sidebar" style="display:none">
+			<li class="active"><a href="#">Profil <span class="sr-only"></span></a></li>
+			<li><a href="#">Change modpass</a></li>
+		  </ul>
+		  
 		</div>
-    </body>
-</html>
+
+		<div class="col-sm-5 main"> {% block content %}{% endblock %} </div>
+	</div>
+{% endblock %}       
+
+
 

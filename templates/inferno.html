@@ -1,86 +1,14 @@
-<!DOCTYPE html>
-<html lang="en_EN">
-    <head>
-        <meta encoding="utf-8">
-        <title>Inferno</title>
-        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/bootstrap/dist/css/bootstrap.min.css')}}"/>
-        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/fontawesome/css/font-awesome.min.css')}}"/>
-        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/nanoscroller/nanoscroller.css')}}"/>
+{% extends "layout.html" %}
 
-        <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-        <link href='{{url_for('static', filename='css/inferno.css')}}' rel='stylesheet' type='text/css'/>
-        <script type="text/javascript" src="{{url_for('static', filename='js/kimonic/vendor/requirejs/require.js')}}"></script>
-
-
-        <script>
-            var appPath = "/static/";
-        </script>
-        <script  src="{{url_for('static', filename='js/kimonic/main.js')}}"></script>
-        <script>
-            require.config({
-                paths: {
-                    "inferno.app": "apps/inferno/main"
-                }
-            });
-        </script>
-    </head>
-    <body>
-        <!-- Static navbar -->
-        <div class="navbar navbar-default navbar-static-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{{url_for('main.index')}}">Inferno Eksperyans : Dante An Kreyol</a>
-
-                </div>
-                <div class="collapse navbar-collapse">
-                    <!-- menu -->
-
-                    <nav class="nav navbar-nav navbar-right pull-right">
-
-                        <div class="container-fluid">
-                            {% if not current_user.is_authenticated() %}
-                            <a class="btn btn-default navbar-btn btn-link" href="{{url_for('user.login')}}">Konekte</a>
-							<a class="btn btn-default navbar-btn btn-info" href="{{url_for('user.register')}}">Kreye yon kont</a>
-                        </div>
-
-                            {% else %}
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <i class="fa fa-user green"></i> {{current_user.username}} <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{url_for("user.profile")}}"><i class="fa fa-gears"></i> Profil</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="{{url_for("user.logout")}}"><i class="fa fa-sign-out"></i> Dekonekte</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            {% endif %}
-                    </nav>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid">
-            <div class="col-sm-12">
-                <div class="jumbotron">
-                    <div class="mainWrapper viewCtn"></div>
-                </div>
-            </div>
-        </div>
-
-        <footer style="bottom: 0px; border-top: 1px solid #DBDFEA; padding: 10px">
-            <div class="container">
-                <p class="pull-right"><strong>Inferno</strong> - Yon eksperyans <a href="mailto:harris.baptiste@gmail.com">Harris.Baptiste</a></p>
-            </div>
-        </footer>
-        <script>
-
+{% block main %}
+	<div class="col-sm-12">
+		<div class="jumbotron col-md-2 col-md-offset-5" style="margin-top: 150px">
+			<div class="mainWrapper viewCtn">
+				<i class='fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom'></i>
+			</div>
+		</div>
+		
+		<script>
             var _errorHandler = function(reason){
                 console.log( reason );
             }
@@ -89,7 +17,6 @@
 				Inferno.onError = function (error) {
                     console.log(error);
                 }
-
                 Kimo.jquery.ajax({url: "/rest/config"}).done(function(response) {
                     Kimo.ParamsContainer.set("config", response);
                     Kimo.jQuery(".jumbotron").css("height", Kimo.jQuery(window).height()+"px");
@@ -97,7 +24,6 @@
                 });
 
             },_errorHandler);
-
         </script>
-    </body>
-</html>
+	</div>
+{% endblock %}
