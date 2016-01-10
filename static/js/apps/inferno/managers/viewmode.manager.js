@@ -20,7 +20,7 @@ define(["text!bi.templates/partials/commentzone.partial.html"], function (tpl) {
             $(".terzaZone").addClass("col-sm-6").removeClass("col-sm-4");
             this.resizeHeader();
             $(".translationZone").addClass("col-sm-5").removeClass("col-sm-4");
-            $(".user-context-wrapper").eq(0).animate({"width":  $(".user-context-wrapper").eq(0).parent().width()});
+            //$(".user-context-wrapper").eq(0).animate({"width":  $(".user-context-wrapper").eq(0).parent().width()});
             this.currentViewMode = 'terza';
         },
 
@@ -38,15 +38,15 @@ define(["text!bi.templates/partials/commentzone.partial.html"], function (tpl) {
            $(".col-sm-6").removeClass("col-sm-6").addClass("terzaZone col-sm-4");
            this.resizeHeader();
            $(".col-sm-5").removeClass("col-sm-5").addClass("translationZone col-sm-4");
-           $(".user-context-wrapper").eq(0).css({"width": $(".user-context-wrapper").eq(0).parent().width()});
+           //$(".user-context-wrapper").eq(0).css({"width": $(".user-context-wrapper").eq(0).parent().width()});
            
            $("#main-contrib-zone").append(commentZoneWrapper);
-           commentZone.css({"width": commentZoneWrapper.width()});
+           //commentZone.css({"width": commentZoneWrapper.width()});
            this.currentViewMode = 'comment';
         },
         
         resizeHeader: function (mode) {
-            $(".available-lang").css("width", $(".available-lang").parent().width()); 
+            //$(".available-lang").css("width", $(".available-lang").parent().width()); 
         }
     };
 

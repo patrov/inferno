@@ -1,9 +1,10 @@
 body { font-family: helvetica,arial,"lucida grande",sans-serif; }
 #inferno-app {padding-top:70px!important;}
+.main-wrapper {max-width: 1200px }
 
-.navbar-static-top {position: fixed; top: 0; left: 0; right: 0;}
+.navbar-static-top {/*position: fixed;*/ top: 0; left: 0; right: 0;}
 
-p.stz {padding-left: 10px; position: relative; color: #333; font-family: 'Georgia', sans-serif; white-space:pre-wrap; font-size: 1.2em; margin:0px; margin-bottom: 0.75em; }
+p.stz {padding-left: 10px; position: relative; color: #242028; font-family: "Garamond","Georgia",serif; white-space:pre-wrap; font-size: 1.3em; margin:0px; margin-bottom: 0.75em; }  /*Modif Julie :) */
 
 #terza-infos {font-family: helvetica,arial,"lucida grande",sans-serif; color: #999; right: 5px; display: inline-block; position: absolute; margin-right: 100px; font-size: 0.6em;}
 #editing-zone #terza-infos {top: 0px; left: 0px; padding-left: 10px; color: orange}
@@ -27,31 +28,31 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 .fa-angle-up, .fa-angle-down{ border: 1px solid #67b168; margin-left: 2px; padding: 3px; cursor: pointer}
 
 .pointable { cursor: pointer}
-#canto-pager { top: 150px}
+#canto-pager { top: 140px} /*Modif Julie :) */
 .stz-actions { top:0px; right:0px; margin-right: 5px; font-size: 0.6em; padding-right: 15px}
 
 .stz.selected { padding-left: 8px;/*margin-left:-5px; margin-top:-10px ; margin-right:-5px;padding-left:5px; padding-right:5px;*/ cursor:pointer; border-left: 2px solid orange; }
 
-.current-translation {border-bottom: 2px solid orange; boxs-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; padding-top: 15px; font-size:1.4em; font-family: "Garamond","Georgia", serif; white-space:pre-wrap; background-color: white}
+.current-translation {border-bottom: 2px solid orange; boxs-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; padding-top: 15px; font-size:1.4em; font-family: "Garamond","Georgia", serif; white-space:pre-wrap; background-color: white;  color: #242028;}  /*Modif Julie :) */
 
 .shadowed-box {box-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; background-color: white}
  .terza-item { margin-left: 5px;}
  .terza-no {color: orange}
 
 .stz-editor { margin: 5px; background-color: white; box-shadow: 0 1px 2px rgba(0,0,0,.1); text-align: center }
-.canto-ctn {padding-top : 65px; padding-bottom: 30px; background-color: #f8f8f8 }
+.canto-ctn {padding-top : 25px; padding-bottom: 30px; background-color: #f6f4f7; margin-top: 70px;} /*Modif Julie :) */
 .other-translation { margin-top: 10px; padding-top: 10px}
 
 .save-btn { margin-top: 5px }
 
 .user-tab { border-bottom: 1px solid #ebebeb}
 
-.tab-pane { padding-top: 10px}
+.tab-pane { padding-top: 28px} /*Modif Julie :) */
 
-.available-lang {padding-top: 19px; background-color: white; border-bottom: 1px solid #ebebeb; margin-bottom: 30px; position: fixed; height: 60px; top: 51px; width: 555px; z-index: 999999}
+.available-lang {padding-top: 19px; background-color: white; border-bottom: 1px solid #ebebeb; margin-bottom: 30px; /*position: fixed;*/ height: 60px; /*top: 51px; *width: 555px;*/ z-index: 999999}
 .available-lang .selected { padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 2px solid #d9edf9 }
 
-#user-translation-text {margin-left: 10px; white-space: pre-wrap; font-family: "Garamond","Georgia",serif; font-size: 1.3em;}
+#user-translation-text {margin-left: 10px; white-space: pre-wrap; font-family: "Garamond","Georgia", serif; font-size: 1.3em;}
 
 #contributions p.contrib { position: relative; padding: 15px; font-size: 1em; border: 1px solid #ebebeb}
 
@@ -63,9 +64,9 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 
 #editing { margin-bottom : 5px;}
 
-.prewrap {white-space: pre-wrap; padding-top: 5px}
+.prewrap {white-space: pre-wrap; padding-top: 5px; font-family: "Garamond","Georgia", serif;} /*Modif Julie :) */
 
-footer {position: fixed; right: 0; left: 0; background-color: #f8f8f8; height: 30px; padding: 0px}
+footer {position: fixed; right: 0; left: 0; background-color: #dcd9dd; height: 30px; padding: 0px}  /*Modif Julie :) */
 .block-title {border-bottom : 1px solid #eee;  margin-bottom: 10px}
 
 #editor-ctn {background-color: #ecf0f1;}
@@ -76,8 +77,8 @@ footer {position: fixed; right: 0; left: 0; background-color: #f8f8f8; height: 3
 
 #user-translation {background-color: #d9edf7; padding: 5px; border-bottom: 1px solid #3498db}
 
-.user-context-wrapper {position: fixed; top:70px; width: 457px;}
-.comment-zone {position: fixed}
+.user-context-wrapper {/*position: fixed;*/ top:70px; /*width: 457px;*/}
+/*.comment-zone {position: fixed}*/
 
 #add-translation {margin-top: 5px;}
 
@@ -85,13 +86,16 @@ footer {position: fixed; right: 0; left: 0; background-color: #f8f8f8; height: 3
 
 .csanto-ctn { max-height: 726px; overflow-y: auto }
 
-.canto-link { padding-top: 10px; line-height: 14px; border: 1px solid #23527c; cursor: pointer; height: 50px; width: 100%; margin-bottom: 5px; text-align: center; color: #666}
+.canto-link { padding-top: 10px; line-height: 14px; border: 1px solid #dcd9dd; cursor: pointer; height: 50px; width: 100%; margin-bottom: 5px; text-align: center; color: #242028; font-weight: 600; font-size: 11px; text-transform: uppercase} /*Modif Julie :) */
+.canto-link:hover {padding-top: 9px; border: 2px solid #242028; color: #aca4b2;} /*Modif Julie :) */
 
 .canto-link .fa-lock{position: absolute; bottom:0; right: 5px}
-.canto-link.selected {text-align: center; border: 2px solid orange}
-.prev-canto, .next-canto {cursor: pointer; height: 50px; text-align: center; border: 1px solid #23527c}
+.canto-link.selected {padding-top: 9px; border: 2px solid #ffA500}
+.canto-link.selected:hover {padding-top: 9px;}
+.prev-canto, .next-canto {padding-top: 10px; cursor: pointer; height: 50px; text-align: center; border: 1px solid #dcd9dd}
+.prev-canto:hover, .next-canto:hover {padding-top: 9px; border: 2px solid #242028; color: #aca4b2;} /*Modif Julie :) */
 
-.canto-link-ctn { /*position: absolute; top: 62px*/ width: 68px; position: fixed; top: 90px;}
+.canto-link-ctn { /*position: absolute; top: 62px; width: 68px; /*position: fixed;*/ top: 90px;}
 
 .user-comment {font-size: 0.9em; font-family: helvetica,arial,"lucida grande",sans-serif; min-height: 20px !important}
 
@@ -110,5 +114,177 @@ footer {position: fixed; right: 0; left: 0; background-color: #f8f8f8; height: 3
 
 .prev-canto {margin-bottom: 5px;}
 
-.contrib-time {font-size: 0.7em; font-weight: bold;}
+.contrib-time {font-size: 0.7em; font-weight: normal; color: #dcd9dd;} /*Modif Julie :) */
 
+/*Modif Julie :) */
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857;
+    border: 0px none;
+    border-radius: 4px 4px 0px 0px;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #ffA500;
+    cursor: default;
+    background-color: #FFF;
+    border: none;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+.nav-tabs > li > a:hover {
+    border: 0px none;
+}
+.nav-tabs > li {
+    float: left;
+    margin-bottom: 0px;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: #fff;
+}
+.btn-link:hover, .btn-link:focus {
+    color: #aca4b2;
+}
+.btn-link, .navbar-default .btn-link {
+    font-weight: 600;
+	text-transform: uppercase;
+    color: #242028;
+    border-radius: 0px;
+}
+.btn-link:hover, .btn-link:focus,  .navbar-default .btn-link:hover,  .navbar-default .btn-link:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color: transparent;
+}
+.user-tab.nav.nav-tabs > li > a {
+    font-weight: 600;
+	text-transform: uppercase;
+    color: #242028;
+}
+.user-tab.nav.nav-tabs > li > a:hover, .user-tab.nav.nav-tabs > li > a:focus {
+    color: #aca4b2;
+}
+.user-tab.nav.nav-tabs > li.active > a {
+    font-weight: 600;
+	text-transform: uppercase;
+    color: #ffA500;
+}
+a {
+    color: #ffA500;
+}
+a:hover {
+	color: #aca4b2;
+    transition: all 0.2s linear 0s;
+	text-decoration: none;
+}
+.navbar-static-top {
+    z-index: 1000;
+    border-width: 0px 0px 0px;
+}
+.text-success {
+    color: #aca4b2;
+}
+body {
+    color: #242028;
+}
+.navbar-default {
+    background-color: #aca4b2;
+}
+b, strong {
+    font-weight: 600;
+}
+.navbar-default .navbar-brand {
+    color: #fff;
+	text-transform: uppercase;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: #242028;
+    background-color: transparent;
+}
+
+.btn {
+    display: inline-block;
+    padding: 5px 12px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.42857;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: inherit;
+    cursor: pointer;
+    -moz-user-select: none;
+    background-image: none;
+    border: none;
+	border-radius: 6px;
+	text-transform: uppercase;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #ffA500;
+    border: none;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    color: #aca4b2;
+    background-color: #dcd9dd;
+    border: none;
+}
+.btn-info {
+    color: #fff;
+    background-color: #ffA500;
+    border: none;
+}
+.btn-info:hover, .btn-info:focus, .btn-info.focus, .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
+    color: #aca4b2;
+    background-color: #dcd9dd;
+    border: #none;
+}
+input[type="checkbox"] {
+    margin: 2px 0px 0px;
+    line-height: 1.42857;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #242028;
+    background-color: #FFF;
+    background-image: none;
+    border: 1px solid #dcd9dd;
+    border-radius: 0px;
+    box-shadow: none;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+.form-control:focus{border-color:#aca4b2;outline:0;-webkit-box-shadow:none;box-shadow:none}
+
+.has-error .help-block, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline, .has-error.radio label, .has-error.checkbox label, .has-error.radio-inline label, .has-error.checkbox-inline label {
+    color: #f12d00;
+	-webkit-box-shadow:none;
+	box-shadow:none;
+}
+h1, .h1, h2, .h2, h3, .h3 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#inferno-app .view .container {
+	margin-bottom: 60px;
+	margin-top: 0px;
+}
+
+
+
+/* Noir 242028    Gris fonce aca4b2    Gris clair dcd9dd    Orange ffA500   */
