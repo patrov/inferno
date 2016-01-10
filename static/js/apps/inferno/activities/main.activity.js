@@ -69,8 +69,8 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                         self.terzaManager.selectTerza(self.terzaManager.getCurrentTerza(), false);
                     });
 
-                    Kimo.Observable.on("EnterCommentMode", function(translation) {
-                        self.commentManager.showCommentList(translation);
+                    Kimo.Observable.on("EnterCommentMode", function(translation, itemHtml) {
+                        self.commentManager.showCommentList(translation, itemHtml);
                     });
 
                     /*  move to cantoManager */
