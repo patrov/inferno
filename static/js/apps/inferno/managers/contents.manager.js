@@ -107,14 +107,23 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             });
         },
 
+        
 
         bindEvents = function() {
-            Kimo.Observable.registerEvents(['TranslationEditTask', 'TerzaSelection']);
+            Kimo.Observable.registerEvents(['TranslationEditTask', 'TerzaSelection', 'userTabSelection']);
             Kimo.Observable.on("TerzaSelection", handleTranslation);//
             Kimo.Observable.on("TerzaSelection", handleTerzaStats); // displayStats
             Kimo.Observable.on("TerzaSelection", hideCommentZone); //  hide Comment Zone if visible
             Kimo.Observable.on("TerzaSelection", showEditorForm);
             Kimo.Observable.on("TerzaSelection", displayUserContributions); // contributions
+            
+            Kimo.Observable.on("userTabSelection", function (tab) {
+                if (tab === "contribution") {
+                    translationList.refresh();
+                }
+            });
+
+            
             Models.TranslationRepository.on("change", handleUserContribution);
         },
 

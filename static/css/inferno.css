@@ -1,5 +1,5 @@
 body { font-family: helvetica,arial,"lucida grande",sans-serif; }
-#inferno-app {padding-top:70px!important;}
+#inferno-app {padding-top: 90px!important; margin-bottom: 60px}   /*Modif Julie :) */
 .main-wrapper {max-width: 1200px }
 
 .navbar-static-top {/*position: fixed;*/ top: 0; left: 0; right: 0;}
@@ -7,7 +7,7 @@ body { font-family: helvetica,arial,"lucida grande",sans-serif; }
 p.stz {padding-left: 10px; position: relative; color: #242028; font-family: "Garamond","Georgia",serif; white-space:pre-wrap; font-size: 1.3em; margin:0px; margin-bottom: 0.75em; }  /*Modif Julie :) */
 
 #terza-infos {font-family: helvetica,arial,"lucida grande",sans-serif; color: #999; right: 5px; display: inline-block; position: absolute; margin-right: 100px; font-size: 0.6em;}
-#editing-zone #terza-infos {top: 0px; left: 0px; padding-left: 10px; color: orange}
+#editing-zone #terza-infos {top: -26px; left: 0px; padding-left: 0px; color: #ffA500} /*Modif Julie :) */
 p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom: 0.75em;}
 .nano > .nano-content {outline: none !important}
 .trad-sugg { margin-bottom: 10px; background-color: white; padding: 5px; border-bottom: 1px dotted #e5e5e5; box-shaddow: 0 1px 2px rgba(0,0,0,.1);}
@@ -28,28 +28,28 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 .fa-angle-up, .fa-angle-down{ border: 1px solid #67b168; margin-left: 2px; padding: 3px; cursor: pointer}
 
 .pointable { cursor: pointer}
-#canto-pager { top: 140px} /*Modif Julie :) */
-.stz-actions { top:0px; right:0px; margin-right: 5px; font-size: 0.6em; padding-right: 15px}
+#canto-pager { margin-top: 71px} /*Modif Julie :) */
+.stz-actions { top:-26px; right:0px; margin-right: 5px; font-size: 0.6em; padding-right: 0px} /*Modif Julie :) */
 
 .stz.selected { padding-left: 8px;/*margin-left:-5px; margin-top:-10px ; margin-right:-5px;padding-left:5px; padding-right:5px;*/ cursor:pointer; border-left: 2px solid orange; }
 
-.current-translation {border-bottom: 2px solid orange; boxs-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; padding-top: 15px; font-size:1.4em; font-family: "Garamond","Georgia", serif; white-space:pre-wrap; background-color: white;  color: #242028;}  /*Modif Julie :) */
+.current-translation {margin: 0px; padding: 0px; padding-top: 0px; font-size:1.4em; font-family: "Garamond","Georgia", serif; white-space:pre-wrap; background-color: white;  color: #242028;}  /*Modif Julie :) */
 
 .shadowed-box {box-shadow: 0 1px 2px rgba(0,0,0,.1); margin: 5px; padding: 10px; background-color: white}
- .terza-item { margin-left: 5px;}
+ .terza-item { margin-left: 10px; margin-right: 10px;}
  .terza-no {color: orange}
 
 .stz-editor { margin: 5px; background-color: white; box-shadow: 0 1px 2px rgba(0,0,0,.1); text-align: center }
-.canto-ctn {padding-top : 25px; padding-bottom: 30px; background-color: #f6f4f7; margin-top: 70px;} /*Modif Julie :) */
+.canto-ctn {padding-top : 25px; padding-bottom: 30px; background-color: #f6f4f7; margin-top: 0px;} /*Modif Julie :) */
 .other-translation { margin-top: 10px; padding-top: 10px}
 
 .save-btn { margin-top: 5px }
 
-.user-tab { border-bottom: 1px solid #ebebeb}
+.user-tab { border-bottom: 1px solid #DCD9DD;  margin-bottom: 30px;} /*Modif Julie :) */
 
-.tab-pane { padding-top: 28px} /*Modif Julie :) */
+.tab-pane { padding-top: 0px} /*Modif Julie :) */
 
-.available-lang {padding-top: 19px; background-color: white; border-bottom: 1px solid #ebebeb; margin-bottom: 30px; /*position: fixed;*/ height: 60px; /*top: 51px; *width: 555px;*/ z-index: 999999}
+.available-lang {padding-top: 0px; background-color: white; border-bottom: 1px solid #DCD9DD; margin-bottom: 30px; /*position: fixed;*/ /*height: 60px;*/ /*top: 51px; *width: 555px; z-index: 999999*/} /*Modif Julie :) */
 .available-lang .selected { padding:3px; font-size: 0.9em;  text-align: center; background-color: 1px solid green; border: 2px solid #d9edf9 }
 
 #user-translation-text {margin-left: 10px; white-space: pre-wrap; font-family: "Garamond","Georgia", serif; font-size: 1.3em;}
@@ -82,7 +82,7 @@ footer {position: fixed; right: 0; left: 0; background-color: #dcd9dd; height: 3
 
 #add-translation {margin-top: 5px;}
 
-#editing-zone{ margin-bottom: 5px; padding: 5px;}
+#editing-zone{ margin: 10px 10px 22px 10px; padding: 0px; border-bottom: 2px solid #FFA500; padding: 31px 10px 10px; background-color: white;}   /*Modif Julie :) */
 
 .csanto-ctn { max-height: 726px; overflow-y: auto }
 
@@ -177,6 +177,9 @@ footer {position: fixed; right: 0; left: 0; background-color: #dcd9dd; height: 3
 a {
     color: #ffA500;
 }
+a:hover, a:focus, a:active {
+	outline: 0;
+}
 a:hover {
 	color: #aca4b2;
     transition: all 0.2s linear 0s;
@@ -185,6 +188,7 @@ a:hover {
 .navbar-static-top {
     z-index: 1000;
     border-width: 0px 0px 0px;
+	position: fixed;
 }
 .text-success {
     color: #aca4b2;
@@ -283,6 +287,12 @@ h1, .h1, h2, .h2, h3, .h3 {
 #inferno-app .view .container {
 	margin-bottom: 60px;
 	margin-top: 0px;
+}
+#user-context {
+	border-left: none !important;
+}
+.btn-link.canto-lang:hover, .btn-link.canto-lang:focus {
+    color: #ACA4B2 !important;
 }
 
 

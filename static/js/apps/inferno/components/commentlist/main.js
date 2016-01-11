@@ -13,6 +13,7 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
             this.commentDataView = new Kimo.DataView({
                 itemRenderer: $.proxy(ItemRenderer.render, ItemRenderer),
                 height: $(window).height() - 350,
+                scrollToLast: true,
                 width: "auto"
             });
             this.commentReposirory = this.entity;
@@ -21,21 +22,27 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
         },
 
         bindEntityEvents: function () {
+            var self = this;
             this.commentReposirory.on("change", $.proxy(this.handleChange, this)); //must be triggered after create
+            Kimo.Observable.registerEvents(['newComment']);
+            Kimo.Observable.on("newComment", function () { 
+                self.commentDataView.updateScrollbar();
+             });
         },
 
         handleChange: function (reason, comment) {
             this.commentDataView.updateData(comment.toJson(), reason);
         },
 
-        setTranslation: function (translation) {
+        setTranslation: function (translation, itemHtml) {
             
             this.currentTarget = translation.id;
             var currentTranslation = Kimo.TemplateManager.render(this.templatePath + "selectedTranslation.html", {data: translation});
             this.loadTranslationComments(translation);
             this.commentEditor.setTarget(translation);
-            $("#trans-ctn").html(currentTranslation);
-            this.render();
+            //$("#trans-ctn").html(currentTranslation);
+            
+            this.render(itemHtml);
         },
 
         displayCommentEditor: function () {
@@ -49,12 +56,14 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
             });
         },
 
-        render: function() {
-            //if (!this.isRendered) {
-            this.commentDataView.render("#commentlist-wrapper");
-            $("#editor-wrapper").append(this.commentEditor.render());
-            //}
-            //this.isRendered = true;
+        render: function(itemHtml) {
+            var container = $("<div></div>");
+            container.addClass(".comment-zone");
+            container.append($("<div class='editor-wrapper'></div>").clone());
+            container.append($("<div class='comment-list'></div>").clone());
+            this.commentDataView.render(container.find(".comment-list").eq(0));
+            $(itemHtml).after(container);
+            container.find(".editor-wrapper").eq(0).append(this.commentEditor.render());
         }
 
 

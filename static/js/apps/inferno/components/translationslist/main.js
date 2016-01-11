@@ -34,6 +34,10 @@ define(['Kimo/core', '../translationslist/helper/itemrenderer.helper'], function
            });
         },
 
+        refresh: function () {
+            this.dataView.updateScrollbar();
+        },
+        
         setTerza: function(terza) {
             if(terza && (this.currentTerza !== terza)) {
                 this.currentTerza = terza;

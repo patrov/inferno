@@ -9,16 +9,18 @@ define(["bi.models", 'bi.components/commentlist/main'], function(Models) {
              config: null, 
              commentList : null,
              
-            showCommentList: function(translation) {
+            showCommentList: function(translation, itemHtml) {
                 try {
                     if (!this.commentList) {
                         this.commentList = Kimo.createEntityView("CommentList", {
                             entity: Models.CommentRepository,
                             root : this.config.root,
-                            height : $(document).height() - 600
+                            autoGrowTo : $(document).height()
                         });
+                        
+                        console.log($(document).height());
                     }
-                    this.commentList.setTranslation(translation);
+                    this.commentList.setTranslation(translation, itemHtml);
                 } catch (e) {
                     console.log(e);
                 }

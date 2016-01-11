@@ -58,15 +58,17 @@ require(["Kimo/core", "text!bi.components/commentlist/templates/comment.editor.h
             this.disableEditor();
             var result = [],
                 commentHtml = this.editableField.html();
-                
-             Kimo.jQuery(commentHtml).each(function(i) {
+        
+        /*     Kimo.jQuery(commentHtml).each(function(i) {
                 result.push(Kimo.jQuery.text(commentHtml[i]));
-             });
+             });*/
 
-
+             var self = this;
             this.entity.create({
-                content: result.join("\n"),
+                content: commentHtml,/*result.join("\n"),*/
                 target: this.target.id
+                }).done(function (data) {
+                    Kimo.Observable.trigger("newComment", data);
                 });
                 this.reset();
         },
