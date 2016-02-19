@@ -51,6 +51,7 @@ def test_member():
     
 @app.before_request
 def before_request():
+    pprint("... Harris ...")
     g.user = current_user
 
 

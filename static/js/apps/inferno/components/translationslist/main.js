@@ -20,9 +20,9 @@ define(['Kimo/core', '../translationslist/helper/itemrenderer.helper'], function
                     return "<p style='color: orange'><strong>Poko gen tradiksyon...</strong></p>";
                 },
                 width: 'auto',
-                height: this.height + "px"
+                height: (this.height - 25) + "px",
+                scrollable: false,
             });
-
             this.isRendered = false;
             this.translationRepository = this.entity;
         },

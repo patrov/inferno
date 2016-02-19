@@ -1,29 +1,30 @@
 {% extends "layout.html" %}
 
 {% block main %}
-	<div class="col-sm-12">
-		<div class="jumbotron col-md-2 col-md-offset-5" style="margin-top: 150px">
-			<div class="mainWrapper viewCtn">
-				<i class='fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom'></i>
-			</div>
-		</div>
-		
-		<script>
-            var _errorHandler = function(reason){
-                console.log( reason );
+
+<div class="col-sm-12">
+    <div class="jumbotron col-md-2 col-md-offset-5" style="margin-top: 150px">
+        <div class="mainWrapper viewCtn text-center">
+            <i class='fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom'></i>
+        </div>
+    </div>
+
+    <script>
+        var _errorHandler = function(reason) {
+            console.log(reason);
+        }
+        require(['Kimo/core', 'inferno.app'], function(Kimo, Inferno) {
+
+            Inferno.onError = function(error) {
+                console.log(error);
             }
-            require(['Kimo/core','inferno.app'], function (Kimo, Inferno) {
+            Kimo.jquery.ajax({url: "/rest/config"}).done(function(response) {
+                Kimo.ParamsContainer.set("config", response);
+                Kimo.jQuery(".jumbotron").css("height", Kimo.jQuery(window).height() + "px");
+                Inferno.start({});
+            });
 
-				Inferno.onError = function (error) {
-                    console.log(error);
-                }
-                Kimo.jquery.ajax({url: "/rest/config"}).done(function(response) {
-                    Kimo.ParamsContainer.set("config", response);
-                    Kimo.jQuery(".jumbotron").css("height", Kimo.jQuery(window).height()+"px");
-                    Inferno.start({});
-                });
-
-            },_errorHandler);
-        </script>
-	</div>
+        }, _errorHandler);
+    </script>
+</div>
 {% endblock %}

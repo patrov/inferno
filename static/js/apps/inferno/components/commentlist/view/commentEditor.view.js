@@ -13,25 +13,16 @@ require(["Kimo/core", "text!bi.components/commentlist/templates/comment.editor.h
 
         init: function () {
             this.currentValue = "";
-            this.root = $(editor).clone();
+            this.widget = $(editor).clone();
             this.target = null;
             this.enable = true;
-            this.editableField = $("#comment-field", this.root).eq(0);
-            this.bindEntityEvents();
+            this.editableField = $("#comment-field", this.widget).eq(0);
         },
 
         setTarget: function (target) {
             this.target = target;
         },
-
-        bindEntityEvents: function() {
-            this.entity.on("save", $.proxy(this.handleChange, this));
-        },
-
-        handleChange: function(test) {
-
-        },
-
+        
         disableEditor: function () {
             this.enable = false;
             return this;
@@ -51,19 +42,13 @@ require(["Kimo/core", "text!bi.components/commentlist/templates/comment.editor.h
         },
 
         hide: function () {
-            $(this.root).hide();
+            $(this.widget).hide();
         },
 
         saveComment: function () {
             this.disableEditor();
-            var result = [],
-                commentHtml = this.editableField.html();
-        
-        /*     Kimo.jQuery(commentHtml).each(function(i) {
-                result.push(Kimo.jQuery.text(commentHtml[i]));
-             });*/
-
-             var self = this;
+            var commentHtml = this.editableField.html();
+            
             this.entity.create({
                 content: commentHtml,/*result.join("\n"),*/
                 target: this.target.id
@@ -74,7 +59,7 @@ require(["Kimo/core", "text!bi.components/commentlist/templates/comment.editor.h
         },
 
         render: function () {
-            return this.root;
+            return this.widget;
         }
     });
 
