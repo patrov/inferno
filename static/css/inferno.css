@@ -1,6 +1,6 @@
 body { font-family: helvetica,arial,"lucida grande",sans-serif; }
-#inferno-app {padding-top: 90px!important; margin-bottom: 60px}   /*Modif Julie :) */
-.main-wrapper {max-width: 1200px }
+#inferno-app {/*padding-top: 90px!important;*/ margin-bottom: 60px}   /*Modif Julie :) */
+.main-wrapper {max-width: 1200px; padding-top: 90px }
 
 .navbar-static-top {/*position: fixed;*/ top: 0; left: 0; right: 0;}
 
@@ -23,7 +23,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 
 .simple-card { padding: 5px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);}
 .vote-btn { color: orange }
-.comment-btn { color: green }
+.comment-btn { color: #ffA500 }
 
 .fa-angle-up, .fa-angle-down{ border: 1px solid #67b168; margin-left: 2px; padding: 3px; cursor: pointer}
 
@@ -67,7 +67,6 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 .prewrap {white-space: pre-wrap; padding-top: 5px; font-family: "Garamond","Georgia", serif;} /*Modif Julie :) */
 
 footer {position: fixed; right: 0; left: 0; background-color: #dcd9dd; height: 30px; padding: 0px}  /*Modif Julie :) */
-.block-title {border-bottom : 1px solid #eee;  margin-bottom: 10px}
 
 #editor-ctn {background-color: #ecf0f1;}
 
@@ -78,7 +77,6 @@ footer {position: fixed; right: 0; left: 0; background-color: #dcd9dd; height: 3
 #user-translation {background-color: #d9edf7; padding: 5px; border-bottom: 1px solid #3498db}
 
 .user-context-wrapper {/*position: fixed;*/ top:70px; /*width: 457px;*/}
-/*.comment-zone {position: fixed}*/
 
 #add-translation {margin-top: 5px;}
 
@@ -97,9 +95,12 @@ footer {position: fixed; right: 0; left: 0; background-color: #dcd9dd; height: 3
 
 .canto-link-ctn { /*position: absolute; top: 62px; width: 68px; /*position: fixed;*/ top: 90px;}
 
+.comment-zone { margin: 5px; padding: 5px 20px 5px 20px}
+.comment-zone .block-title {text-transform: uppercase; font-weight: 600; color: #ffA500}
+.comment-zone .block-close-btn {color: #ffA500}
 .user-comment {font-size: 0.9em; font-family: helvetica,arial,"lucida grande",sans-serif; min-height: 20px !important}
 
-#comment-wrapper{ border-top: 1px solid #3498db;}
+#comment-wrapper{ border-top: 1px solid #ffA500;}
 
 #comment-field {padding: 3px; margin: auto; margin-top: 5px; position: relative; border: 2px #3498db solid;  word-wrap: break-word; overflow-y: auto; cursor: text; min-height: 35px; max-height: 100px }
 .comment-close-btn { margin-right: -1px !important;}
@@ -108,9 +109,7 @@ footer {position: fixed; right: 0; left: 0; background-color: #dcd9dd; height: 3
 
 #commentlist-wrapper {margin-top: 15px}
 
-.commentzone-close-btn { padding: 5px; border: 1px solid orange; position: absolute; right: 0px; cursor: pointer}
-
-.comment-zone-title {border-bottom: 1px solid orange; font-size: large; margin-top: 15px;}
+.comsmentblock-title {border-bottom: 1px solid orange; font-size: large; margin-top: 15px;}
 
 .prev-canto {margin-bottom: 5px;}
 

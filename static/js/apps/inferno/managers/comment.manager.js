@@ -16,9 +16,7 @@ define(["bi.models", 'bi.components/commentlist/main'], function(Models) {
                             entity: Models.CommentRepository,
                             root : this.config.root,
                             autoGrowTo : $(document).height()
-                        });
-                        
-                        console.log($(document).height());
+                        });                        
                     }
                     this.commentList.setTranslation(translation, itemHtml);
                 } catch (e) {

@@ -15,8 +15,18 @@ def index():
 def home():
     return redirect('/app')
     
- 
+
+	
+@main_app.route('/user/confirm')
+def confirm_action():
+	return render_template("confirm_action.html")
+	
+	
 @main_app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
-    
+
+@main_app.before_request
+def handle_confirmation():
+	pprint("icic")
+

@@ -6,64 +6,84 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
 
     Kimo.registerEntityView({
         name: "CommentList",
-
+        
+        events: {
+            ".block-close-btn click": 'destroy'
+        },
+        
         init: function() {
+            
+            this.widget = $("<div/>");
+            this.widget.addClass("comment-zone");
+            this.widget.append($("<div class='editor-wrapper'></div>").clone());
+            this.widget.append($("<div class='comment-list'></div>").clone());
+            
+            this.editorCtn = this.widget.find('.editor-wrapper').eq(0);
+            this.commentListCtn = this.widget.find('.comment-list').eq(0);
             this.currentTarget = null;
             this.templatePath = "bi.components/commentlist/templates/";
+            
             this.commentDataView = new Kimo.DataView({
                 itemRenderer: $.proxy(ItemRenderer.render, ItemRenderer),
-                height: $(window).height() - 350,
                 scrollToLast: true,
                 width: "auto"
             });
+            
             this.commentReposirory = this.entity;
-            this.commentEditor = Kimo.createEntityView("CommentEditor", {entity: this.entity});
+            this.commentEditor = Kimo.createEntityView("CommentEditor", {entity: this.entity, root: this.root});
+                
+            this.commentDataView.render(this.commentListCtn);
+            this.editorCtn.append(this.commentEditor.render());
             this.bindEntityEvents();
         },
-
+        
+        onDestroy: function () { 
+            this.clear();
+        },
+        
         bindEntityEvents: function () {
             var self = this;
-            this.commentReposirory.on("change", $.proxy(this.handleChange, this)); //must be triggered after create
+            
             Kimo.Observable.registerEvents(['newComment']);
-            Kimo.Observable.on("newComment", function () { 
-                self.commentDataView.updateScrollbar();
+            Kimo.Observable.on("newComment", function (comment) { 
+                self.commentDataView.updateData(comment, "create");
              });
         },
-
-        handleChange: function (reason, comment) {
-            this.commentDataView.updateData(comment.toJson(), reason);
-        },
-
+        
         setTranslation: function (translation, itemHtml) {
-            
+            if (this.currentTarget === translation.id) {
+                return;
+            }
             this.currentTarget = translation.id;
-            var currentTranslation = Kimo.TemplateManager.render(this.templatePath + "selectedTranslation.html", {data: translation});
             this.loadTranslationComments(translation);
-            this.commentEditor.setTarget(translation);
-            //$("#trans-ctn").html(currentTranslation);
-            
-            this.render(itemHtml);
+            this.commentEditor.setTarget(translation);            
+            this.render(itemHtml); //show the view after the template
         },
 
         displayCommentEditor: function () {
             this.editor.show();
         },
-
+        
+        clear: function () {
+            this.currentTarget = null;
+            $(this.widget).remove();
+        },
+        
         loadTranslationComments: function (translation) {
             var self = this;
-            this.commentReposirory.getComments(translation).done(function(data) {
+            this.commentDataView.reset();
+            
+            self.commentReposirory.getComments(translation).done(function(data) {
                 self.commentDataView.setData(data, true);
             });
         },
 
         render: function(itemHtml) {
-            var container = $("<div></div>");
-            container.addClass(".comment-zone");
-            container.append($("<div class='editor-wrapper'></div>").clone());
-            container.append($("<div class='comment-list'></div>").clone());
-            this.commentDataView.render(container.find(".comment-list").eq(0));
-            $(itemHtml).after(container);
-            container.find(".editor-wrapper").eq(0).append(this.commentEditor.render());
+            if (itemHtml) {
+                return $(itemHtml).after(this.widget);
+            } 
+            
+            return this.widget;  
         }
 
 

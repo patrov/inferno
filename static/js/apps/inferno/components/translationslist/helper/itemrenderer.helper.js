@@ -36,10 +36,10 @@ define(['Kimo/core', 'vendor.moment', 'manager!inferno:viewmode', 'manager!infer
 
         showCommentField: function(itemHtml, item) {
             
-            if (this.translationManager.getCurrentMode() === "comment") {
+           /* if (this.translationManager.getCurrentMode() === "comment") {
                 Kimo.Observable.trigger("EnterCommentMode", item, itemHtml);
                 return;
-            }
+            }*/
             //this.translationManager.switchViewMode("comment");
             Kimo.Observable.trigger("EnterCommentMode", item, itemHtml);
         },
