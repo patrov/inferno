@@ -1,5 +1,5 @@
-define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!inferno:comment', 'manager!inferno:contents', 'manager!inferno:vote'],
-        function(Kimo, Pager, terzaManager, CommentManager, ContentMananager, VoteManager) {
+define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!inferno:comment', 'manager!inferno:contents', 'manager!inferno:noteeditor', 'manager!inferno:vote'],
+        function(Kimo, Pager, terzaManager, CommentManager, ContentMananager, NoteEditor, VoteManager) {
 
             Kimo.ActivityManager.createActivity("MainActivity", {
                 appname: "Inferno",
@@ -20,7 +20,8 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
 
                 },
                 /*
-                 *avant chaque
+                 * - avant chaque appel décorer l'action
+                 * - mettre décorator dans fichier
                  **/
                 handleActionDecorators: function(action) {
 
@@ -38,11 +39,13 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     Kimo.ParamsContainer.set("translated", 1);
                     this.terzaManager = terzaManager;
                     this.contentsManager = ContentMananager;
-                                        
+
                     this.pagerManager = Pager.configure({root: this.view.view, viewMode: this.currentMode.mode});
                     this.commentManager = CommentManager.configure({root: this.view.view, viewMode: this.currentMode.mode});
                     this.terzaManager.configure({root: this.view.view, canto: 1, viewMode: this.currentMode.mode});
                     this.contentsManager.configure({root: this.view.view, viewMode: this.currentMode.mode});
+
+                    this.nodeEditor = NoteEditor.configure({root: this.view.view, viewMode: this.currentMode.mode});
                     this.initTabs();
 
                     /* canto change */

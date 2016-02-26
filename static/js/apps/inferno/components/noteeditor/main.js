@@ -9,6 +9,11 @@
 define([], function () {
 
 
-
+    return {
+        
+        apply: function () {
+            return "I'm here";
+        }
+    }
 
 });

@@ -1,0 +1,14 @@
+{
+  "name": "annotator",
+  "homepage": "https://github.com/openannotation/annotator",
+  "version": "1.2.10",
+  "_release": "1.2.10",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.2.10",
+    "commit": "865840ba641c168b24a99af28f390e9778105cea"
+  },
+  "_source": "https://github.com/openannotation/annotator.git",
+  "_target": "~1.2.10",
+  "_originalSource": "https://github.com/openannotation/annotator.git"
+}
