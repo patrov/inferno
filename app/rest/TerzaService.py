@@ -58,7 +58,7 @@ def conditional_marshal(func):
         
         wrapped_func = marshal_with(terza_fields)(func)
         
-        if hasattr(args, 'lang') and args['lang']== 'kr':
+        if hasattr(args, 'lang') and args['lang'] === 'kr':
             wrapped_func = marshal_with(kreyol_fields)(func)
             
         return wrapped_func(*args, **kwargs)

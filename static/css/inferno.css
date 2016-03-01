@@ -100,16 +100,14 @@ footer {position: fixed; right: 0; left: 0; background-color: #dcd9dd; height: 3
 .comment-zone .block-close-btn {color: #ffA500}
 .user-comment {font-size: 0.9em; font-family: helvetica,arial,"lucida grande",sans-serif; min-height: 20px !important}
 
-#comment-wrapper{ border-top: 1px solid #ffA500;}
-
 #comment-field {padding: 3px; margin: auto; margin-top: 5px; position: relative; border: 2px #3498db solid;  word-wrap: break-word; overflow-y: auto; cursor: text; min-height: 35px; max-height: 100px }
 .comment-close-btn { margin-right: -1px !important;}
 
 .comment-list-trad-wrapper {background-color: #ecf0f1; padding: 5px}
 
-#commentlist-wrapper {margin-top: 15px}
+#commentlist-wrapper {margin-top: 10px; }
 
-.comsmentblock-title {border-bottom: 1px solid orange; font-size: large; margin-top: 15px;}
+.comment-zone .block-wrapper {border-bottom: 1px solid #ffA500; padding-bottom: 5px; margin-top: 15px;}
 
 .prev-canto {margin-bottom: 5px;}
 

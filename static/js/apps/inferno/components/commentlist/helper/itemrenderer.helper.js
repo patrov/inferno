@@ -4,7 +4,7 @@
  */
 
 
-define(['Kimo/core'], function(Kimo) {
+define(['Kimo/core', 'vendor.moment'], function(Kimo, moment) {
 
     var ItemRenderer = {
         templatePath: "bi.components/commentlist/templates/",
@@ -14,6 +14,7 @@ define(['Kimo/core'], function(Kimo) {
         },
 
         render: function(itemData, mode) {
+            itemData.pubdate = moment(itemData.pubdate).fromNow();
             var itemRender = Kimo.TemplateManager.render(this.templatePath + "item.html", {data: itemData});
             return this.attachEvents(itemRender, itemData);
         }

@@ -15,8 +15,10 @@ require(["Kimo/core", 'bi.components/commentlist/helper/itemrenderer.helper', 'b
             
             this.widget = $("<div/>");
             this.widget.addClass("comment-zone");
-            this.widget.append($("<div class='editor-wrapper'></div>").clone());
+            this.widget.append($('<p class="block-wrapper"><span class="block-title">Komantè</span> <span class="block-close-btn pointable fa fa-close pull-right"></span></p>'));
+            
             this.widget.append($("<div class='comment-list'></div>").clone());
+            this.widget.append($("<div class='editor-wrapper'></div>").clone());
             
             this.editorCtn = this.widget.find('.editor-wrapper').eq(0);
             this.commentListCtn = this.widget.find('.comment-list').eq(0);
