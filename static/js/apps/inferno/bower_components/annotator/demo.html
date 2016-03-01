@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>JS annotation test</title>
+
+        <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" data-bootloader-hash="G4fy/" data-permanent="1" />
+        <!-- jQuery must be included before Annotator -->
+        <script src="lib/vendor/jquery.js"></script>
+
+        <!-- If you're sure your users will only be using browsers modern
+             enough to have their own JSON.parse and JSON.stringify
+             implementations you can skip this -->
+        <script src="lib/vendor/json2.js"></script>
+
+        <!-- The main Annotator script -->
+        <script src="pkg/annotator.min.js"></script>
+
+        <!-- Annotator's styling and images -->
+        <link rel="stylesheet" type="text/css" href="pkg/annotator.min.css">
+
+        <!-- The following plugins are entirely optional -->
+
+        <!-- The Store plugin. Saves annotations to a remote backend -->
+        <script src="pkg/annotator.store.min.js"></script>
+
+        <!-- The Auth plugin. Allows users of Annotator to authenticate themselves
+             to the remote backend -->
+        <script src="pkg/annotator.auth.min.js"></script>
+
+        <!-- The Permissions plugin. See who created which annotation and create
+             annotations as a specified user -->
+        <script src="pkg/annotator.permissions.min.js"></script>
+
+        <!-- The Tags plugin. Edit and display tag keywords on annotations -->
+        <script src="pkg/annotator.tags.min.js"></script>
+
+        <!-- The Markdown plugin. Treat annotation text as Markdown -->
+        <script src="lib/vendor/showdown.js"></script>
+        <script src="pkg/annotator.markdown.min.js"></script>
+        <style>
+            .annotator-item {font-size: x-small; vertical-align: super}
+            .annotator-hl {background: orange}
+            .badge {color: white}
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <h1>Javascript annotation service test</h1>
+
+            <div class='col-sm-7'>
+
+                <div id="airlock">
+                    <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+
+                    <h2>Header Level 2</h2>
+
+                    <ol>
+                        <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                        <li>Aliquam tincidunt mauris eu risus.</li>
+                    </ol>
+
+                    <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+
+                    <h3>Header Level 3</h3>
+
+                    <ul>
+                        <li id="listone">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                        <li id="listtwo">Aliquam tincidunt mauris eu risus.</li>
+                    </ul>
+
+                    <pre>
+                        <code>
+                            #header h1 a {
+                              display: block;
+                              width: 300px;
+                              height: 80px;
+                            }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+            <div class='col-sm-5'>
+                <h4><strong>Annotation</strong></h4>
+                <div class='media-ctn'>
+                    <div class="media" style='display:none'>
+                        <div class="media-left">
+                            <a href="#"> <img alt="64x64" data-src="holder.js/64x64" class="media-object" style="width: 64px; height: 64px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTMxN2QxZmUzNCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MzE3ZDFmZTM0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMi41IiB5PSIzNi44Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true">
+                            </a>
+                        </div>
+                        <div class="media-body"> <h4 class="media-heading">Media heading</h4><div class='annotation-content'></div> </div> <div class="media-right"> <a href="#"> <img alt="64x64" data-src="holder.js/64x64" class="media-object" style="width: 64px; height: 64px;" src="data:imsage/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTMxN2QyMTAyNCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MzE3ZDIxMDI0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMi41IiB5PSIzNi44Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true"> </a> </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <script>
+
+
+
+            jQuery(function ($) {
+
+                Annotator.Plugin.TerzaEditor = function (element, option) {}
+
+                /* terza editor */
+                jQuery.extend(Annotator.Plugin.TerzaEditor.prototype, new Annotator.Plugin(), {
+
+
+                    pluginInit: function () {
+                        this.store = [];
+                        this.itemRenderer = jQuery('.media').clone().show();
+                        this.annotationViewerPanel = jQuery('.media-ctn').eq(0);
+
+                        this.bindEvents();
+                    },
+
+                    getAnnotationById: function (key) {
+                        var item = null, self = this;
+                        jQuery.each(this.store, function (i) {
+                            if (self.store[i].id === key) {
+                                item = self.store;
+                                return true;
+                            }
+                            return item;
+                        });
+                    },
+
+                    bindEvents: function () {
+                        var self = this;
+
+                        this.annotator.subscribe('annotationEditorShown', function (editor) {
+                            /* change editor here */
+                            console.log(editor);
+                        });
+
+                        this.annotator.subscribe('annotationCreated', this.handleNewAnnotation.bind(this));
+
+                        this.annotationViewerPanel.on("click", '.annotation-content', this.handle);
+                    },
+
+                    populateAnnotations: function () {
+                        var store = this.store, self = this, annotationViewPanel = this.annotationViewerPanel, annotationItem = this.itemRenderer, item;
+                        annotationViewPanel.empty();
+
+                        jQuery.each(this.store, function (no) {
+                            item = store[no];
+                            annotationItem = jQuery(annotationItem).clone();
+                            jQuery(annotationItem).find('.annotation-content').html(item.text);
+                            annotationViewPanel.append(annotationItem);
+
+                            jQuery(annotationItem).data('annotation-item', item);
+                            annotationItem.on('mouseenter', self.handleAnnotationMouseOver.bind(self));
+                            annotationItem.on('mouseleave', self.handleMouseLeave.bind(self));
+                        });
+                    },
+                    /*deals*/
+                    handleMouseLeave: function (e) {
+                        var annotation = jQuery(e.currentTarget).data("annotation-item"), highlight;
+
+                        if (!annotation) { return false; }
+
+
+                        if (annotation.highlights.length) {
+                            highlight = jQuery(annotation.highlights[0]);
+                            highlight.contents().insertBefore(highlight);
+                            highlight.remove();
+                        }
+                    },
+
+                    handleAnnotationMouseOver: function (e) {
+                        var annotation = jQuery(e.currentTarget).data('annotation-item');
+                        if (!annotation) { return false; }
+                        this.annotator.setupAnnotation(annotation);
+                    },
+
+                    getNumber: (function() {
+                      var cpt = 0;
+                      return function () {
+                          cpt = cpt + 1;
+                          return cpt;
+                      }
+                    }()),
+
+                    showSelection: function (annotation) {
+                        this.annotator.highlightRange(annotation.ranges, 'rdacial_sd');
+                    },
+
+                    handleNewAnnotation: function (annotation) {
+                        var no = jQuery('<span>' + this.store.length + '</span>');
+                        no.addClass('badge');
+
+                        jQuery(no).addClass('annodtator-hl annotator-item');
+                        jQuery(annotation.highlights[0]).append(no);
+                        jQuery(annotation.highlights[0]).contents().unwrap();
+                        annotation.highlights[0] = jQuery(no).get(0);
+
+                        //jQuery(no).bind('click', this.handleItemSelection.bind(this, annotation));
+
+                        jQuery(no).bind('mouseenter', this.showSelection.bind(this, annotation));
+
+                        jQuery(no).data('annotation', annotation);
+                        jQuery(no).data('data-annotation-id', annotation.id);
+
+                        if (!annotation.hasOwnProperty('id')) {
+                            annotation.id = Annotator.Util.uuid();
+                        }
+
+                        this.store.push(annotation);
+                        this.populateAnnotations();
+                    },
+
+                    persist: function () {
+
+                    },
+
+                    populate: function () {
+
+                    },
+
+                    load: function () {
+
+                    },
+
+                    showMarker: function () {
+
+                    },
+
+                    customForm: function () {
+
+                    }
+                });
+
+
+                if (typeof $.fn.annotator !== 'function') {
+                    alert("Ooops! it looks like you haven't built the Annotator concatenation file. " +
+                        "Either download a tagged release from GitHub, or modify the Cakefile to point " +
+                        "at your copy of the YUI compressor and run `cake package`.");
+                } else {
+                    // This is the important bit: how to create the annotator and add
+                    // plugins
+                    $('#airlock').annotator({
+                        readOnly: false
+                    })
+                    .annotator('addPlugin', 'TerzaEditor')
+                    .annotator('addPlugin', 'Store')
+                    .annotator('addPlugin', 'Markdown')
+                    .annotator('addPlugin', 'Tags');
+
+                    $('#airlock').data('annotator');
+                }
+
+
+            });
+        </script>
+    </body>
+
+
+</html>

@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, g, session, redirect, url_for
+from flask import Blueprint, flash, request, render_template, g, session, redirect, url_for
 from pprint import pprint
 import os.path
     
@@ -7,6 +7,7 @@ from app import app
 
 @main_app.route("/app")
 def index():
+    flash(u"inside my index body", 'infos')
     return render_template('inferno.html')
  
 

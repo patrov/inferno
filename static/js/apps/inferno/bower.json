@@ -21,6 +21,6 @@
   ],
   "dependencies": {
     "moment": "~2.10.6",
-    "annotator": "https://github.com/openannotation/annotator.git#~2.1.10"
+    "annotator": "https://github.com/openannotation/annotator.git#~1.2.10"
   }
 }
