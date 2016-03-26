@@ -292,6 +292,12 @@ h1, .h1, h2, .h2, h3, .h3 {
     color: #ACA4B2 !important;
 }
 
-
+/* Annotator style */
+.annotator-item {font-size: x-small; vertical-align: super}
+.annotator-hl {background: orange}
+.badge {color: white}
+.badge.annotation-no {font-size: 10px; padding: 1px 4px; vertical-align: super}
+.badge.badge-hl {opacity: 0.5; line-height: none; display: inline; line-height: none; font-size:inherit; padding:0 2px; border-radius: 0 !important; filter:alpha(opacity=50); background: orange }
+.annotation-no > .annotator-hl {background: none; font-weight: smaller;}
 
 /* Noir 242028    Gris fonce aca4b2    Gris clair dcd9dd    Orange ffA500   */

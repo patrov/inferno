@@ -1,5 +1,5 @@
-define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!inferno:comment', 'manager!inferno:contents', 'manager!inferno:noteeditor', 'manager!inferno:vote'],
-        function(Kimo, Pager, terzaManager, CommentManager, ContentMananager, NoteEditor, VoteManager) {
+define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!inferno:comment', 'manager!inferno:contents', 'manager!inferno:annotation', 'manager!inferno:vote'],
+        function(Kimo, Pager, terzaManager, CommentManager, ContentMananager, AnnotationManager, VoteManager) {
 
             Kimo.ActivityManager.createActivity("MainActivity", {
                 appname: "Inferno",
@@ -16,7 +16,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     /* use injector instead :)*/
                 },
                 /* @ */
-                indexAction: function(pagerManager, kimoRequest, kimoManager, infernoBlaze) {
+                indexAction: function(pagerManager,imoRequest, kimo$Manager, infernoBlaze) {
 
                 },
                 /*
@@ -45,8 +45,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     this.terzaManager.configure({root: this.view.view, canto: 1, viewMode: this.currentMode.mode});
                     this.contentsManager.configure({root: this.view.view, viewMode: this.currentMode.mode});
 
-                    this.nodeEditor = NoteEditor.configure({root: this.view.view, viewMode: this.currentMode.mode});
-                    this.initTabs();
+                    this.annotationManager = AnnotationManager.configure({root: this.view.view, viewMode: this.currentMode.mode});
 
                     /* canto change */
                     this.pagerManager.getPager().on("cantoSelection", function(e, canto) {
@@ -57,10 +56,11 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
 
                     Kimo.Observable.on('CantoLoaded', function() {
                         self.terzaManager.selectTerzaByPosition(1);
+                        self.initTabs('#annotation');
                     });
 
                     Kimo.Observable.on('disabledCanto', function() {
-                        alert("O poko ka editer chan sa a. ");
+                        alert("O poko ka edite chan sa a. ");
                     });
 
                     Kimo.Observable.on('CantoTranslationLoaded', function() {
@@ -85,22 +85,28 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                         var className = lang + "-canto-container";
                         $("." + className).show();
                     });
-
-                    /*$(this.view.view).on("mouseenter", ".current-translation", function (e) {
-                     var stz = e.currentTarget;
-                     self.terzaManager.showLanguages(stz);
-                     });*/
                 },
-                initTabs: function() {
+                
+                initTabs: function(selections) {
                     $(this.view.view).on("click", "#user-action-tab a", function(e) {
                         e.preventDefault();
                         $(this).tab('show');
                         Kimo.Observable.trigger("userTabSelection", $(e.target).parent().data("tab"));
                     });
+                    
+                    /* handle selection Here */
+                    if (typeof selections !== 'string') return {}; 
+                    selections = selections.split(',');
+                    $.each(selections, function (i) {
+                        var selector = selections[i].replace('#', ''); 
+                        $("[data-tab='" + selector + "'] > a").eq(0).trigger('click');                       
+                    });
+                  
                 },
                 templateReady: function(canto) {
                     this.terzaManager.loadCanto(canto);
                 },
+                
                 homeAction: function() {
                     var self = this;
                     self.templateReady(1);
@@ -116,13 +122,10 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                         self.pagerManager.showCantoPager(render.find(".col-sm-1").eq(0));
                         self.pagerManager.selectCanto(parseInt(no, 10));
                         Kimo.ParamsContainer.set("currentCanto", no);
-
                     });
                     self.templateReady(no);
                 },
-                menuComponent: function() {
-                    return "<ul><li>Home</li><li>User</li><li>Contribution</li></ul>"
-                },
+                
                 showProfileAction: function() {
                     this.data = {sdsd: 'sdsd'};
                     return {name: "Tema "};

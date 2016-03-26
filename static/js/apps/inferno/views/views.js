@@ -174,17 +174,14 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         doEdit: function() {
             this.showEditForm();
         },
-        
         showUserTranslation: function() {
             this.widget.find(".user-translation").show();
         },
-        
         showEditForm: function() {
             $(this.editFields).hide();
             $(this.editor).val(this.translationItem.get("content"));
             this.widget.find(".stz-editor").show();
         },
-        
         setTranslation: function(translationItem) {
             if (!translationItem || typeof translationItem.set !== "function") {
                 return;
@@ -196,9 +193,9 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             this.translationItem = translationItem;
             if (this.translationItem.isEmpty()) {
                 if (this.isEditMode()) {
-					if (this.viewMode === "view") {
-						this.hideProposeBtn();
-					}
+                    if (this.viewMode === "view") {
+                        this.hideProposeBtn();
+                    }
                     $(this.editor).val(translationItem.get("content"));
                     this.showEditForm();
                 } else {
@@ -211,26 +208,21 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
                 this.showUserTranslation();
             }
         },
-		
-		hideProposeBtn: function() {
-			this.widget.find("#propose-btn").hide();
-		},
-		
+        hideProposeBtn: function() {
+            this.widget.find("#propose-btn").hide();
+        },
         isShowMode: function() {
             return this.currentMode === this.SHOW_MODE;
         },
-		
         hidePanels: function() {
             this.panels.hide();
         },
-		
         showEmptyTransaltionPanel: function() {
             this.emptyTranslationPanel.show();
         },
-		
         isEditMode: function() {
             return this.currentMode === this.EDIT_MODE;
-      },
+        },
         setTerza: function(terza) {
             this.currentTerza = terza;
         },

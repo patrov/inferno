@@ -9,9 +9,8 @@ define(['jquery', 'text!../time/templates/layout.html'], function (jQuery, layou
     /* create a component constructor
      * Handle and trigger events
      * Parse component actions
-     * send messages other components that will be handled
-     * actions allow us to match
-     * content must have an id.
+     * send messages to other components that will be handled
+     * component must have an id.
      *  */
     return {
         init: function (config) {

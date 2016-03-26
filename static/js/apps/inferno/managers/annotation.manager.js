@@ -1,11 +1,11 @@
-define(["Kimo/core", "component!noteeditor"], function (Kimo) {
+define(["Kimo/core", "component!inferno:annotation"], function (Kimo, Annotationcomponent) {
 
     /*
      * Manage note editor
      **/
     var NoteEditorManager = (function () {
 
-        var EDITING_TAB = 'editing',
+        var ANNOTATE_TAB = 'annotation',
 
             enabled = 1,
 
@@ -18,14 +18,20 @@ define(["Kimo/core", "component!noteeditor"], function (Kimo) {
 
              Kimo.Observable.registerEvents(["userTabSelection"]);
              Kimo.Observable.on("userTabSelection", function (tabname) {
-                 if (EDITING_TAB === tabname) {
-                     
-                 }
-
+                if (ANNOTATE_TAB === tabname) {
+                    var textContainer = Kimo.jQuery("#main-contrib-zone .it-canto-container").eq(0);
+                    Annotationcomponent.apply({textContainer: textContainer, viewPanel: '#annotation-zone'});
+                    Kimo.ParamsContainer.set("disableTerzaSelection", true);
+                    console.log(Kimo.ParamsContainer.get('disableTerzaSelection'));
+                }
+                
              });
-
         },
-
+        
+        showAnnotation = function () {
+            /* Afficher les annotation ici */
+        },
+        
         getApi = function () {
             return {};
         },
@@ -34,7 +40,7 @@ define(["Kimo/core", "component!noteeditor"], function (Kimo) {
          settings = Kimo.jQuery.extend(true, {}, settings, userSettings);
          bindEvents();
          return getApi();
-       }
+       };
 
        return {
            configure: configure

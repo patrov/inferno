@@ -3,8 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>JS annotation test</title>
-
-        <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" data-bootloader-hash="G4fy/" data-permanent="1" />
+        <link type="text/css" rel="stylesheet" href="/static/js/kimonic/vendor/bootstrap/dist/css/bootstrap.min.css"/>
         <!-- jQuery must be included before Annotator -->
         <script src="lib/vendor/jquery.js"></script>
 
@@ -42,6 +41,10 @@
             .annotator-item {font-size: x-small; vertical-align: super}
             .annotator-hl {background: orange}
             .badge {color: white}
+			.badge.annotation-no {font-size: 10px; padding: 1px 4px; vertical-align: super}
+            .badge.badge-hl {opacity: 0.5; line-height: none; display: inline; line-height: none; font-size:inherit; padding:0 2px; border-radius: 0 !important; filter:alpha(opacity=50); background: orange }
+			.annotation-no > .annotator-hl {background: none; font-weight: smaller;}
+
         </style>
     </head>
 
@@ -54,7 +57,7 @@
             <div class='col-sm-7'>
 
                 <div id="airlock">
-                    <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+                    <p><strong>Pellentesque habitant morbi tristique</strong> senectus<span class='note-test'>1</span> et netus suada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
 
                     <h2>Header Level 2</h2>
 
@@ -102,7 +105,11 @@
 
         <script>
 
-
+            /*
+             * 1/ we can't annotate between node 
+             * 
+             * 
+             */
 
             jQuery(function ($) {
 
@@ -116,6 +123,7 @@
                         this.store = [];
                         this.itemRenderer = jQuery('.media').clone().show();
                         this.annotationViewerPanel = jQuery('.media-ctn').eq(0);
+                        this.onDeleteNote = function () {}
 
                         this.bindEvents();
                     },
@@ -143,12 +151,15 @@
 
                         this.annotationViewerPanel.on("click", '.annotation-content', this.handle);
                     },
-
-                    populateAnnotations: function () {
-                        var store = this.store, self = this, annotationViewPanel = this.annotationViewerPanel, annotationItem = this.itemRenderer, item;
-                        annotationViewPanel.empty();
-
-                        jQuery.each(this.store, function (no) {
+                    
+                    updateView: function () {
+                        var store = this.annotator.plugins.Store.annotations, self = this, 
+                            annotationViewPanel = this.annotationViewerPanel, 
+                            annotationItem = this.itemRenderer, item;
+                        
+                        
+                    annotationViewPanel.empty();
+                        jQuery.each(store, function (no) {
                             item = store[no];
                             annotationItem = jQuery(annotationItem).clone();
                             jQuery(annotationItem).find('.annotation-content').html(item.text);
@@ -159,24 +170,58 @@
                             annotationItem.on('mouseleave', self.handleMouseLeave.bind(self));
                         });
                     },
-                    /*deals*/
-                    handleMouseLeave: function (e) {
-                        var annotation = jQuery(e.currentTarget).data("annotation-item"), highlight;
-
-                        if (!annotation) { return false; }
-
-
-                        if (annotation.highlights.length) {
-                            highlight = jQuery(annotation.highlights[0]);
-                            highlight.contents().insertBefore(highlight);
-                            highlight.remove();
-                        }
+                    
+                    
+                    
+                    buildBadge: function (badgeInfos) {
+                        var badgeNo = jQuery(badgeInfos).data('badge-no'),
+                            badge = jQuery('<i/>').addClass(" badge annotation-no").html(badgeNo);   
+                           badge.data("annotation", jQuery(badgeInfos).data('annotation'));
+                        if(!badgeNo) {return false; }
+                        jQuery(badgeInfos).replaceWith(badge);
                     },
-
-                    handleAnnotationMouseOver: function (e) {
-                        var annotation = jQuery(e.currentTarget).data('annotation-item');
+                    
+                    handleMouseLeave: function (e) {
+                        var annotation = jQuery(e.currentTarget).data("annotation-item"), 
+                            badgeInfos = jQuery('.badge-infos'),
+                            self = this;
+                    
                         if (!annotation) { return false; }
-                        this.annotator.setupAnnotation(annotation);
+                        if(!annotation.highlights.length) { return false; }
+                        
+                        jQuery(annotation.highlights).map(function () {
+                            jQuery(this).contents().unwrap();
+                        });
+                        
+                        /* show badges */
+                        jQuery('.badge-hl').removeClass('badge-hl');                      
+                    },
+                    
+                    showAnnotationsOptions: function () {
+                        /* Ajouter fonction éditer et effacer ici ! */
+                    },
+                    
+                    handleAnnotationMouseOver: function (e) {
+                        var annotation = jQuery(e.currentTarget).data('annotation-item'),
+                            annotationBefore = 0; 
+                        if (!annotation) { return false; }
+                        /* hide button and show them */                        
+                        jQuery(annotation.highlights).map(function () {
+                            jQuery(this).css({border: '1px solid blue'});
+                        });
+                        
+                        /* normalize before setup */
+                        t = this.annotator.setupAnnotation(annotation);                        
+                        jQuery(t.highlights).map(function () {
+                            var parent = jQuery(this).parent();
+                            if (parent.hasClass('annotation-no')) {
+                                var badgeInfos = jQuery('<i/>').addClass('badge-infos');
+                            badgeInfos.data("annotation", jQuery(parent).data("annotation"));    
+                            badgeInfos.data("badge-no", jQuery(parent).data("annotation").position);
+                            //jQuery(parent).replaceWith(badgeInfos);
+							parent.addClass("badge-hl");
+                            }
+                        });                        
                     },
 
                     getNumber: (function() {
@@ -184,55 +229,49 @@
                       return function () {
                           cpt = cpt + 1;
                           return cpt;
-                      }
+                      };
                     }()),
 
                     showSelection: function (annotation) {
                         this.annotator.highlightRange(annotation.ranges, 'rdacial_sd');
                     },
-
+                    
+                    updateAnnotationPosition: function () {
+                        /* find all badge */
+                        var badges = jQuery('.annotation-no');
+                        badges.map(function (i) {
+                            jQuery(this).html(i + 1);
+                            annotation = jQuery(this).data('annotation');
+                            annotation.position = i + 1;
+                        });
+                        
+                    },
+                    
                     handleNewAnnotation: function (annotation) {
-                        var no = jQuery('<span>' + this.store.length + '</span>');
-                        no.addClass('badge');
-
-                        jQuery(no).addClass('annodtator-hl annotator-item');
-                        jQuery(annotation.highlights[0]).append(no);
-                        jQuery(annotation.highlights[0]).contents().unwrap();
-                        annotation.highlights[0] = jQuery(no).get(0);
-
-                        //jQuery(no).bind('click', this.handleItemSelection.bind(this, annotation));
-
-                        jQuery(no).bind('mouseenter', this.showSelection.bind(this, annotation));
-
-                        jQuery(no).data('annotation', annotation);
-                        jQuery(no).data('data-annotation-id', annotation.id);
-
-                        if (!annotation.hasOwnProperty('id')) {
-                            annotation.id = Annotator.Util.uuid();
+                    /* When a new annotation is created
+                     * associate a provis number then update all the numbers.
+                     * */
+                        var noBadge = jQuery('<span>-</span>').clone(),
+                             nb,
+                            nbHl = annotation.highlights.length; 
+                            noBadge.addClass('badge');
+                            
+                       jQuery.each(annotation.highlights, function (i) {
+                           
+                        nb = i + 1 ;
+                        if (nb === nbHl) { //last item
+                            jQuery(noBadge).addClass('annotation-no');
+                            jQuery(annotation.highlights[i]).append(noBadge);
+                            jQuery(annotation.highlights[i]).contents().unwrap();
+                            jQuery(noBadge).data('annotation', annotation);
+                        } else {
+                            jQuery(annotation.highlights[i]).contents().unwrap();
                         }
-
-                        this.store.push(annotation);
-                        this.populateAnnotations();
-                    },
-
-                    persist: function () {
-
-                    },
-
-                    populate: function () {
-
-                    },
-
-                    load: function () {
-
-                    },
-
-                    showMarker: function () {
-
-                    },
-
-                    customForm: function () {
-
+                     });
+                    
+                    annotation.highlights = [];
+                    this.updateAnnotationPosition();
+                    this.updateView();
                     }
                 });
 
@@ -247,8 +286,8 @@
                     $('#airlock').annotator({
                         readOnly: false
                     })
-                    .annotator('addPlugin', 'TerzaEditor')
                     .annotator('addPlugin', 'Store')
+                    .annotator('addPlugin', 'TerzaEditor')
                     .annotator('addPlugin', 'Markdown')
                     .annotator('addPlugin', 'Tags');
 

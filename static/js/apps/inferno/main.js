@@ -1,6 +1,12 @@
 Kimo.require.config({
     waitSeconds: 10,
     urlArgs: 'rand=' + Math.random(),
+    shim: {
+        'vendor.annotator': {
+            deps: ['jquery'],
+            exports: "Annotator"
+        }
+    },
     paths: {
         "bi.route": "apps/inferno/routes",
         "bi.managers": "apps/inferno/managers",
@@ -15,7 +21,8 @@ Kimo.require.config({
         "bi.viewsContainer": "apps/inferno/views/",
         "Kimo.localstorage": "kimonic/core/Kimo.adapter.localstorage",
         "vendor.mustache": "kimonic/vendor/mustache/mustache",
-        "vendor.moment": "apps/inferno/bower_components/moment/min/moment.min"
+        "vendor.moment": "apps/inferno/bower_components/moment/min/moment.min",
+        "vendor.annotator": "apps/inferno/bower_components/annotator/pkg/_annotator-full.min"
     }
 });
 
