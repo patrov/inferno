@@ -10,11 +10,11 @@ class InfernoConfig(object):
     USER_AFTER_REGISTER_ENDPOINT = HOME_ENDPOINT
     USER_AFTER_CONFIRM_ENDPOINT = HOME_ENDPOINT
 	
-	#confirmation
+    #confirmation
     USER_AFTER_RESET_PASSWORD_ENDPOINT = 'main.confirm_action'
     USER_AFTER_CHANGE_PASSWORD_ENDPOINT = 'main.confirm_action'
     
-	# Flask-User Email Template
+    # Flask-User Email Template
     USER_APP_NAME = 'Inferno Eksperyans' 
                  
     
