@@ -22,7 +22,7 @@ Kimo.require.config({
         "Kimo.localstorage": "kimonic/core/Kimo.adapter.localstorage",
         "vendor.mustache": "kimonic/vendor/mustache/mustache",
         "vendor.moment": "apps/inferno/bower_components/moment/min/moment.min",
-        "vendor.annotator": "apps/inferno/bower_components/annotator/pkg/_annotator-full.min"
+        "vendor.annotator": "apps/inferno/bower_components/annotator/pkg/_annotator-full"
     }
 });
 

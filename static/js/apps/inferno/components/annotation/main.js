@@ -10,6 +10,7 @@ define(['vendor.annotator'], function(annotator) {
 
 
     /* extend annotator here */
+    var instance = null; 
     var createInlineNotePlugins = function(Annotator) {
 
         Annotator.Plugin.TerzaEditor = function(element, option) {
@@ -21,7 +22,7 @@ define(['vendor.annotator'], function(annotator) {
         jQuery.extend(Annotator.Plugin.TerzaEditor.prototype, new Annotator.Plugin(), {
             pluginInit: function() {
                 this.store = [];
-                this.itemRenderer = jQuery('<div><p class="annotation-content"></p></div>').clone();
+                this.itemTpl = jQuery('<div><p class="annotation-content"></p></div>').clone();
                 this.annotationViewerPanel = jQuery(this.options.viewPanel);
               
                 this.bindEvents();
@@ -38,34 +39,55 @@ define(['vendor.annotator'], function(annotator) {
             },
             bindEvents: function() {
                 var self = this;
-
+				
+				this.annotator.subscribe('annotationsLoaded', function (list) {
+                    jQuery.each(list, function (i) {
+                        var annotation = list[i];
+                        self.handleNewAnnotation(annotation);
+                    });   
+				});
+				
                 this.annotator.subscribe('annotationEditorShown', function(editor) {
                     /* change editor here */
                     console.log(editor);
+                });
+
+                this.annotator.subscribe('beforeAnnotationCreated', function (annotation) {
+                    if (typeof self.options.onCreate === "function") {
+                        self.options.onCreate(annotation);
+                    }
                 });
 
                 this.annotator.subscribe('annotationCreated', this.handleNewAnnotation.bind(this));
 
                 this.annotationViewerPanel.on("click", '.annotation-content', this.handle);
             },
+
             updateView: function() {
                 var store = this.annotator.plugins.Store.annotations, self = this,
                         annotationViewPanel = this.annotationViewerPanel,
-                        annotationItem = this.itemRenderer, item;
-
+                        annotationItem = this.itemTpl, item;
+						
 
                 annotationViewPanel.empty();
                 jQuery.each(store, function(no) {
                     item = store[no];
-                    annotationItem = jQuery(annotationItem).clone();
-                    jQuery(annotationItem).find('.annotation-content').html(item.text);
+					var annotationItem = jQuery(self.options.itemRenderer(item));
+					
                     annotationViewPanel.append(annotationItem);
-
-                    jQuery(annotationItem).data('annotation-item', item);
+                    
+					jQuery(annotationItem).data('annotation-item', item);
                     annotationItem.on('mouseenter', self.handleAnnotationMouseOver.bind(self));
                     annotationItem.on('mouseleave', self.handleMouseLeave.bind(self));
+                    annotationItem.on('click', self.deleteAnnotation.bind(self));
                 });
             },
+
+            deleteAnnotation: function (e) {
+                var annotation = jQuery(e.currentTarget).data('annotation-item');
+                this.annotator.deleteAnnotation(annotation);
+            },
+
             buildBadge: function(badgeInfos) {
                 var badgeNo = jQuery(badgeInfos).data('badge-no'),
                         badge = jQuery('<i/>').addClass(" badge annotation-no").html(badgeNo);
@@ -103,10 +125,6 @@ define(['vendor.annotator'], function(annotator) {
                 if (!annotation) {
                     return false;
                 }
-                /* hide button and show them */
-                jQuery(annotation.highlights).map(function() {
-                    jQuery(this).css({border: '1px solid blue'});
-                });
 
                 /* normalize before setup */
                 t = this.annotator.setupAnnotation(annotation);
@@ -142,6 +160,7 @@ define(['vendor.annotator'], function(annotator) {
 
             },
             handleNewAnnotation: function(annotation) {
+
                 /* When a new annotation is created
                  * associate a provis number then update all the numbers.
                  * */
@@ -186,14 +205,29 @@ define(['vendor.annotator'], function(annotator) {
                 readOnly: false,
                 viewPanelId: "#radical",
             })
-            .annotator('addPlugin', 'Store')
-            .annotator('addPlugin', 'TerzaEditor', {viewPanel: config.viewPanel});
-            
-            $(config.textContainer).data('annotator');
+            .annotator('addPlugin', 'Store', {prefix: '/rest'})
+            .annotator('addPlugin', 'TerzaEditor', {
+					viewPanel: config.viewPanel,
+					onCreate: config.onCreate,
+					itemRenderer: config.itemRenderer
+					});
+
+            instance = $(config.textContainer).data('annotator');
+
+            instance.plugins.Store.loadAnnotations = function (id) {
+                id = id || null;
+                this.annotations = [];//clear previous annotations @fixme
+                return this._apiRequest('read', id, this._onLoadAnnotations);
+            }
         },
-        disable: function() {
+
+        getInstance: function() {
+            return instance;
         },
-        loadAnnotation: function() {
+
+        loadAnnotation: function(terzaId) {
+            if (!instance) { return false; }
+            this.getInstance().plugins.Store.loadAnnotations(terzaId);
         }
     };
 

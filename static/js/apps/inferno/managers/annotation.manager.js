@@ -13,18 +13,31 @@ define(["Kimo/core", "component!inferno:annotation"], function (Kimo, Annotation
                 infoSelector : '',
                 root: null
             },
-
+		
+		itemRenderer = function (item) {
+			return "<p class='annotation'> Harris :" + item.text + " </p>";
+		},
+        
         bindEvents = function () {
 
-             Kimo.Observable.registerEvents(["userTabSelection"]);
+             Kimo.Observable.registerEvents(["userTabSelection",'TerzaSelection']);
+
              Kimo.Observable.on("userTabSelection", function (tabname) {
                 if (ANNOTATE_TAB === tabname) {
                     var textContainer = Kimo.jQuery("#main-contrib-zone .it-canto-container").eq(0);
-                    Annotationcomponent.apply({textContainer: textContainer, viewPanel: '#annotation-zone'});
-                    Kimo.ParamsContainer.set("disableTerzaSelection", true);
-                    console.log(Kimo.ParamsContainer.get('disableTerzaSelection'));
+                    Annotationcomponent.apply({
+                        textContainer: textContainer, 
+                        viewPanel: '#annotation-zone', 
+						itemRenderer: itemRenderer,
+                        onCreate: function (annotation) {
+                            annotation.terza = Kimo.ParamsContainer.get("currentTerza");    
+                            console.log(annotation);
+                    }});
                 }
-                
+             });
+
+             Kimo.Observable.on("TerzaSelection", function (html, id) {
+                Annotationcomponent.loadAnnotation(id);
              });
         },
         

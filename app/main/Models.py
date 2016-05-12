@@ -9,17 +9,28 @@ from flask.ext.login import AnonymousUserMixin
 from pprint import pprint
 from flask.ext.login import current_user
 from flask.ext.user import UserMixin
+import json
 
 
 from app import db
 from random import random
 
 class Annotation(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	target = db.Column(db.Integer)
-	target_type = db.Column(db.Text)
-	body = db.Column(db.Text)
-	position = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True)
+    target = db.Column(db.Integer) # terza
+    data = db.Column(db.Text) #json
+    target_type = db.Column(db.String(50))
+
+    def __init__(self, target=None, data=None, target_type='Terza'):
+        self.target = target
+        self.data = data
+        self.target_type = target_type 
+
+    def toJson(self):
+        jsonData = json.loads(self.data)
+        jsonData['id'] = self.id
+        return jsonData
+
 
               
 class Terza(db.Model):

@@ -16,7 +16,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                     /* use injector instead :)*/
                 },
                 /* @ */
-                indexAction: function(pagerManager,imoRequest, kimo$Manager, infernoBlaze) {
+                indexAction: function(pagerManager,imoRequest, $kimoManager, infernoBlaze) {
 
                 },
                 /*
@@ -33,7 +33,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                 },
                 onCreate: function() {
                     var self = this;
-                    Kimo.Observable.registerEvents(['CantoLoaded', 'CantoTranslationLoaded', 'EnterCommentMode', 'disabledCanto']);
+                    Kimo.Observable.registerEvents(['CantoLoaded', 'TerzaSelection', 'CantoTranslationLoaded', 'EnterCommentMode', 'disabledCanto']);
                     this.currentMode = Kimo.ParamsContainer.get("config");
 
                     Kimo.ParamsContainer.set("translated", 1);
@@ -69,6 +69,10 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
 
                     Kimo.Observable.on("EnterCommentMode", function(translation, itemHtml) {
                         self.commentManager.showCommentList(translation, itemHtml);
+                    });
+
+                    Kimo.Observable.on("TerzaSelection", function (html, terzaNo) {
+                        Kimo.ParamsContainer.set("currentTerza", terzaNo);
                     });
 
                     /*  move to cantoManager */
