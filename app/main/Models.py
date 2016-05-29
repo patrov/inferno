@@ -20,15 +20,18 @@ class Annotation(db.Model):
     target = db.Column(db.Integer) # terza
     data = db.Column(db.Text) #json
     target_type = db.Column(db.String(50))
+    position = db.Column(db.String(255), nullable=True)
 
     def __init__(self, target=None, data=None, target_type='Terza'):
         self.target = target
         self.data = data
-        self.target_type = target_type 
+        self.target_type = target_type
+        self.position = '[]'
 
     def toJson(self):
         jsonData = json.loads(self.data)
         jsonData['id'] = self.id
+        jsonData['position'] = json.loads(self.position)
         return jsonData
 
 
