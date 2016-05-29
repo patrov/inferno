@@ -14,8 +14,8 @@ define(["Kimo/core", "component!inferno:annotation"], function (Kimo, Annotation
                 root: null
             },
 		
-		itemRenderer = function (item) {
-			return "<p class='annotation'> Harris :" + item.text + " </p>";
+		itemRenderer = function (position, item) {
+			return "<p class='annotation'>["+ position + "] - " + item.text + " </p>";
 		},
         
         bindEvents = function () {
@@ -31,7 +31,6 @@ define(["Kimo/core", "component!inferno:annotation"], function (Kimo, Annotation
 						itemRenderer: itemRenderer,
                         onCreate: function (annotation) {
                             annotation.terza = Kimo.ParamsContainer.get("currentTerza");    
-                            console.log(annotation);
                     }});
                 }
              });

@@ -28,5 +28,5 @@ def page_not_found(error):
 
 @main_app.before_request
 def handle_confirmation():
-	pprint("icic")
+	pass
 

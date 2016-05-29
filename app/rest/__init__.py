@@ -3,7 +3,7 @@ from app.rest.TerzaService import TerzaService, CantoService, TranslationService
 from app.rest.ConfigService import ConfigService
 from app.rest.VoteService import VoteService
 from app.rest.StatService import StatService
-from app.rest.AnnotationService import AnnotationService
+from app.rest.AnnotationService import AnnotationService, AnnotationPositionService
 
 from app import app
 from flask.ext import restful
@@ -18,6 +18,7 @@ api.add_resource(TranslationService, '/rest/translation', endpoint='translation'
 api.add_resource(TranslationService, '/rest/translation/<int:no_translation>')
 api.add_resource(VoteService, '/rest/translation/vote/<int:no_translation>/<string:type>')
 api.add_resource(StatService, '/rest/stats/<string:content_type>/<int:id>')
+api.add_resource(AnnotationPositionService, '/rest/annotations/position/<int:no_terza>')
 api.add_resource(AnnotationService, '/rest/annotations', endpoint='annotation')
 api.add_resource(AnnotationService, '/rest/annotations/<int:no_annotation>')
 api_mod = Blueprint('api', __name__)

@@ -104,9 +104,45 @@ define(["Kimo/core"], function(Kimo) {
 
     });
 
+    AnnotationRepository = Kimo.ModelManager.createRepository({
+        repositoryName : 'AnnotationRepository',
+        model: Kimo.ModelManager.createEntity({
+            name: 'Annotations',
+            default:{
+                terza: null
+            }
+        }),
+        
+        getPath : function () {
+            '/rest/annotations'
+        },
+
+        setPosition: function (annotation) {
+            if (!annotation.terza) {
+                throw new Error('AnnotationRepository: terza can\'t be null');
+            }
+            
+            if (!Array.isArray(annotation.position)) {
+                throw new Error('AnnotationRepository: terza can\'t be null');
+            }
+
+            var self = this;
+            return Kimo.jQuery.ajax({
+                type: 'POST',
+                url: '/rest/annotations/position/' + annotation.terza,
+                data: JSON.stringify(annotation),
+                contentType: "application/json",
+            }).done(function (response) {
+                self.setData(response);
+            });
+        }
+
+    });
+
     TranslationRepository = new TranslationRepository;
     CommentRepository = new CommentRepository;
     VoteRepository = new VoteRepository;
+    AnnotationRepository = new AnnotationRepository;   
 
     return {
         TranslationItem: TranslationItem,
@@ -114,6 +150,7 @@ define(["Kimo/core"], function(Kimo) {
         VoteItem: VoteItem,
         VoteRepository: VoteRepository,
         TranslationRepository: TranslationRepository,
-        CommentRepository: CommentRepository
+        CommentRepository: CommentRepository,
+        AnnotationRepository: AnnotationRepository
     }
 });

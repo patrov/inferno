@@ -6,7 +6,7 @@
  *
  **/
 
-define(['vendor.annotator'], function(annotator) {
+define(['Kimo/core', 'bi.models', 'vendor.annotator'], function(Kimo, Models, annotator) {
 
 
     /* extend annotator here */
@@ -43,7 +43,7 @@ define(['vendor.annotator'], function(annotator) {
 				this.annotator.subscribe('annotationsLoaded', function (list) {
                     jQuery.each(list, function (i) {
                         var annotation = list[i];
-                        self.handleNewAnnotation(annotation);
+                        self.handleNewAnnotation(annotation, false);
                     });   
 				});
 				
@@ -57,8 +57,12 @@ define(['vendor.annotator'], function(annotator) {
                         self.options.onCreate(annotation);
                     }
                 });
+                
+                this.annotator.subscribe('annotationUpdated', function (e) {
+                    console.log("radical blaze");
+                });
 
-                this.annotator.subscribe('annotationCreated', this.handleNewAnnotation.bind(this));
+                this.annotator.subscribe('annotationSaved', this.handleNewAnnotation.bind(this));
 
                 this.annotationViewerPanel.on("click", '.annotation-content', this.handle);
             },
@@ -66,13 +70,28 @@ define(['vendor.annotator'], function(annotator) {
             updateView: function() {
                 var store = this.annotator.plugins.Store.annotations, self = this,
                         annotationViewPanel = this.annotationViewerPanel,
+                        position = store[0].position,
+                        orderedStore = [],
                         annotationItem = this.itemTpl, item;
 						
+                jQuery.each(position, function (i, id) {
+                    
+                    jQuery.each(store, function (i, annotationItem) {
+                        
+                        if (annotationItem.id === id) {
+                            orderedStore.push(annotationItem);    
+                        }
+                        return true; 
+                    });
+
+                });
 
                 annotationViewPanel.empty();
-                jQuery.each(store, function(no) {
-                    item = store[no];
-					var annotationItem = jQuery(self.options.itemRenderer(item));
+                console.log("nb-annotation:", orderedStore.length);
+                jQuery.each(orderedStore, function(no) {
+                    item = orderedStore[no];
+                    position = no + 1;
+					var annotationItem = jQuery(self.options.itemRenderer(position, item));
 					
                     annotationViewPanel.append(annotationItem);
                     
@@ -133,7 +152,7 @@ define(['vendor.annotator'], function(annotator) {
                     if (parent.hasClass('annotation-no')) {
                         var badgeInfos = jQuery('<i/>').addClass('badge-infos');
                         badgeInfos.data("annotation", jQuery(parent).data("annotation"));
-                        badgeInfos.data("badge-no", jQuery(parent).data("annotation").position);
+                        badgeInfos.data("badge-no", jQuery(parent).data("annotation").positionNo);
                         //jQuery(parent).replaceWith(badgeInfos);
                         parent.addClass("badge-hl");
                     }
@@ -149,20 +168,32 @@ define(['vendor.annotator'], function(annotator) {
             showSelection: function(annotation) {
                 this.annotator.highlightRange(annotation.ranges, 'rdacial_sd');
             },
-            updateAnnotationPosition: function() {
+
+            updateAnnotationPosition: function(updatePosition) {
+                updatePosition = (typeof updatePosition === 'boolean') ? updatePosition : true; 
                 /* find all badge */
+                var self = this;
                 var badges = jQuery('.annotation-no');
+                var positions = [];
                 badges.map(function(i) {
                     jQuery(this).html(i + 1);
                     annotation = jQuery(this).data('annotation');
-                    annotation.position = i + 1;
+                    self.annotator.plugins.Store.unregisterAnnotation(annotation);
+                    self.annotator.plugins.Store.registerAnnotation(annotation);
+                    self.annotator.plugins.Store.updateAnnotation(annotation, {positionNo: i + 1});
+                    positions.push(annotation.id);
                 });
 
+               /* save position */
+               if (updatePosition) {
+                Models.AnnotationRepository.setPosition({terza:1, position:positions});
+               }
+
             },
-            handleNewAnnotation: function(annotation) {
+            handleNewAnnotation: function(annotation, updatePosition) {
 
                 /* When a new annotation is created
-                 * associate a provis number then update all the numbers.
+                 * associate a prov number then update all the numbers.
                  * */
                 var noBadge = jQuery('<span>-</span>').clone(),
                         nb,
@@ -181,9 +212,8 @@ define(['vendor.annotator'], function(annotator) {
                         jQuery(annotation.highlights[i]).contents().unwrap();
                     }
                 });
-
                 annotation.highlights = [];
-                this.updateAnnotationPosition();
+                this.updateAnnotationPosition(updatePosition);
                 this.updateView();
             }
         });
@@ -206,19 +236,43 @@ define(['vendor.annotator'], function(annotator) {
                 viewPanelId: "#radical",
             })
             .annotator('addPlugin', 'Store', {prefix: '/rest'})
+
             .annotator('addPlugin', 'TerzaEditor', {
 					viewPanel: config.viewPanel,
 					onCreate: config.onCreate,
 					itemRenderer: config.itemRenderer
 					});
 
+
             instance = $(config.textContainer).data('annotator');
 
+            /* load annotation */
             instance.plugins.Store.loadAnnotations = function (id) {
                 id = id || null;
                 this.annotations = [];//clear previous annotations @fixme
                 return this._apiRequest('read', id, this._onLoadAnnotations);
-            }
+            };
+
+            /* updated annotation trigger events */
+            instance.plugins.Store.annotationCreated = function(annotation) {
+              var _this = this;
+
+              if ([].indexOf.call(this.annotations, annotation) < 0) {
+                this.registerAnnotation(annotation);
+                
+                return this._apiRequest('create', annotation, function(data) {
+                  if (data.id == null) {
+                    console.warn(Annotator._t("Warning: No ID returned from server for annotation "), annotation);
+                  }
+                    _this.updateAnnotation(annotation, data);
+                    _this.annotator.publish('annotationSaved', [annotation]);
+
+                });
+
+              } else {
+                return this.updateAnnotation(annotation, {});
+              }
+            };
         },
 
         getInstance: function() {
