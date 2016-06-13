@@ -49,7 +49,6 @@ define(['Kimo/core', 'bi.models', 'vendor.annotator'], function(Kimo, Models, an
 				
                 this.annotator.subscribe('annotationEditorShown', function(editor) {
                     /* change editor here */
-                    console.log(editor);
                 });
 
                 this.annotator.subscribe('beforeAnnotationCreated', function (annotation) {
@@ -87,7 +86,6 @@ define(['Kimo/core', 'bi.models', 'vendor.annotator'], function(Kimo, Models, an
                 });
 
                 annotationViewPanel.empty();
-                console.log("nb-annotation:", orderedStore.length);
                 jQuery.each(orderedStore, function(no) {
                     item = orderedStore[no];
                     position = no + 1;
@@ -109,7 +107,7 @@ define(['Kimo/core', 'bi.models', 'vendor.annotator'], function(Kimo, Models, an
 
             buildBadge: function(badgeInfos) {
                 var badgeNo = jQuery(badgeInfos).data('badge-no'),
-                        badge = jQuery('<i/>').addClass(" badge annotation-no").html(badgeNo);
+                        badge = jQuery('<i/>').addClass("annotation-no").html('[' + badgeNo + ']');
                 badge.data("annotation", jQuery(badgeInfos).data('annotation'));
                 if (!badgeNo) {
                     return false;

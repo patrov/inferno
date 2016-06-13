@@ -128,7 +128,6 @@ class TranslationService(restful.Resource):
         if args.type is not None :
             results = self.get_contrib_translation(args['terza'])
         else:
-            print g.user
             results = Translation.query.filter_by(author=g.user, no_terza=args['terza']).first() #deal with version
         return results
     

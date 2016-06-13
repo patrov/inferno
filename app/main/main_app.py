@@ -7,7 +7,6 @@ from app import app
 
 @main_app.route("/app")
 def index():
-    flash(u"inside my index body", 'infos')
     return render_template('inferno.html')
  
 
@@ -15,7 +14,7 @@ def index():
 def home():
     return redirect('/app')
     
-
+import inspect
 	
 @main_app.route('/user/confirm')
 def confirm_action():

@@ -100,8 +100,22 @@ define(["Kimo/core"], function(Kimo) {
                 dfd.resolve(self.toJson());
             }).fail(dfd.reject);
             return dfd.promise();
-        }
+        },
 
+        getUserTranslation: function (terza) {
+            if (!terza) { return; }
+            var self = this,
+                dfd = new $.Deferred();
+
+            $.ajax({ 
+                url: this.getPath() + "/currentuser",
+                data: {terza: terza}
+                }).done(function (response) {
+                    dfd.resolve(response);
+                }).fail(dfd.reject);
+
+            return dfd.promise();
+        }
     });
 
     AnnotationRepository = Kimo.ModelManager.createRepository({
@@ -139,7 +153,7 @@ define(["Kimo/core"], function(Kimo) {
 
     });
 
-    TranslationRepository = new TranslationRepository;
+    TranslRepository = new TranslationRepository;
     CommentRepository = new CommentRepository;
     VoteRepository = new VoteRepository;
     AnnotationRepository = new AnnotationRepository;   
@@ -149,8 +163,11 @@ define(["Kimo/core"], function(Kimo) {
         CommentItem: CommentItem,
         VoteItem: VoteItem,
         VoteRepository: VoteRepository,
-        TranslationRepository: TranslationRepository,
+        TranslationRepository: TranslRepository,
         CommentRepository: CommentRepository,
-        AnnotationRepository: AnnotationRepository
+        AnnotationRepository: AnnotationRepository,
+        createTranslationRepository: function (instanceConfig) {
+            return new TranslationRepository(instanceConfig);
+        }
     }
 });

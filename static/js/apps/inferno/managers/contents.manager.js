@@ -11,6 +11,7 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
         terzaWidget = null,
         terzaEditorForm = null,
         translationList = null,
+        userTranslationRepository = null,
         terzaNode = null,
         isConfigured = false,
         previousEditedContent = null,
@@ -24,8 +25,10 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             $.extend(true, config, userConfig);
             //terzaEditor = $("#edit-zone");
             /* user contentManager */
+            userTranslationRepository = Models.createTranslationRepository({prefix:'currentuser'});
+
             var translationsView = Kimo.createEntityView("TranslationsView", {
-                entity: Models.TranslationRepository,
+                entity: Models.createTranslationRepository(),
                 root: config.root,
                 mode: config.mode,
                 contentBadge: ".content-badge"
@@ -33,40 +36,49 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
 
             terzaWidget = Kimo.createEntityView("terzaEditorView", {
                 root: config.root,
-                viewMode: config.viewMode
-            });
-
-            terzaEditorForm = Kimo.createEntityView("terzaEditorView", {
-                entity: Models.TranslationRepository,
-                root: config.root,
-                viewMode: config.viewMode
+                viewMode: config.viewMode,
+                repository: userTranslationRepository
             });
 
             $("#contributions").html(translationsView.render());
 
             /*... Translation list ...*/
             translationList = Kimo.createEntityView("TranslationListView", {
-                entity: Models.TranslationRepository,
+                entity: Models.createTranslationRepository(),
                 height: $(document).height() - 200
             });
 
             bindEvents();
             isConfigured = true;
         },
-        showUserTranslation = function(transalation) {
 
+        showUserTranslation = function(transalation, clonedNode, noTerza, currentSelection) {
+            var currentLang = Kimo.ParamsContainer.get("currentLang");
+            if (currentLang === KREYOL) {
+                return false;
+            }
+            
             currentTerza = terzaManager.getCurrentTerza();
 
-            /* Display the widget */
-            container = "#editor-ctn";
+            /* afficher */
+            if (previousSelection) {
+                $(previousSelection).show();
+            }
+            var ctn = $("<div/>"),
+            terzaItem = currentSelection.parent(".terza-item").eq(0);
 
-            terzaWidget.setTranslation(transalation);
+            $(terzaItem).after(ctn);
+            terzaItem.hide();
+            previousSelection = terzaItem;
+
             terzaWidget.configure({
-                mode: "show",
+                mode: "edit",
                 currentTerza: currentTerza
             });
 
-            terzaWidget.render(container);
+            terzaWidget.setTerzaRender($(clonedNode).html());
+            terzaWidget.setTranslation(transalation);
+            terzaWidget.render(ctn); //garder le render et faire update
         },
 
         displayUserContributions = function(html, terza) {
@@ -77,14 +89,9 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             translationList.render("#translation-ctn");
         },
 
-        loadTranslation = function(noTerza) {
-            return $.ajax({
-                url: "/rest/translation?terza=" + noTerza
-            });
-        },
 
-        handleTranslation = function(html, noTerza) {
-
+        handleUserTranslation = function(clonedNode, noTerza, currentSelection) {
+           
             if (!noTerza) {
                 return;
             }
@@ -93,70 +100,69 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             if (currentLang === KREYOL) {
                 return false;
             }
-            loadTranslation(noTerza).done(function(response) {
 
-                var translation = new Models.TranslationItem(response);
-                if (translation.isEmpty()) {
-                    translation.set("canto", parseInt(Kimo.ParamsContainer.get("currentCanto")));
+            /*  show form, then show user translation if exists 
+                explorer : griser on click
+            */
+            var translationItem = new Models.TranslationItem({}); 
+            translationItem.set('canto', parseInt(Kimo.ParamsContainer.get("currentCanto")));
+            showUserTranslationForm(translationItem, clonedNode, noTerza, currentSelection);
+
+            /* show user translation : show loader too */
+            userTranslationRepository.getUserTranslation(noTerza).done(function (response) {
+                var userTranslation = new Models.TranslationItem(response);
+                if (!userTranslation.isEmpty()) {
+                    terzaWidget.setTranslation(userTranslation);
                 }
-
-                // show the edit widget
-                terzaEditorForm.setTranslation(translation);
-                // show user contribution
-                showUserTranslation(translation);
-            });
+            })
         },
 
-        
 
         bindEvents = function() {
             Kimo.Observable.registerEvents(['TranslationEditTask', 'TerzaSelection', 'userTabSelection']);
-            Kimo.Observable.on("TerzaSelection", handleTranslation);//
+            Kimo.Observable.on("TerzaSelection", handleUserTranslation);
+
             Kimo.Observable.on("TerzaSelection", handleTerzaStats); // displayStats
-            Kimo.Observable.on("TerzaSelection", hideCommentZone); //  hide Comment Zone if visible
-            Kimo.Observable.on("TerzaSelection", showEditorForm);
             Kimo.Observable.on("TerzaSelection", displayUserContributions); // contributions
-            
+            Kimo.Observable.on("TerzaSelection", hideCommentZone); //  hide Comment Zone if visible
+
             Kimo.Observable.on("userTabSelection", function (tab) {
                 if (tab === "contribution") {
                     translationList.refresh();
                 }
             });
-
             
-            Models.TranslationRepository.on("change", handleUserContribution);
+            userTranslationRepository.on("change", handleUserContribution);
         },
 
         handleUserContribution = function (reason, translation) {
-            translation = (reason !== 'remove') ?  translation :  new Models.TranslationItem({});
-            showUserTranslation(translation);
-
-            if (translation.isEmpty()) {
-                translation.set("canto", parseInt(Kimo.ParamsContainer.get("currentCanto")));
-                terzaEditorForm.setTranslation(translation);
-            }
+            if (reason !== 'remove') { return false; }
+            var translation = new Models.TranslationItem({});
+            translation.set("canto", parseInt(Kimo.ParamsContainer.get("currentCanto")));
+            terzaWidget.setTranslation(translation);
         },
 
         /*
-                 * show edition actions
-                 **/
-        showEditorForm = function(clonedNode, noTerza, currentSelection) {
+         * show edition actions
+        **/
+        showUserTranslationForm = function(userTranslation, clonedNode, noTerza, currentSelection) {
             var currentLang = Kimo.ParamsContainer.get("currentLang");
             if (currentLang === KREYOL) {
                 return false;
             }
-            //return;
+            
             if (previousSelection) {
                 $(previousSelection).show();
             }
             var ctn = $("<div/>"),
             terzaItem = currentSelection.parent(".terza-item").eq(0);
 
-            displayTerzaForm(clonedNode, ctn);
+            displayTerzaForm(userTranslation, clonedNode, ctn);
             $(terzaItem).after(ctn);
             terzaItem.hide();
             previousSelection = terzaItem;
         },
+
         hideCommentZone = function() {
 
             if (viewmodeManager.getCurrentMode() === "comment") {
@@ -177,24 +183,21 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             });
         },
 
-        displayTerzaForm = function(terzaNode, ctn) {
-
-            var translationItem = new Models.TranslationItem({}),
+        displayTerzaForm = function(userTranslation, terzaNode, ctn) {
             currentTerza = terzaManager.getCurrentTerza();
+            if (!currentTerza) { return false; }
 
-            translationItem.set("terza", currentTerza);
+            userTranslation.set("terza", currentTerza);
 
-            terzaEditorForm.setTerzaRender($(terzaNode).html());
-            terzaEditorForm.setTerza(currentTerza);
+            terzaWidget.setTerzaRender($(terzaNode).html());
+            terzaWidget.setTerza(currentTerza);
 
-            if (terzaEditorForm) {
-                terzaEditorForm.configure({
-                    mode: "edit",
-                    repository: Models.TranslationRepository,
-                    translation: translationItem
-                });
-                terzaEditorForm.render(ctn);
-            }
+            terzaWidget.configure({
+                mode: "edit",
+                translation: userTranslation
+            });
+
+            terzaWidget.render(ctn);
         },
         /* create a stranza editor */
         editContent = function(translationItem, render) {

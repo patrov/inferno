@@ -13,7 +13,7 @@ class InfernoConfig(object):
 	# confirmation
     USER_AFTER_RESET_PASSWORD_ENDPOINT = 'main.confirm_action'
     USER_AFTER_CHANGE_PASSWORD_ENDPOINT = 'main.confirm_action'
-    
+    USER_AFTER_FORGOT_PASSWORD_ENDPOINT = 'main.confirm_action' 
 	# Flask-User Email Template
     USER_APP_NAME = 'Inferno Eksperyans' 
                  
