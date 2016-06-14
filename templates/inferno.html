@@ -19,7 +19,7 @@
 					Inferno.onError = function (error) {
 						console.log(error);
 					}
-					Kimo.jquery.ajax({url: "/rest/config"}).done(function(response) {
+					Kimo.jquery.ajax({url: "/rest/config", cache: false}).done(function(response) {
 						Kimo.ParamsContainer.set("config", response);
 						Kimo.jQuery(".jumbotron").css("height", Kimo.jQuery(window).height()+"px");
 						Inferno.start({});
