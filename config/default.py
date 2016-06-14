@@ -1,5 +1,5 @@
 class InfernoConfig(object):
-    SECRET_KEY = 'fad01349425aab2d3d0a3cc33c538ddb'
+    secret_key = 'fad01349425aab2d3d0a3cc33c538ddb'
     
     # Flask-User
     USER_ENABLE_CHANGE_USERNAME = False
