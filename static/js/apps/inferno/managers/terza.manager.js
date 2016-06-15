@@ -53,7 +53,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             if(!terzaNode) {
                 return;
             }
-            this.showStanzaInfos(terzaNode);
+            //this.showStanzaInfos(terzaNode);
             this.currentTerzaNo = terzaNo;
             $(".stz").removeClass("selected");
             clonedNode = $(terzaNode).clone(true);
@@ -82,6 +82,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 $("#editing-zone").find(".current-translation").html($(tpl));
                 self.showLanguages();
             }
+           
         },
 
         this.selectTerzaByPosition = function (position) {
@@ -152,10 +153,9 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
 
         this.showStanzaInfos = function (terzaNode) {
             $("#terza-infos").remove();
-            var infoTpl = $("<span/>"),
-                terzaNo = $(terzaNode).data("pos");
-                $(infoTpl).addClass("pull-right");
-            $(infoTpl).attr("id","terza-infos").html("canto <strong>" + this.currentCanto + "</strong> - Terza <strong>" + terzaNo + "</strong>");
+            var infoTpl = $("<span/>");
+            $(infoTpl).addClass("pull-right");
+            $(infoTpl).attr("id","terza-infos").html("canto <strong>" + this.currentCanto + "</strong> - Terza <strong>" + this.currentTerzaNo + "</strong>");
             terzaNode.append(infoTpl);
         },
 
@@ -177,7 +177,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             lang = lang || 'it';
             var tpl,
 				emptyTpl,
-				max = $(".it-canto-container").find(".terza-item").length,
+				itMax = $(".it-canto-container").find(".terza-item").length,
 				render,
 				config,
 				domFragment;
@@ -187,14 +187,30 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             tpl = '<div class="row terza-item"><span class="col-xs-1 terza-no">{{terzaPos}}</span><p class=" col-xs-11 stz no-{{no_terza}}" data-pos="{{terzaPos}}" data-no="{{no_terza}}">{{content}}</p></div>',
 			emptyTpl = '<div class="row terza-item"><span class="col-xs-1 terza-no">{{terzaPos}}</span><p class=" col-xs-11 stz no-{{no_terza}}" data-pos="{{terzaPos}}" data-no="{{no_terza}}"><strong>{{content}}</strong></p></div>';
 
-			if (lang !== "kr") {
-				max = stanzas.length;
-			}
+			max = stanzas.length;
 			domFragment = document.createDocumentFragment();
+            
+            if (lang === 'kr') {
+                max = itMax;
+            }
 
-			for(var i = 0; i < max; i++) {
-				terzaItem = stanzas[i];
-				 if (terzaItem ) {
+			for (var i = 0; i < max; i++) {
+				var terzaItem = (lang === 'kr') ? null : stanzas[i];
+                if (lang === 'kr') {
+                    Kimo.jQuery.each(stanzas, function (no) {
+                    var terza = stanzas[no];
+                    if (terza.no_terza === i + 1) {
+                        terzaItem = terza;
+                        return;
+                    }
+                    });    
+                }
+                
+
+
+				 if (terzaItem) {
+                    
+                    console.log(terzaItem);
 
 					terzaItem.terzaPos = i + 1;
 					render = Mustache.render(tpl, terzaItem);
@@ -237,6 +253,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 "position": "absolute"
             });
             $(focusedTerza).append(actions);
+            this.showStanzaInfos(focusedTerza);
         }
 
         var self = this;

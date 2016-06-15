@@ -14,6 +14,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 
 #trad-container {margin-top: 30px}
 .lang-choice {font-family: helvetica,arial,"lucida grande",sans-serif;}
+.lang-choice.selected {border-bottom: 1px solid orange;}
 .fr-canto-container, .eng-canto-container, it-canto-container {}
 .col-sm-4 #editing-zone {font-size: 0.8em}
 
