@@ -53,7 +53,7 @@
                             {% else %}
                             <ul class="nav navbar-nav">
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <i class="fa fa-user green"></i> {{current_user.username}} <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <i class="fa fa-user"></i><span class="inferno-user">{{current_user.username}}</span><span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="{{url_for("user.profile")}}"><i class="fa fa-gears"></i> Profil</a></li>
                                         <li class="divider"></li>
@@ -73,7 +73,7 @@
         	
         <footer>
             <div class="container">
-                <p class="pull-right"><strong>Inferno</strong> - Yon eksperyans <a href="mailto:harris.baptiste@gmail.com">Harris.Baptiste</a></p>
+                <p class="pull-right"><strong>Inferno</strong> - Yon eksperyans <a href="mailto:harris.baptiste@gmail.com">Harris Baptiste</a></p>
             </div>
         </footer>
      

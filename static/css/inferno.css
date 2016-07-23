@@ -23,7 +23,9 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 .nb-comments, .nb-votes {font-size: 12px}
 .user-comment .prewrap {white-space: pre-wrap; padding-top: 5px; font-family: helvetica,arial,"lucida grande",sans-serif; } /*Modif Julie :) */
 
-
+.navbar-nav .caret {color: #ffa500;}
+.navbar-nav .fa-user {color: #aca4b2;}
+.navbar-nav .inferno-user {color: #ffffff; padding: 0 8px 0 5px;}
 .trad-pubdate {font-family: helvetica,arial,"lucida grande",sans-serif}
 
 .helvetica {font-family: helvetica,arial,"lucida grande",sans-serif}
@@ -106,7 +108,9 @@ footer { right: 0; left: 0; height: 30px; padding-top: 10px; bottom: 0px}  /*Mod
 .user-comment {margin-bottom: 22px; font-size: 12px; font-family: helvetica,arial,"lucida grande",sans-serif; min-height: 20px !important}
 
 .comment-zone .add-comment {padding: 8px 0px;}
-#comment-field {padding: 3px; background-color: #ffffff; margin: auto; margin-top: 5px; position: relative; border: 1px #ffa500 solid;  word-wrap: break-word; overflow-y: auto; cursor: text; min-height: 35px; max-height: 100px }
+.comment-zone .add-comment:hover {color: #aca4b2;}
+
+#comment-field { padding: 4px; color: #242028; background-color: #ffffff; margin: auto; margin-top: 5px; position: relative; border: 1px #ffa500 solid;  word-wrap: break-word; overflow-y: auto; cursor: text; min-height: 35px; max-height: 100px }
 .comment-close-btn { margin-right: -1px !important;}
 
 .comment-list-trad-wrapper {background-color: #ecf0f1; padding: 5px}
@@ -200,7 +204,7 @@ body {
     color: #242028;
 }
 .navbar-default {
-    background-color: #aca4b2;
+    background-color: #242028;
 }
 b, strong {
     font-weight: 600;
