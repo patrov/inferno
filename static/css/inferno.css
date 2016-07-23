@@ -46,7 +46,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
  .terza-item { margin-left: 10px; margin-right: 10px;}
  .terza-no {color: orange}
 
-.stz-editor { margin: 5px; background-color: white; box-shadow: 0 1px 2px rgba(0,0,0,.1); text-align: center }
+.stz-editor { background-color: white; text-align: center }
 .canto-ctn {padding-top : 25px; padding-bottom: 30px; background-color: #f6f4f7; margin-top: 0px;} /*Modif Julie :) */
 .other-translation { margin-top: 10px; padding-top: 10px}
 
@@ -70,14 +70,14 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 #contributions .contrib-action:hover { text-decoration: none}
 
 #editing { margin-bottom : 5px;}
-
+.no-padding {padding-left: 0; padding-right: 0} 
 .prewrap {white-space: pre-wrap; padding-top: 5px; font-family: "Garamond","Georgia", serif;} /*Modif Julie :) */
 
 footer { right: 0; left: 0; height: 30px; padding-top: 10px; bottom: 0px}  /*Modif Julie :) */
 
 #editor-ctn {background-color: #ecf0f1;}
 
-#edit-zone {margin: 5px auto; border-radius: 0; overflow: auto; font-family: 'Georgia', sans-serif; background-color: #faebcc !important; width: 95%; resize: none; height: 75px;}
+#edit-zone {margin: 5px 0px 5px 0; border-radius: 0; overflow: auto; font-family: 'Georgia', sans-serif; background-color: #faebcc !important; resize: none; height: 75px;}
 
 #editing-zone .btn {margin-left: 5px; }
 
@@ -86,11 +86,12 @@ footer { right: 0; left: 0; height: 30px; padding-top: 10px; bottom: 0px}  /*Mod
 #user-translation {background-color: #d9edf7; padding: 5px; border-bottom: 1px solid #3498db}
 
 .user-context-wrapper {/*position: fixed;*/ top:70px; /*width: 457px;*/}
-
+#editing-zone .textarea-wrapper {padding-right: 5px; padding-left: 0px}
 #add-translation {margin-top: 5px;}
 
 #editing-zone { margin: 10px 10px 22px 10px; padding: 0px; border-bottom: 2px solid #FFA500; padding: 31px 10px 10px; background-color: white;}   /*Modif Julie :) */
-#editing-zone .user-translation { padding: 15px 0 10px 0; margin-top: 18px; border-top: 1px solid #ededed;}
+#editing-zone .user-translation { margin-top: 18px;}
+#editing-zone .user-translation-wrapper { border-top: 1px solid #ededed;  padding: 15px 0 10px 0; }
 #editing-zone .inferno-user {}
 
 .csanto-ctn { max-height: 726px; overflow-y: auto }
