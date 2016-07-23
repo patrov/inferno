@@ -10,21 +10,25 @@ p.stz {padding-left: 10px; position: relative; color: #242028; font-family: "Gar
 #editing-zone #terza-infos {top: -26px; left: 0px; padding-left: 0px; color: #ffA500} /*Modif Julie :) */
 p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom: 0.75em;}
 .nano > .nano-content {outline: none !important}
-.trad-sugg { margin-bottom: 10px; background-color: white; padding: 5px; border-bottom: 1px dotted #e5e5e5; box-shaddow: 0 1px 2px rgba(0,0,0,.1);}
-
+.kimo.datalist .item .trad-sugg { margin-top: 10px; background-color: white; padding: 15px 5px 2px 5px; border-top: 1px solid #ededed; }
+.kimo.datalist .item:first-child .trad-sugg{ margin-top: 10px; background-color: white; padding:  5px 5px 2px 5px; border: none;}
+.trad-sugg .fa-user {color: #242028;}
+.trad-sugg .inferno-user, .user-comment .inferno-user {padding-left: 5px; padding-right: 12px; color: #aca4b2 }
 #trad-container {margin-top: 30px}
 .lang-choice {font-family: helvetica,arial,"lucida grande",sans-serif;}
 .lang-choice.selected {border-bottom: 1px solid orange;}
 .fr-canto-container, .eng-canto-container, it-canto-container {}
 .col-sm-4 #editing-zone {font-size: 0.8em}
+.vote-btn, .comment-btn {color: #ffA500; padding-right: 5px;}
+.nb-comments, .nb-votes {font-size: 12px}
+.user-comment .prewrap {white-space: pre-wrap; padding-top: 5px; font-family: helvetica,arial,"lucida grande",sans-serif; } /*Modif Julie :) */
+
 
 .trad-pubdate {font-family: helvetica,arial,"lucida grande",sans-serif}
 
 .helvetica {font-family: helvetica,arial,"lucida grande",sans-serif}
 
 .simple-card { padding: 5px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);}
-.vote-btn { color: orange }
-.comment-btn { color: #ffA500 }
 
 .fa-angle-up, .fa-angle-down{ border: 1px solid #67b168; margin-left: 2px; padding: 3px; cursor: pointer}
 
@@ -67,7 +71,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 
 .prewrap {white-space: pre-wrap; padding-top: 5px; font-family: "Garamond","Georgia", serif;} /*Modif Julie :) */
 
-footer {position: fixed; right: 0; left: 0; background-color: #dcd9dd; height: 30px; padding: 0px}  /*Modif Julie :) */
+footer { right: 0; left: 0; height: 30px; padding-top: 10px; bottom: 0px}  /*Modif Julie :) */
 
 #editor-ctn {background-color: #ecf0f1;}
 
@@ -88,7 +92,7 @@ footer {position: fixed; right: 0; left: 0; background-color: #dcd9dd; height: 3
 .canto-link { padding-top: 10px; line-height: 14px; border: 1px solid #dcd9dd; cursor: pointer; height: 50px; width: 100%; margin-bottom: 5px; text-align: center; color: #242028; font-weight: 600; font-size: 11px; text-transform: uppercase} /*Modif Julie :) */
 .canto-link:hover {padding-top: 9px; border: 2px solid #242028; color: #aca4b2;} /*Modif Julie :) */
 
-.canto-link .fa-lock{position: absolute; bottom:0; right: 5px}
+.canto-link .fa-lock{position: absolute; bottom:3px; right: 5px}
 .canto-link.selected {padding-top: 9px; border: 2px solid #ffA500}
 .canto-link.selected:hover {padding-top: 9px;}
 .prev-canto, .next-canto {padding-top: 10px; cursor: pointer; height: 50px; text-align: center; border: 1px solid #dcd9dd}
@@ -96,19 +100,20 @@ footer {position: fixed; right: 0; left: 0; background-color: #dcd9dd; height: 3
 
 .canto-link-ctn { /*position: absolute; top: 62px; width: 68px; /*position: fixed;*/ top: 90px;}
 
-.comment-zone { margin: 5px; padding: 5px 20px 5px 20px}
+.comment-zone { margin: 5px 5px 30px 5px; padding: 5px 20px 5px 20px; background-color: #f6f4f7}
 .comment-zone .block-title {text-transform: uppercase; font-weight: 600; color: #ffA500}
 .comment-zone .block-close-btn {color: #ffA500}
-.user-comment {font-size: 0.9em; font-family: helvetica,arial,"lucida grande",sans-serif; min-height: 20px !important}
+.user-comment {margin-bottom: 22px; font-size: 12px; font-family: helvetica,arial,"lucida grande",sans-serif; min-height: 20px !important}
 
-#comment-field {padding: 3px; margin: auto; margin-top: 5px; position: relative; border: 2px #3498db solid;  word-wrap: break-word; overflow-y: auto; cursor: text; min-height: 35px; max-height: 100px }
+.comment-zone .add-comment {padding: 8px 0px;}
+#comment-field {padding: 3px; background-color: #ffffff; margin: auto; margin-top: 5px; position: relative; border: 1px #ffa500 solid;  word-wrap: break-word; overflow-y: auto; cursor: text; min-height: 35px; max-height: 100px }
 .comment-close-btn { margin-right: -1px !important;}
 
 .comment-list-trad-wrapper {background-color: #ecf0f1; padding: 5px}
 
 #commentlist-wrapper {margin-top: 10px; }
 
-.comment-zone .block-wrapper {border-bottom: 1px solid #ffA500; padding-bottom: 5px; margin-top: 15px;}
+.comment-zone .block-wrapper {border-bottom: 1px solid #ffA500; margin-bottom: 24px; padding-bottom: 5px; margin-top: 15px;}
 
 .prev-canto {margin-bottom: 5px;}
 

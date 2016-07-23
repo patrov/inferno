@@ -1,14 +1,14 @@
 <div class="trad-sugg">
     <div class="row">
-        <div class="col-sm-2" style="padding-top: 10px">
-
-            <p><i class="vote-btn fa {{#if userLiked}}fa-star{{else}}fa-star-o {{/if}} pointable"></i> <span class='nb-vote'>{{votes}}</span></p>
-            <p><i class="comment-btn fa fa-comment pointable"></i> {{comments}}</p>
+        
+        <div class="col-sm-10">
+            <i class="fa fa-user"></i><span class="inferno-user">{{author.login}}</span><span class="contrib-time">{{pubdate}}</span>
+            <p class="prewrap">{{content}}</p>
         </div>
 
-        <div class="col-sm-10">
-            <i class="fa text-success fa-user"></i><span class="helvetica"> {{author.login}}</span> <span class="trad-pubdate">{{pubdate}}</span>
-            <p class="prewrap">{{content}}</p>
+        <div class="col-sm-2" style="padding-top: 10px">
+            <p><i class="vote-btn fa {{#if userLiked}}fa-star{{else}}fa-star-o {{/if}} pointable"></i><span class='nb-votes'>{{votes}}</span></p>
+            <p><i class="comment-btn fa fa-comment pointable"></i> <span class="nb-comments">{{comments}}</span></p>
         </div>
     </div>
 </div>

@@ -19,7 +19,7 @@ define(["Kimo/core", "component!inferno:annotation"], function (Kimo, Annotation
 		},
         
         bindEvents = function () {
-
+            return;
              Kimo.Observable.registerEvents(["userTabSelection",'TerzaSelection']);
 
              Kimo.Observable.on("userTabSelection", function (tabname) {
