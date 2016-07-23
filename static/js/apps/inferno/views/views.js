@@ -114,7 +114,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             this.emptyTranslationPanel = $(this.widget).find(".empty-panel");
             this.editFields = $(this.widget).find(".edit-field");
             this.pubdateField = $(this.widget).find("#user-contrib-pubdate");
-            this.panels = $(this.widget).find(".panel");
+            this.panels = $(this.widget).find(".editing-panel");
         },
         bindEvents: function() {
             var self = this;

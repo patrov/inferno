@@ -2,15 +2,20 @@
 	
 	<p class="col-xs-1"></p>
 	<p class="current-translation col-xs-11"></p>
-	
-    <div class="user-translation edit-field shadowed-box panel">
-        <i class="fa fa-user"></i> <span id="user-contrib-pubdate">{{pubdate}}</span>
-        <span><i class="fa fa-remove pull-right pointable"></i></span>
-        <span><i class="fa fa-edit pull-right pointable" style="margin-left: 5px"></i></span>
+
+    <p class="col-xs-1"></p>
+
+    <div class="col-xs-11 user-translation edit-field editing-panel">
+        <i class="fa fa-user"></i><span class="inferno-user">Tradiksyon paw la</span><span class="contrib-time" id="user-contrib-pubdate">{{pubdate}}</span>
+        
+        <span class="pull-right editable-actions">
+            <i class="fa fa-edit pointable"></i>
+            <i class="fa fa-remove pointable"></i>
+        </span>
         <p id="user-translation-text"></p>
     </div>
 	
-	<div class="empty-panel shadowed-box panel">
+	<div class="empty-panel shadowed-box editing-panel">
 		<p class="infos"><i class='fa fa-plus'></i> Propoze yon vèsyon!</p>
 	</div>
 
