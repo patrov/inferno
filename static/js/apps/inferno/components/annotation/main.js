@@ -137,6 +137,7 @@ define(['Kimo/core', 'bi.models', 'vendor.annotator'], function(Kimo, Models, an
                 /* Ajouter fonction éditer et effacer ici ! */
             },
             handleAnnotationMouseOver: function(e) {
+                
                 var annotation = jQuery(e.currentTarget).data('annotation-item'),
                         annotationBefore = 0;
                 if (!annotation) {
@@ -146,6 +147,7 @@ define(['Kimo/core', 'bi.models', 'vendor.annotator'], function(Kimo, Models, an
                 /* normalize before setup */
                 t = this.annotator.setupAnnotation(annotation);
                 jQuery(t.highlights).map(function() {
+
                     var parent = jQuery(this).parent();
                     if (parent.hasClass('annotation-no')) {
                         var badgeInfos = jQuery('<i/>').addClass('badge-infos');

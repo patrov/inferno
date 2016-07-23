@@ -11,6 +11,7 @@ define(['jquery', 'text!../time/templates/layout.html'], function (jQuery, layou
      * Parse component actions
      * send messages to other components that will be handled
      * component must have an id.
+     * it should be reactive
      *  */
     return {
         init: function (config) {

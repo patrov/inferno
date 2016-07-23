@@ -34,6 +34,7 @@ app.config.from_object(getConfig())
 
 #deal with babel localization here
 babel = Babel(app)
+app.secret_key = 'thisismyverystrongsecret'
 
 @babel.localeselector
 def get_local():

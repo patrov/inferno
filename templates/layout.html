@@ -68,24 +68,9 @@
         </div>
 
         <div class="main-wrapper container-fluid">
-            {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                <div id="msgContainer" class="alert alert-info">
-                {% for message in messages %}
-                  {{ message }}
-                {% endfor %}
-                </div>
-              {% endif %}
-            {% endwith %}
 			{% block main %} {% endblock %}
         </div>
-
-        <script type="text/javascript">
-            setTimeout(function () {
-                jQuery("#msgContainer").remove();
-            }, 5000);    
-        </script>
-		
+        	
         <footer style="bottom: 0px; border-top: 1px solid #DBDFEA; padding: 10px">
             <div class="container">
                 <p class="pull-right"><strong>Inferno</strong> - Yon eksperyans <a href="mailto:harris.baptiste@gmail.com">Harris.Baptiste</a></p>
