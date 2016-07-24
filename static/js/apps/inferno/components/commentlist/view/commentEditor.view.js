@@ -48,7 +48,9 @@ require(["Kimo/core", "text!bi.components/commentlist/templates/comment.editor.h
         saveComment: function () {
             this.disableEditor();
             var commentHtml = this.editableField.html();
-            
+            if (Kimo.jQuery.trim(commentHtml).length === 0) {
+                return;
+            }
             this.entity.create({
                 content: commentHtml,/*result.join("\n"),*/
                 target: this.target.id

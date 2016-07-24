@@ -1,6 +1,7 @@
 body { font-family: helvetica,arial,"lucida grande",sans-serif; }
-#inferno-app {/*padding-top: 90px!important;*/ margin-bottom: 60px}   /*Modif Julie :) */
+#inferno-app {/*padding-top: 90px!important;*/ margin-bottom:0}   /*Modif Julie :) */
 .main-wrapper {max-width: 1200px; padding-top: 90px }
+.app-wrapper {color: #ffa500; padding-bottom: 40px}
 
 .navbar-static-top {/*position: fixed;*/ top: 0; left: 0; right: 0;}
 
@@ -73,8 +74,9 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 .no-padding {padding-left: 0; padding-right: 0} 
 .prewrap {white-space: pre-wrap; padding-top: 5px; font-family: "Garamond","Georgia", serif;} /*Modif Julie :) */
 
-footer { right: 0; left: 0; height: 30px; padding-top: 10px; bottom: 0px}  /*Modif Julie :) */
-
+footer { right: 0; left: 0; height: 30px; padding-top: 80px; bottom: 0px}  /*Modif Julie :) */
+footer .footer-title {font-size: 12px}
+footer .footer-pipe {color: #aca4b2; padding-right: 4px; padding-left: 4px}
 #editor-ctn {background-color: #ecf0f1;}
 
 #edit-zone {padding: 8px 12px; color: #242028; border: 1px solid #ffa500; margin: 0px 0px 5px 0; border-radius: 0; overflow: auto; font-family: 'Georgia', sans-serif; background-color: #ffffff; resize: none; height: 82px;}
@@ -198,17 +200,16 @@ footer { right: 0; left: 0; height: 30px; padding-top: 10px; bottom: 0px}  /*Mod
 	text-transform: uppercase;
     color: #ffA500;
 }
-a {
+a:link, a:visited {
     color: #ffA500;
 }
 a:hover, a:focus, a:active {
 	outline: 0;
-}
-a:hover {
-	color: #aca4b2;
+    color: #aca4b2;
     transition: all 0.2s linear 0s;
-	text-decoration: none;
+    text-decoration: none;
 }
+
 .navbar-static-top {
     z-index: 1000;
     border-width: 0px 0px 0px;
@@ -237,7 +238,7 @@ b, strong {
 
 .btn {
     display: inline-block;
-    padding: 5px 12px;
+    padding: 6px 12px 5px 12px;
     margin-bottom: 0px;
     font-size: 14px;
     font-weight: 600;
@@ -308,16 +309,22 @@ h1, .h1, h2, .h2, h3, .h3 {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+h1, h2 {font-weight: 600; font-size: 20px; text-transform: uppercase;}
+
+h2.info-title {color: #aca4b2;}
+
 #inferno-app .view .container {
 	margin-bottom: 60px;
 	margin-top: 0px;
 }
+
 #user-context {
 	border-left: none !important;
 }
 .btn-link.canto-lang:hover, .btn-link.canto-lang:focus {
     color: #ACA4B2 !important;
 }
+.pres-content {padding-right: 50px}
 
 /* Annotator style */
 .annotator-item {font-size: x-small; vertical-align: super}

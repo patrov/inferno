@@ -1,15 +1,20 @@
 {% extends "layout.html" %}
 
+{%block metadata %}	
+	<meta name="description" content="Rejoignez la plateforme de traduction collaborative de Inferno de Dante en créole haïtien. Vini dekouvri yon platfòm ki pèmèt nou tradui en kreyòl ayisyen poèm Dante la Inferno."></meta>
+{% endblock %}
+
 {% block main %}
 		
 		<div class="col-sm-6">
-			<h2>Inferno Eksperyans</h2>
-			<div class="jumbotron">
+			<h2 class="info-title">Inferno Eksperyans</h2>
+			<div class="pres-content">
 				<p>
-					Yon kontribisyon nan efò pou n ranfòse lang kreyòl la.
+					Yon kontribisyon nan efò pou n ranfòse lang kreyòl la.<br/>
 					<strong>Inferno</strong> se yon platfòm ki pèmèt nou tradui
 					an kreyòl poèm <em>Inferno</em> ke Dante te ekri.
 				</p>
+				<p><a href="{{url_for('main.about')}}">Plis infòmasyon</a></p>
 			</div>
 		</div>
 		<div class="col-sm-6">{% block content %}{% endblock %} </div>

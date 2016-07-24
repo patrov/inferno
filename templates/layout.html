@@ -1,8 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en_EN">
     <head>
         <meta encoding="utf-8">
-        <title>Inferno</title>
+        <title>Inferno Eksperyans | Dante an Kreyòl{{ title }}</title>
+        {% if meta_description %}
+            <meta name="description" content="{{ meta_description }}"></meta>
+        {% endif %}
+        {% block metadata %} {% endblock %}
         <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/bootstrap/dist/css/bootstrap.min.css')}}"/>
         <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='js/kimonic/vendor/fontawesome/css/font-awesome.min.css')}}"/>
         <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/nanoscroller/nanoscroller.css')}}"/>
@@ -73,7 +77,11 @@
         	
         <footer>
             <div class="container">
-                <p class="pull-right"><strong>Inferno</strong> - Yon eksperyans <a href="mailto:harris.baptiste@gmail.com">Harris Baptiste</a></p>
+                <p class="pull-right footer-title">
+                    <span>Inferno Eksperyans</span>
+                    <span class="footer-pipe">|</span>
+                    <a href="{{url_for('main.contact')}}">Harris Baptiste</a>
+                </p>
             </div>
         </footer>
      

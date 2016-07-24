@@ -32,7 +32,7 @@ define(["Kimo/core", "bi.route", "vendor.mustache", "Kimo.localstorage"], functi
 
     return Kimo.ApplicationManager.create("Inferno", {
         _settings: {
-            mainViewContainer: ".jumbotron",
+            mainViewContainer: ".app-wrapper",
             mainActivity: "MainActivity",
             route: "inferno:showcanto",
             viewSettings: {

@@ -158,7 +158,6 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
 
             this.widget.find(".btn").hide();
             this.currentMode = config.mode;
-
             if (this.currentMode === this.CREATE_MODE) {
                 this.widget.find("#save-draft-btn, #propose-btn, #cancel-btn").show();
             }
@@ -201,6 +200,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             $(this.editFields).hide();
             this.hidePanels();
             this.translationItem = translationItem;
+            this.widget.find("#cancel-btn").hide();
             if (this.translationItem.isEmpty()) {
                 if (this.isEditMode()) {
                     if (this.viewMode === "view") {
@@ -213,6 +213,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
                 }
 
             } else {
+                this.widget.find("#cancel-btn").show();
                 this.userTranslationCtn.html(translationItem.get("content"));
                 this.pubdateField.html(Moment(translationItem.get("pubdate")).fromNow());
                 this.showUserTranslation();

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2016-01-03 17:35+0100\n"
-"PO-Revision-Date: 2016-06-13 08:25+0200\n"
+"PO-Revision-Date: 2016-07-24 16:45+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -308,12 +308,12 @@ msgstr "Invite yon moun."
 
 #: flask_user/templates/flask_user/login.html:21
 msgid "New here? Register."
-msgstr "Ou nouvo? Kreye yon kont"
+msgstr "Ou nouvo ? Kreye yon kont"
 
 #: flask_user/templates/flask_user/login.html:44
 #: flask_user/templates/flask_user/login_or_register.html:34
 msgid "Forgot your Password?"
-msgstr "Ou bliye modpas ou?"
+msgstr "Ou bliye modpas ou ?"
 
 #: flask_user/templates/flask_user/manage_emails.html:5
 msgid "Manage Emails"
@@ -321,7 +321,7 @@ msgstr ""
 
 #: flask_user/templates/flask_user/register.html:21
 msgid "Already registered? Sign in."
-msgstr "Ou gen yon kont? Konekte"
+msgstr "Ou gen yon kont deja ? Konekte"
 
 #: flask_user/templates/flask_user/resend_confirm_email.html:5
 msgid "Resend Confirmation Email"
