@@ -55,11 +55,12 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             }
             //this.showStanzaInfos(terzaNode);
             this.currentTerzaNo = terzaNo;
+            this.currentTerzaPos = terzaNode.data("pos");
             $(".stz").removeClass("selected");
             clonedNode = $(terzaNode).clone(true);
             $(terzaNode).addClass("selected");
             if (triggerEvent) {
-                Kimo.Observable.trigger("TerzaSelection", $(clonedNode), this.currentTerzaNo, terzaNode);
+                Kimo.Observable.trigger("TerzaSelection", $(clonedNode), this.currentTerzaNo, terzaNode, this.currentTerzaPos);
             }
             this.showLanguages($(clonedNode));
         },
@@ -155,7 +156,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             $("#terza-infos").remove();
             var infoTpl = $("<span/>");
             $(infoTpl).addClass("pull-right");
-            $(infoTpl).attr("id","terza-infos").html("canto <strong>" + this.currentCanto + "</strong> - Terza <strong>" + this.currentTerzaNo + "</strong>");
+            $(infoTpl).attr("id","terza-infos").html("Canto <strong>" + this.currentCanto + "</strong> - Terzina <strong>" + this.currentTerzaPos + "</strong>");
             terzaNode.append(infoTpl);
         },
 
