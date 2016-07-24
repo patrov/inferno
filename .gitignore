@@ -1,2 +1,5 @@
 *.pyc
 nbproject/*
+# ignore config file
+config/config_dev.py
+config/config_prod.py

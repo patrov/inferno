@@ -15,14 +15,4 @@ class InfernoConfig(object):
     USER_AFTER_CHANGE_PASSWORD_ENDPOINT = 'main.confirm_action'
     USER_AFTER_FORGOT_PASSWORD_ENDPOINT = 'main.confirm_action' 
 	# Flask-User Email Template
-    USER_APP_NAME = 'Inferno Eksperyans' 
-                 
-    
-    # Flask-Mail
-    MAIL_PORT = 587
-    MAIL_DEFAULT_SENDER = 'kreyol.eksperyans@gmail.com'
-    MAIL_SERVER = 'smtp.mailgun.org'
-    MAIL_USERNAME = 'postmaster@sandbox197b2cead5aa4bd493c86620f1d6bb3b.mailgun.org'
-    MAIL_PASSWORD = 'f65aa84cd3d4643360201c938869916a'
-    MAIL_USE_TLS = False
-    
+    USER_APP_NAME = 'Inferno Eksperyans'
