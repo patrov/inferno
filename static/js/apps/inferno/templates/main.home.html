@@ -39,9 +39,31 @@
                 <div class="tab-content">
 
                     <div id="annotation" class="tab-pane">
-                        <p @editable=true class="trad it" id='translationCtn' target="metadata/canto/{id}/translator">Otè : Dante - 1472</p>
-                        <p @editable=true class="trad eng" id='translationCtn' target="metadata/canto/{id}/translator"> Tradisyon - Henry Wadsworth Longfellow</p>
-                        <p @editable=true class="trad fr" id='translationCtn' target="metadata/canto/{id}/translator">Tradiksyon - Saint-Louis de Lasalle</p>
+                        <p class="translator it" target="metadata/canto/{id}/translator">
+                            <span class="role">Otè</span>
+                            <span class="role-name">Dante</span><br/>
+                            <span class="role">Dat</span>
+                            <span class="role-name">1307 - 1321</span>
+                        </p>
+
+                        <p style="display:none" class="translator en" target="metadata/canto/{id}/translator">
+                            <span class="role">Tradiksyon</span>
+                            <span class="role-name">Henry Wadsworth Longfellow</span><br/>
+                            <span class="role">Dat</span>
+                            <span class="role-name">1867</span>
+                        </p>
+
+                        <p style="display:none" class="translator fr" target="metadata/canto/{id}/translator">
+                            <span class="role">Tradiksyon</span>
+                            <span class="role-name">??</span><br/>
+                            <span class="role">Dat</span>
+                            <span class="role-name">??</span>
+                        </p>
+                        <p style="display:none" class="translator kr" target="metadata/canto/{id}/translator">
+                            <span class="role">Tradiksyon</span>
+                            <span class="role-name">Travay kolaboratif Inferno Eksperyans</span>
+                            <span class="role-name">2016</span>
+                        </p>
 
                         <div id="annotation-zone"></div>
                     </div>

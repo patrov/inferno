@@ -46,7 +46,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
  .terza-item { margin-left: 10px; margin-right: 10px;}
  .terza-no {color: orange}
 
-.stz-editor { background-color: white; text-align: center }
+.stz-editor { background-color: white; text-align: center; margin-top: 18px }
 .canto-ctn {padding-top : 25px; padding-bottom: 30px; background-color: #f6f4f7; margin-top: 0px;} /*Modif Julie :) */
 .other-translation { margin-top: 10px; padding-top: 10px}
 
@@ -77,7 +77,7 @@ footer { right: 0; left: 0; height: 30px; padding-top: 10px; bottom: 0px}  /*Mod
 
 #editor-ctn {background-color: #ecf0f1;}
 
-#edit-zone {margin: 5px 0px 5px 0; border-radius: 0; overflow: auto; font-family: 'Georgia', sans-serif; background-color: #faebcc !important; resize: none; height: 75px;}
+#edit-zone {padding: 8px 12px; color: #242028; border: 1px solid #ffa500; margin: 0px 0px 5px 0; border-radius: 0; overflow: auto; font-family: 'Georgia', sans-serif; background-color: #ffffff; resize: none; height: 82px;}
 
 #editing-zone .btn {margin-left: 5px; }
 
@@ -86,13 +86,15 @@ footer { right: 0; left: 0; height: 30px; padding-top: 10px; bottom: 0px}  /*Mod
 #user-translation {background-color: #d9edf7; padding: 5px; border-bottom: 1px solid #3498db}
 
 .user-context-wrapper {/*position: fixed;*/ top:70px; /*width: 457px;*/}
-#editing-zone .textarea-wrapper {padding-right: 5px; padding-left: 0px}
+#editing-zone .textarea-wrapper {padding: 5px 5px 10px 0; }
 #add-translation {margin-top: 5px;}
 
-#editing-zone { margin: 10px 10px 22px 10px; padding: 0px; border-bottom: 2px solid #FFA500; padding: 31px 10px 10px; background-color: white;}   /*Modif Julie :) */
+#editing-zone { margin: 10px 10px 22px 10px; border-bottom: 2px solid #FFA500; padding: 31px 10px 15px; background-color: white;}   /*Modif Julie :) */
 #editing-zone .user-translation { margin-top: 18px;}
 #editing-zone .user-translation-wrapper { border-top: 1px solid #ededed;  padding: 15px 0 10px 0; }
 #editing-zone .inferno-user {}
+
+#editing-zone .translated-content {margin-bottom: 0px}
 
 .csanto-ctn { max-height: 726px; overflow-y: auto }
 
@@ -113,7 +115,7 @@ footer { right: 0; left: 0; height: 30px; padding-top: 10px; bottom: 0px}  /*Mod
 .user-comment {margin-bottom: 22px; font-size: 12px; font-family: helvetica,arial,"lucida grande",sans-serif; min-height: 20px !important}
 
 .comment-zone .add-comment {padding: 8px 0px;}
-.comment-zone .add-comment:hover {color: #aca4b2;}
+.comment-zone .add-comment:hover, .comment-zone .add-comment:focus, .comment-zone .add-comment:active {color: #aca4b2;}
 
 #comment-field { padding: 4px; color: #242028; background-color: #ffffff; margin: auto; margin-top: 5px; position: relative; border: 1px #ffa500 solid;  word-wrap: break-word; overflow-y: auto; cursor: text; min-height: 35px; max-height: 100px }
 .comment-close-btn { margin-right: -1px !important;}
@@ -128,7 +130,17 @@ footer { right: 0; left: 0; height: 30px; padding-top: 10px; bottom: 0px}  /*Mod
 
 .contrib-time {font-size: 0.7em; font-weight: normal; color: #dcd9dd;} /*Modif Julie :) */
 
-/*Modif Julie :) */
+
+#edit-zone::-webkit-input-placeholder { font-size:12px; font-weight: 600; color: #ffa500; font-family: helvetica,arial,"lucida grande",sans-serif; text-transform: uppercase;}
+#edit-zone:-moz-placeholder { /* Firefox 18- */font-size:12px; font-weight: 600; color: #ffa500;font-family: helvetica,arial,"lucida grande",sans-serif;  text-transform: uppercase;}
+#edit-zone::-moz-placeholder {  /* Firefox 19+ */font-size:12px; font-weight: 600; color: #ffa500;font-family: helvetica,arial,"lucida grande",sans-serif;  text-transform: uppercase;}
+#edit-zone:-ms-input-placeholder {  font-size:12px; font-weight: 600; color: #ffa500; text-transform: uppercase; font-family: helvetica,arial,"lucida grande",sans-serif;}
+
+#save-draft-btn { padding-right: 0 }
+#save-draft-btn:hover, #save-draft-btn:focus, #save-draft-btn:active {color: #ffa500;}
+#cancel-btn {color: #aca4b2; padding-right: 0}
+#cancel-btn:hover, #cancel-btn:focus, #cancel-btn:active { color: #ffa500 }
+/*Modif Julie :) */ 
 .nav-tabs > li > a {
     margin-right: 2px;
     line-height: 1.42857;
@@ -310,9 +322,11 @@ h1, .h1, h2, .h2, h3, .h3 {
 /* Annotator style */
 .annotator-item {font-size: x-small; vertical-align: super}
 .annotator-hl {background: orange}
-.badge {color: white}
+.badge {color: white; background-color: #242028}
 .badge.annotation-no {font-size: 10px; padding: 1px 4px; vertical-align: super}
 .badge.badge-hl {opacity: 0.5; line-height: none; display: inline; line-height: none; font-size:inherit; padding:0 2px; border-radius: 0 !important; filter:alpha(opacity=50); background: orange }
 .annotation-no > .annotator-hl {background: none; font-weight: smaller;}
 
+#annotation .role {font-weight: 600; font-size: 13px; padding-right: 5px}
+#annotation .role-name {font-size: 13px}
 /* Noir 242028    Gris fonce aca4b2    Gris clair dcd9dd    Orange ffA500   */

@@ -71,14 +71,14 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             var terza = $(".no-" + this.currentTerzaNo, $("." + selectedLang + "-canto-container").eq(0));
             if(!terza.length) {
                 this.loadTerza(this.currentTerzaNo, selectedLang).done(function (response) {
-                    var tpl = "<p style='position:relative'>{{content}}</p>",
+                    var tpl = "<p class='translated-content'>{{content}}</p>",
                     render = Mustache.render(tpl, response),
                     translationCtn = $("#editing-zone").find(".current-translation").eq(0);
                     $(translationCtn).html($(render));
                     self.showLanguages();
                 });
             } else {
-                var tpl = $("</p>").html($(terza).html());
+                var tpl = $("</p>").addClass("translated-content").html($(terza).html());
                 $("#editing-zone").find(".current-translation").html($(tpl));
                 self.showLanguages();
             }

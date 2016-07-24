@@ -77,10 +77,12 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
 
                     /*  move to cantoManager */
                     $(this.view.view).on("click", ".canto-lang", function(e) {
+                        
                         var lang = $(e.currentTarget).data("lang");
                         if (!lang) {
                             return;
                         }
+
                         self.terzaManager.loadCantoTranslation(lang);
                         $(".available-lang > li").removeClass("active");
                         $(e.currentTarget).parent("li").addClass("active");
@@ -88,6 +90,11 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                         $(".canto-ctn").hide();
                         var className = lang + "-canto-container";
                         $("." + className).show();
+
+                        /* handle translator */
+                        $ ("#annotation .translator").hide();
+                        $ ("#annotation " + "." + lang).show();
+
                     });
                 },
                 

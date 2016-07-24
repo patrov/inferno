@@ -108,7 +108,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         },
 
         onTemplateReady: function() {
-            this.editor = $(this.widget).find("#edit-zone").css({border: '1px solid orange'});
+            this.editor = $(this.widget).find("#edit-zone");
             this.widget.find(".btn").hide();
             this.userTranslationCtn = $(this.widget).find("#user-translation-text");
             this.emptyTranslationPanel = $(this.widget).find(".empty-panel");
