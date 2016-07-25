@@ -229,12 +229,16 @@ body {
     background-color: #242028;
 
 }
-.inferno-nav { padding: 4px 40px 0px 100px; }
+.inferno-nav { padding: 24px 40px 0px 100px; }
 .inferno-nav .active { text-transform: uppercase !important; }
 .inferno-nav .active > a { color: #aca4b2 !important; background-color: #242028 !important; }
-.inferno-nav > li > a {color: #ffffff !important; text-transform: uppercase !important; }
-.inferno-nav > li > a:hover,  .inferno-nav li a:focus, .inferno-nav li a:active {color: #ffa500 !important;}
+.inferno-nav > li > a{ padding-bottom: 5px; color: #ffffff !important; text-transform: uppercase !important; }
+.inferno-nav-user > li > a { padding-bottom: 5px; color: #ffffff !important; }
 
+.inferno-nav .btn-link, .inferno-nav .btn-info {color: #fff;}
+.inferno-nav > li > a:hover,  .inferno-nav li a:focus, .inferno-nav li a:active {color: #ffa500 !important;}
+.inferno-nav-user > li > a > span:hover,  .inferno-nav-user li a > span:focus, .inferno-nav-user li a > span:active {color: #ffa500 !important;}
+.inferno-nav-user > .open > a:hover, .inferno-nav-user > .open > a:focus {background-color: #242028 !important}
 b, strong {
     font-weight: 600;
 }

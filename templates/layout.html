@@ -45,14 +45,14 @@
 				
                 <div class="collapse navbar-collapse">
                     <!-- menu -->
-                    <ul class="inferno-nav nav navbar-nav  navbar-center">
+                    <ul class="inferno-nav nav navbar-nav">
                         <li class="{% if request.path == url_for('main.index') %}active{% endif %}"><a href="{{ url_for('main.index') }}">Tradiksyon</a></li>
                         <li class="{% if request.path == url_for('main.about') %}active{% endif %}"><a href="{{ url_for('main.about') }}">Projè a</a></li>
                         <li class="{% if request.path == url_for('main.contact') %}active{% endif %}" ><a href="{{ url_for('main.contact') }}">Kontak</a></li>
                     </ul>
 
 
-                    <nav class="nav navbar-nav navbar-right pull-right">
+                    <nav class="inferno-nav nav navbar-nav navbar-right pull-right">
 
                         <div class="container-fluid">
                             {% if not current_user.is_authenticated() %}
@@ -61,7 +61,7 @@
                         </div>
 
                             {% else %}
-                            <ul class="nav navbar-nav">
+                            <ul class="inferno-nav-user nav navbar-nav">
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <i class="fa fa-user"></i><span class="inferno-user">{{current_user.username}}</span><span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
