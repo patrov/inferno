@@ -28,8 +28,8 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 .navbar-nav .fa-user {color: #aca4b2;}
 .navbar-nav .inferno-user {color: #ffffff; padding: 0 8px 0 5px;}
 .navbar-header {padding-bottom: 20px}
-.navbar-header .main-title {color: #ffa500; font-size: 26px; }
-.navbar-header .main-subtitle {color: #aca4b2; letter-spacing: 4px; text-transform:none;}
+.navbar-header .main-title {color: #ffa500; font-size: 21px; letter-spacing: 2px}
+.navbar-header .main-subtitle {color: #aca4b2; font-size: 17px; letter-spacing: 1px; text-transform:none;}
 
 .trad-pubdate {font-family: helvetica,arial,"lucida grande",sans-serif}
 
@@ -226,8 +226,15 @@ body {
     color: #242028;
 }
 .navbar-default {
-    background-color: #ffffff;
+    background-color: #242028;
+
 }
+.inferno-nav { padding: 4px 40px 0px 100px; }
+.inferno-nav .active { text-transform: uppercase !important; }
+.inferno-nav .active > a { color: #aca4b2 !important; background-color: #242028 !important; }
+.inferno-nav > li > a {color: #ffffff !important; text-transform: uppercase !important; }
+.inferno-nav > li > a:hover,  .inferno-nav li a:focus, .inferno-nav li a:active {color: #ffa500 !important;}
+
 b, strong {
     font-weight: 600;
 }
