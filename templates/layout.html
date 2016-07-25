@@ -40,11 +40,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{url_for('main.index')}}">Inferno Eksperyans : Dante An Kreyol</a>
+                    <a class="navbar-brand" href="{{url_for('main.index')}}"><span class="main-title">Inferno Eksperyans</span><br><span class="main-subtitle">Dante An Kreyol</span></a>
                 </div>
 				
                 <div class="collapse navbar-collapse">
                     <!-- menu -->
+                    <ul class="nav navbar-nav">
+                        <li class="{% if request.path == url_for('main.index') %}active{% endif %}"><a href="{{ url_for('main.index') }}">Tradiksyon</a></li>
+                        <li class="{% if request.path == url_for('main.about') %}active{% endif %}"><a href="{{ url_for('main.about') }}">Projè a</a></li>
+                        <li class="{% if request.path == url_for('main.contact') %}active{% endif %}" ><a href="{{ url_for('main.contact') }}">Kontak</a></li>
+                    </ul>
+
 
                     <nav class="nav navbar-nav navbar-right pull-right">
 

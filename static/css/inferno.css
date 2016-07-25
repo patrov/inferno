@@ -27,6 +27,10 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 .navbar-nav .caret {color: #ffa500;}
 .navbar-nav .fa-user {color: #aca4b2;}
 .navbar-nav .inferno-user {color: #ffffff; padding: 0 8px 0 5px;}
+.navbar-header {padding-bottom: 20px}
+.navbar-header .main-title {color: #ffa500; font-size: 26px; }
+.navbar-header .main-subtitle {color: #aca4b2; letter-spacing: 4px; text-transform:none;}
+
 .trad-pubdate {font-family: helvetica,arial,"lucida grande",sans-serif}
 
 .helvetica {font-family: helvetica,arial,"lucida grande",sans-serif}
@@ -222,7 +226,7 @@ body {
     color: #242028;
 }
 .navbar-default {
-    background-color: #242028;
+    background-color: #ffffff;
 }
 b, strong {
     font-weight: 600;
