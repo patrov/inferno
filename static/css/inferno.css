@@ -177,9 +177,16 @@ footer .footer-pipe {color: #aca4b2; padding-right: 4px; padding-left: 4px}
     text-decoration: none;
     background-color: #fff;
 }
+.nav .open > a {border: none; }
 .btn-link:hover, .btn-link:focus {
     color: #aca4b2;
 }
+.dropdown-menu { min-width: 150px }
+.navbar-nav > li > .dropdown-menu {margin-top: 6px; border-radius: 0; border: 1px solid #dcd9dd;}
+.dropdown-menu > li { text-align: right }
+ .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus { background-color: #fff; color: #ffa500 }
+ .dropdown-menu > li > a {padding-right: 18px; color: #242028;}
+.dropdown-toggle:hover, .dropdown-toggle:link, .dropdown-toggle:focus { background-color: #242028 !important }
 .btn-link, .navbar-default .btn-link {
     font-weight: 600;
 	text-transform: uppercase;
@@ -187,7 +194,7 @@ footer .footer-pipe {color: #aca4b2; padding-right: 4px; padding-left: 4px}
     border-radius: 0px;
 }
 .btn-link:hover, .btn-link:focus,  .navbar-default .btn-link:hover,  .navbar-default .btn-link:focus {
-    color: #fff;
+    color: #ffa500;
     text-decoration: none;
     background-color: transparent;
 }
@@ -231,8 +238,8 @@ body {
 }
 .inferno-nav { padding: 24px 40px 0px 100px; }
 .inferno-nav .active { text-transform: uppercase !important; }
-.inferno-nav .active > a { color: #aca4b2 !important; background-color: #242028 !important; }
-.inferno-nav > li > a{ padding-bottom: 5px; color: #ffffff !important; text-transform: uppercase !important; }
+.inferno-nav .active > a { font-weight: 600; color: #aca4b2 !important; background-color: #242028 !important; }
+.inferno-nav > li > a{ font-weight: 600;  padding-bottom: 5px; color: #ffffff !important; text-transform: uppercase !important; }
 .inferno-nav-user > li > a { padding-bottom: 5px; color: #ffffff !important; }
 
 .inferno-nav .btn-link, .inferno-nav .btn-info {color: #fff;}
@@ -282,6 +289,7 @@ b, strong {
     color: #fff;
     background-color: #ffA500;
     border: none;
+    padding: 3px 8px 1px 9px
 }
 .btn-info:hover, .btn-info:focus, .btn-info.focus, .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
     color: #aca4b2;
@@ -352,3 +360,11 @@ h2.info-title {color: #aca4b2;}
 #annotation .role {font-weight: 600; font-size: 13px; padding-right: 5px}
 #annotation .role-name {font-size: 13px}
 /* Noir 242028    Gris fonce aca4b2    Gris clair dcd9dd    Orange ffA500   */
+
+.main-translation-board {padding-top: 0px}
+#user-context {padding-top: 0px}
+
+@media screen and (max-width: 767px) {
+    .main-translation-board { padding-top: 50px }
+    #user-context { padding-top: 50px }
+} 
