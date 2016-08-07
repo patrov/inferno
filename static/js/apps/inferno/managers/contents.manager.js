@@ -54,9 +54,9 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
 
         showUserTranslation = function(transalation, clonedNode, noTerza, currentSelection) {
             var currentLang = Kimo.ParamsContainer.get("currentLang");
-            if (currentLang === KREYOL) {
+            /*if (currentLang === KREYOL) {
                 return false;
-            }
+            }*/
             
             currentTerza = terzaManager.getCurrentTerza();
 
@@ -97,9 +97,9 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
             }
 
             var currentLang = Kimo.ParamsContainer.get("currentLang");
-            if (currentLang === KREYOL) {
+           /* if (currentLang === KREYOL) {
                 return false;
-            }
+            }*/
 
             /*  show form, then show user translation if exists 
                 explorer : griser on click
@@ -147,9 +147,9 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
         **/
         showUserTranslationForm = function(userTranslation, clonedNode, noTerza, currentSelection) {
             var currentLang = Kimo.ParamsContainer.get("currentLang");
-            if (currentLang === KREYOL) {
+            /*if (currentLang === KREYOL) {
                 return false;
-            }
+            }*/
             
             if (previousSelection) {
                 $(previousSelection).show();

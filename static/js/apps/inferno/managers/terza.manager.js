@@ -1,7 +1,14 @@
 define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) {
 
+    var actions = "<p class='stz-actions'>"
+        + "<a class='lang-choice' data-lang='it' href='javascript:;'>Dante</a> |" 
+        + "<a class='lang-choice' data-lang='en' href='javascript:;'> Eng</a> |" 
+        + "<a class='lang-choice' data-lang='fr' href='javascript:;'> Fr</a> |" 
+        + "<a class='lang-choice' data-lang='kr' href='javascript:;'> Kr</a>" 
+    + "</p>";
+
     var terzaManager = (function () {
-        this.stzAction = $("<p class='stz-actions'><a class='lang-choice' data-lang='it' href='javascript:;'>Dante</a> | <a class='lang-choice' data-lang='en' href='javascript:;'>Eng</a> | <a class='lang-choice' data-lang='fr' href='javascript:;'>Fr</a></p>").clone();
+        this.stzAction = $(actions).clone();
         this.currentTerza = null;
         this.currentCanto = null;
         this.previousContent = null;
@@ -70,7 +77,23 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             var self = this;
             var selectedLang = lang || 'it';
             var terza = $(".no-" + this.currentTerzaNo, $("." + selectedLang + "-canto-container").eq(0));
-            if(!terza.length) {
+            
+            var handleTranslation = function (terza) { 
+                var tpl = $("</p>").addClass("translated-content").html($(terza).html());
+                $("#editing-zone").find(".current-translation").html($(tpl));
+                self.showLanguages(); 
+            }
+
+            if (!terza.length) {
+
+                this.loadCanto(this.currentCanto, selectedLang, false).done(function () {
+                    terza = $(".no-" + self.currentTerzaNo, $("." + selectedLang + "-canto-container").eq(0));
+                    handleTranslation(terza);
+                });
+            } else {
+                handleTranslation(terza);
+            }
+                /* Si kreyol charge la langue puis récupérer
                 this.loadTerza(this.currentTerzaNo, selectedLang).done(function (response) {
                     var tpl = "<p class='translated-content'>{{content}}</p>",
                     render = Mustache.render(tpl, response),
@@ -82,7 +105,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 var tpl = $("</p>").addClass("translated-content").html($(terza).html());
                 $("#editing-zone").find(".current-translation").html($(tpl));
                 self.showLanguages();
-            }
+            }*/
            
         },
 
@@ -95,8 +118,10 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
         },
 
 
-        this.loadCantoTranslation = function (lang) {
+        this.loadCantoTranslation = function (lang, triggerEvent) {
             var self = this;
+            var dfd = Kimo.jQuery.Deferred();
+            triggerEvent = (typeof triggerEvent === "boolean") ? triggerEvent : false;
             this.currentLang = lang;
             Kimo.ParamsContainer.set("currentLang", this.currentLang);
             $.ajax({
@@ -106,8 +131,14 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 }
             }).done(function (response) {
                 self.populateStanzas(response, lang);
-                Kimo.Observable.trigger("CantoTranslationLoaded", lang, response);
-            });
+                
+                if (triggerEvent) {
+                    Kimo.Observable.trigger("CantoTranslationLoaded", lang, response);
+                }
+
+                dfd.resolve(lang, response);
+            }).fail(dfd.reject);
+            return dfd.promise();
         },
 
         this.loadTerza = function (terzaNo, lang) {
@@ -133,23 +164,31 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             });
         },
 
-        this.loadCanto = function (noCanto) {
+        this.loadCanto = function (noCanto, lang, triggerEvent) {
             var self = this,
             noCanto = noCanto || 1,
+            lang = lang || this.currentLang,
+            triggerEvent = (typeof triggerEvent === "boolean") ? triggerEvent : true; 
+
             restParams = {
                 url: "/rest/canto/"+noCanto
                 };
-            if (this.currentLang !== 'it' ) {
+
+            if (lang !== 'it' ) {
                 restParams.data = {
-                    lang: this.currentLang
+                    lang: lang
                     };
             }
-
+            var dfd = Kimo.jQuery.Deferred();
             this.currentCanto = noCanto;
             $.ajax(restParams).done(function (response) {
-                self.populateStanzas(response, self.currentLang);
-                Kimo.Observable.trigger("CantoLoaded", noCanto, response);
-            });
+                self.populateStanzas(response, lang);
+                if (triggerEvent) {
+                    Kimo.Observable.trigger("CantoLoaded", noCanto, response);
+                } 
+                dfd.resolve(noCanto, response);
+            }).fail(dfd.reject); 
+            return dfd;
         },
 
         this.showStanzaInfos = function (terzaNode) {
@@ -206,13 +245,9 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                     }
                     });    
                 }
-                
-
 
 				 if (terzaItem) {
-                    
-                    console.log(terzaItem);
-
+                
 					terzaItem.terzaPos = i + 1;
 					render = Mustache.render(tpl, terzaItem);
 				} else {
@@ -221,8 +256,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
 					if (config.mode ==="view") {
 						content = "Poko gen tradiksyon."
 					}
-
-					terzaItem = {content: content , terzaPos: i + 1}
+					terzaItem = {content: content, terzaPos: i + 1, no_terza: i + 1};
 					render = Mustache.render(emptyTpl, terzaItem);
 					$(render).addClass("empty");
 				}
