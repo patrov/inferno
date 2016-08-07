@@ -1,9 +1,8 @@
 {% extends "layout.html" %}
 
 {% block main %}
-	<div class="col-sm-6">
-			<h2 class="info-title">Inferno Eksperyans</h2>
-			Projè a.
+	<div class="col-sm-6 the-project">
+			<h2 class="info-title">Projè a</h2>
 
 <p>Kreyol Eksperyans se yon platfòm ki vle ankouraje epi ranfòse isaj lang kreyol la gras a itilizasyon  teknoloji nimerik yo. Inferno limenm, se yon ekperimantasypn sou plafòm lan ki pèmèt nou tradui de manyè kolaborarif poèm « Inferno » ke Dante te ekri.</p>
 
@@ -29,5 +28,7 @@ Men pou chèche lakonesans epi sa ki byen (chan XXVI – tèsè 40)</quote>
 <a title="Harris Baptiste | fullstack engineer | digital humanities" href="{{ url_for('main.contact') }}">Kontak</a>
 		
 		</div>
-		<div class="col-sm-6"></div>
+		<div class="col-sm-6 img-project">
+			<img src="{{url_for('static', filename='img/inferno-dante.jpg')}}"/>
+		</div>
 {% endblock %}

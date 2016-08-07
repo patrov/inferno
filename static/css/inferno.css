@@ -430,3 +430,16 @@ h2.info-title {color: #aca4b2;}
 .navbar-default .navbar-toggle:hover .icon-bar, .navbar-default .navbar-toggle:focus .icon-bar {
 	background-color: #ffA500;
 }
+.the-project {
+	text-align: justify;
+}
+.the-project > p {
+	margin-bottom: 16px;
+}
+.img-project {
+	text-align: center;
+	padding-top: 50px;
+}
+.img-project > img {
+	width: 50%;
+}
