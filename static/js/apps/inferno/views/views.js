@@ -6,6 +6,7 @@
 define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustache, Moment) {
 
     var translationItemTpl = "<p class='contrib'>{{{content}}}</p>";
+
     var itemActions = "<div class='contrib-actions'>\n\
             <a class='contrib-action'><i class='fa fa-pencil'></i> </a>\n\
             <a class='contrib-action'><i class='fa fa-remove'></i> </a>\n\
@@ -13,30 +14,33 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
         </div>";
 
     Kimo.registerEntityView({
+        
         name: "TranslationsView",
+
         events: {
             ".contrib mouseenter": "showActions",
             ".contrib mouseleave": "hideActions",
             ".fa-pencil click": "showEditForm",
             ".fa-remove click": "deleteDraft"
         },
+
         init: function() {
             this.widget = Kimo.jQuery("<div/>").clone();
             this.translationRepository = this.entity;
             this.selectedTranslation = null;
             this.translationRepository.on("save", $.proxy(this.handleContentChange, this));
             this.translationRepository.on("change", $.proxy(this.handleContentChange, this));
-            this.test ='harris';
-
             this.root = this.widget;
         },
-        showEditForm: function() {
-        },
+
+        showEditForm: function() {},
+
         editDraft: function(e) {
             this.selectedTranslation = $(e.currentTarget).closest(".contrib").eq(0);
             var entity = this.translationRepository.findByCid($(this.selectedTranslation).data("translation"));
             Kimo.Observable.trigger("TranslationEditTask", entity, this.selectedTranslation);
         },
+
         deleteDraft: function(e) {
             this.selectedTranslation = $(e.currentTarget).closest(".contrib").eq(0);
             if (!confirm("Efase?")) {
@@ -45,6 +49,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             var entity = this.translationRepository.findByCid($(this.selectedTranslation).data("translation"));
             this.translationRepository.remove(entity);
         },
+
         showActions: function(e) {
             var item = e.currentTarget;
             $(item).append(itemActions);

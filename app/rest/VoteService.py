@@ -22,23 +22,33 @@ class VoteService(restful.Resource):
     def post(self, no_translation = None, type = 'up'):
         try :
             translation = db.session.query(Translation).get(no_translation)
-            vote = Vote.query.filter_by(translation=translation, voter=g.user).first()
-            
+            #vote = Vote.query.filter_by(translation=translation, voter=g.user).first()
             if type == 'up':
-                if vote is None:
-                    vote = Vote(no_translation,  g.user)
-                    db.session.add(vote)
-                    translation.increment_vote()                
+                self.clear_previous_vote(translation)
+                vote = Vote(no_translation,  g.user)
+                db.session.add(vote)
+                translation.increment_vote()                
                             
             if type == 'down':
                 vote = Vote.query.filter_by(translation=translation, voter=g.user).delete()
                 translation.decrement_vote()
-                   
-            db.session.commit()
-            
+                               
         except Exception:
             raise
                 
         db.session.commit()
         return vote     
     
+    def clear_previous_vote(self, current_translation):
+        # Previous user vote for the translation
+        vote = db.session.query(Vote)\
+            .join(Vote.translation)\
+            .filter(Vote.voter==g.user)\
+            .filter(Translation.terza == current_translation.terza)\
+            .first()
+        # delete previous
+        if vote is not None:
+            translation = vote.translation
+            translation.decrement_vote()
+            db.session.delete(vote)
+            db.session.commit()
