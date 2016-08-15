@@ -16,8 +16,9 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 .trad-sugg .fa-user {color: #242028;}
 .trad-sugg .inferno-user, .user-comment .inferno-user, #editing-zone .inferno-user {padding-left: 5px; padding-right: 12px; color: #aca4b2 }
 #trad-container {margin-top: 30px}
-.lang-choice {font-family: helvetica,arial,"lucida grande",sans-serif;}
-.lang-choice.selected {border-bottom: 1px solid orange;}
+.stz-actions .lang-choice {font-family: helvetica,arial,"lucida grande",sans-serif;}
+.stz-actions .lang-choice.selected { color: #ffA500}
+.stz-actions .lang-choice:hover, .stz-actions .lang-choice:focus {color: #ffA500;}
 .fr-canto-container, .eng-canto-container, it-canto-container {}
 .col-sm-4 #editing-zone {font-size: 0.8em}
 .vote-btn, .comment-btn {color: #ffA500; padding-right: 5px;}
@@ -52,7 +53,9 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 @media screen and (max-width: 767px) {
     #canto-pager { margin-top: 30px; }
 }
-.stz-actions { top:-26px; right:0px; margin-right: 5px; font-size: 0.6em; padding-right: 0px} /*Modif Julie :) */
+.stz-actions { color:#dcd9dd; top:-26px; right:0px; margin-right: 5px; font-size: 0.6em; padding-right: 0px} /*Modif Julie :) */
+
+.stz-actions .lang-choice {color: #aca4b2}
 
 .stz.selected { padding-left: 8px;/*margin-left:-5px; margin-top:-10px ; margin-right:-5px;padding-left:5px; padding-right:5px;*/ cursor:pointer; border-left: 2px solid orange; }
 

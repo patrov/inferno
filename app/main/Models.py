@@ -228,10 +228,10 @@ class Translation(db.Model):
         self.vote = self.vote + 1
         
     def decrement_vote(self):
-        vote = self.vote - 1
-        if vote < 0:
-            vote = 0
-        return vote
+        self.vote = self.vote - 1
+        if self.vote < 0:
+            self.vote = 0
+        return self
         
         
     @property

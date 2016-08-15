@@ -1,10 +1,10 @@
 define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) {
 
     var actions = "<p class='stz-actions'>"
-        + "<a class='lang-choice' data-lang='it' href='javascript:;'>Dante</a> |" 
-        + "<a class='lang-choice' data-lang='en' href='javascript:;'> Eng</a> |" 
-        + "<a class='lang-choice' data-lang='fr' href='javascript:;'> Fr</a> |" 
-        + "<a class='lang-choice' data-lang='kr' href='javascript:;'> Kr</a>" 
+        + "<a class='lang-choice it' data-lang='it' href='javascript:;'>Dante</a> |" 
+        + "<a class='lang-choice en' data-lang='en' href='javascript:;'> Eng</a> |" 
+        + "<a class='lang-choice fr' data-lang='fr' href='javascript:;'> Fr</a> |" 
+        + "<a class='lang-choice kr' data-lang='kr' href='javascript:;'> Kr</a>" 
     + "</p>";
 
     var terzaManager = (function () {
@@ -27,8 +27,6 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 e.preventDefault();
                 target = e.currentTarget,
                 lang = $(target).data("lang");
-                $(self.stzAction).find(".lang-choice").removeClass("selected");
-                $(target).addClass("selected");
                 self.showTranslationBoard(lang);
                 return false;
             });
@@ -69,7 +67,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             if (triggerEvent) {
                 Kimo.Observable.trigger("TerzaSelection", $(clonedNode), this.currentTerzaNo, terzaNode, this.currentTerzaPos);
             }
-            this.showLanguages($(clonedNode));
+            this.showLanguages();
         },
 
 
@@ -81,7 +79,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             var handleTranslation = function (terza) { 
                 var tpl = $("</p>").addClass("translated-content").html($(terza).html());
                 $("#editing-zone").find(".current-translation").html($(tpl));
-                self.showLanguages(); 
+                self.showLanguages(lang); 
             }
 
             if (!terza.length) {
@@ -93,20 +91,6 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             } else {
                 handleTranslation(terza);
             }
-                /* Si kreyol charge la langue puis récupérer
-                this.loadTerza(this.currentTerzaNo, selectedLang).done(function (response) {
-                    var tpl = "<p class='translated-content'>{{content}}</p>",
-                    render = Mustache.render(tpl, response),
-                    translationCtn = $("#editing-zone").find(".current-translation").eq(0);
-                    $(translationCtn).html($(render));
-                    self.showLanguages();
-                });
-            } else {
-                var tpl = $("</p>").addClass("translated-content").html($(terza).html());
-                $("#editing-zone").find(".current-translation").html($(tpl));
-                self.showLanguages();
-            }*/
-           
         },
 
         this.selectTerzaByPosition = function (position) {
@@ -278,8 +262,9 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             return $("#editing-zone").find(".current-translation").eq(0);
         }
 
-        this.showLanguages = function () {
-             var focusedTerza = this.getFocusedTerza();
+        this.showLanguages = function (lang) {
+            var currentLang = lang || this.currentLang;
+            var focusedTerza = this.getFocusedTerza();
             var actions = $(this.stzAction).clone();
             $(focusedTerza).css({
                 "position": "relative"
@@ -287,6 +272,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
             $(actions).css({
                 "position": "absolute"
             });
+            actions.find("." + currentLang).addClass("selected");
             $(focusedTerza).append(actions);
             this.showStanzaInfos(focusedTerza);
         }
