@@ -19,19 +19,30 @@ define(['Kimo/core', 'vendor.moment', 'manager!inferno:viewmode', 'manager!infer
             item.on("click", ".comment-btn", $.proxy(this.showCommentField, this, item, itemData));
             item.on("click", ".add-comment", $.proxy(this.saveComment, this, itemData));
             item.on("click", ".comment-close-btn", $.proxy(this.hideEditor, this));
+            item.on("mouseenter", $.proxy(this.showAlertBtn, this));
+            item.on("mouseleave", $.proxy(this.hideAlertBtn, this))
+            item.on("click", ".alert", this.signalContent.bind(this));
             item.on("click", ".vote-btn", this.doVote.bind(this));
             return item;
+        },
+        
+        showAlertBtn: function (e) {
+            $(e.currentTarget).find(".alert-btn").css("visibility", "visible");
+        },
+
+        hideAlertBtn: function (e) {
+            $(e.currentTarget).find(".alert-btn").css("visibility", "hidden");
+        },
+
+        signalContent: function (e) {
+            alert("radcail");
         },
 
         doVote: function (e) {
             /* check content */
             var currentTranslation = $(e.currentTarget).closest('.item').eq(0);
             VoteManager.handleVote(currentTranslation);
-            /*if ($(e.target).hasClass("fa-star-o")) {
-                $(e.target).removeClass("fa-star-o").addClass("fa-star");
-            } else {
-                $(e.target).removeClass("fa-star").addClass("fa-star-o");
-            }*/
+            
         },
 
         showCommentField: function(itemHtml, item) {
