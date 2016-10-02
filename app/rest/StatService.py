@@ -10,22 +10,12 @@ import json
 
 class StatService(restful.Resource):
     
-    available_services = {'terza' : None, 'user': None, 'comment': None}
+    available_services = {'terza' : Terza, 'user': User, 'comment': Comment}
     
     
     def getModel(self, name):
         try :
-            if name == 'terza':
-                StatService.available_services['terza'] = Terza
-            
-            if name == 'user':
-                StatService.available_services['user'] = User
-            
-            if name == 'comment':
-                StatService.available_services['comment'] = Comment
-            
             return StatService.available_services[name]
-
             
         except KeyError, e:
             return restful.abort(404, msg=e) 

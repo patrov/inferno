@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-define(['Kimo/core', 'vendor.moment', 'manager!inferno:viewmode', 'manager!inferno:vote'], function(Kimo, moment, ViewModeManager, VoteManager) {
+define(['Kimo/core', 'bi.models', 'vendor.moment', 'manager!inferno:viewmode', 'manager!inferno:vote'], function(Kimo, Models, moment, ViewModeManager, VoteManager) {
 
     var ItemRenderer = {
         init: function(settings) {
@@ -21,7 +21,7 @@ define(['Kimo/core', 'vendor.moment', 'manager!inferno:viewmode', 'manager!infer
             item.on("click", ".comment-close-btn", $.proxy(this.hideEditor, this));
             item.on("mouseenter", $.proxy(this.showAlertBtn, this));
             item.on("mouseleave", $.proxy(this.hideAlertBtn, this))
-            item.on("click", ".alert", this.signalContent.bind(this));
+            item.on("click", ".alert", this.signalContent.bind(this, itemData, item));
             item.on("click", ".vote-btn", this.doVote.bind(this));
             return item;
         },
@@ -34,8 +34,17 @@ define(['Kimo/core', 'vendor.moment', 'manager!inferno:viewmode', 'manager!infer
             $(e.currentTarget).find(".alert-btn").css("visibility", "hidden");
         },
 
-        signalContent: function (e) {
-            alert("radcail");
+        signalContent: function (itemData, item) {
+            var alertRep = Models.AlertMetadataRepository;
+            alertRep.doAlert('translation', itemData.id).done(function(response) {
+                /* handle alert here if count > 3 */
+                alertRep.countAlert('translation', itemData.id).done(function (response) {
+                    if (response.count >= Kimo.ParamsContainer.get("config").alertMax) {
+                        $(item).remove();
+                    }
+                });
+            });
+            
         },
 
         doVote: function (e) {

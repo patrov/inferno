@@ -33,7 +33,7 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                 },
                 onCreate: function() {
                     var self = this;
-                    Kimo.Observable.registerEvents(['CantoLoaded', 'TerzaSelection', 'CantoTranslationLoaded', 'EnterCommentMode', 'disabledCanto']);
+                    Kimo.Observable.registerEvents(['CantoLoaded', 'TerzaSelection','translationEdition', 'CantoTranslationLoaded', 'EnterCommentMode', 'disabledCanto']);
                     this.currentMode = Kimo.ParamsContainer.get("config");
 
                     Kimo.ParamsContainer.set("translated", 1);
@@ -75,6 +75,11 @@ define(["Kimo/core", 'manager!inferno:pager', 'manager!inferno:terza', 'manager!
                         Kimo.ParamsContainer.set("currentTerza", terzaNo);
                     });
 
+                    Kimo.Observable.on("translationEdition", function (action, translationItem) {
+                        if (action === "save" || action === "delete") {
+                            self.terzaManager.loadCanto(translationItem.getCanto(), "kr", false);
+                        }
+                    });
                     /*  move to cantoManager */
                     $(this.view.view).on("click", ".canto-lang", function(e) {
                         

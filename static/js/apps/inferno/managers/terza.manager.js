@@ -36,7 +36,7 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
                 no = $(stz).data("no");
                 self.selectTerza(no);
             });
-
+            
             /*$(config.root).on("mouseleave", ".current-traduction", function (e) {
                 var target = e.currentTarget;
                 $(target).html(self.previousContent);
@@ -236,10 +236,10 @@ define(["Kimo/core", "jquery", "vendor.mustache"], function (Kimo, $, Mustache) 
 					render = Mustache.render(tpl, terzaItem);
 				} else {
 					var config = Kimo.ParamsContainer.get("config");
-					content = "Ou poko propoze yon vèsyon.";
-					if (config.mode ==="view") {
-						content = "Poko gen tradiksyon."
-					}
+					//content = "Ou poko propoze yon vèsyon.";
+					//if (config.mode ==="view") {
+					content = "Poko gen tradiksyon pou tèsè sa a."
+					//}
 					terzaItem = {content: content, terzaPos: i + 1, no_terza: i + 1};
 					render = Mustache.render(emptyTpl, terzaItem);
 					$(render).addClass("empty");

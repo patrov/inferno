@@ -138,8 +138,50 @@ class AnonymousUser(User, AnonymousUserMixin):
     def get_login(self):
         return "anonymous"
 
-        
- 
+# Metadata class
+class Metadata(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    key = db.Column(db.String(50))
+    value = db.Column(db.Text)
+    target = db.Column(db.Text)#id:type
+    data_type = db.Column(db.Text)    
+
+    def __init__(self, key=None, value=None, target=None):
+        self.key = key
+        self.value = value
+        self.target = target
+
+    def set_target(self, target):
+        self.target = target
+
+    @staticmethod
+    def get_by(key, target=None):
+        query = Metadata.query.filter_by(key=key)
+        if target is not None:
+            query = Metadata.query.filter_by(key=key, target=target)
+        return query.all()
+
+    @staticmethod
+    def count_by(key, target=None):
+        query = Metadata.query.filter_by(key=key)
+        if target is not None:
+            query = Metadata.query.filter_by(key=key, target=target)
+        return query.count()
+
+
+class AlertMetadata(Metadata):
+    def __init__(self, value=None, target=None):
+        super(Metadata, self).__init(key="alert", value=value, target=target) 
+
+    @staticmethod
+    def get_excluded_contents(max=3):
+        return db.session.query(AlertMetadata.target, func.count(AlertMetadata.key)).\
+        group_by(AlertMetadata.target).\
+        having(func.count(AlertMetadata.key) > max).\
+        all()
+
+
+
 #Comments
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)

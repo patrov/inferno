@@ -55,7 +55,7 @@ p.trad-stz {font-family: 'Georgia', sans-serif; font-size: 1.2em; margin-bottom:
 }
 .stz-actions { color:#dcd9dd; top:-26px; right:0px; margin-right: 5px; font-size: 0.6em; padding-right: 0px} /*Modif Julie :) */
 
-.stz-actions .lang-choice {color: #aca4b2}
+.stz-actions .lang-choice {color: #242028;}
 
 .stz.selected { padding-left: 8px;/*margin-left:-5px; margin-top:-10px ; margin-right:-5px;padding-left:5px; padding-right:5px;*/ cursor:pointer; border-left: 2px solid orange; }
 
@@ -267,7 +267,7 @@ body {
 @media screen and (max-width: 767px) {
     .inferno-nav { padding: 10px 10px 0 0; }
 	.inferno-nav > li { text-align: right; }
-	.inferno-nav.with-connected-btn { padding: 0 10px 0 0; }
+	.inferno-nav.with-connected-btn { padding: 0 4px 0 0; }
 }
 @media screen and (min-width: 768px) and (max-width: 899px) {
 	.inferno-nav .container-fluid {padding-left: 0; }
@@ -435,6 +435,8 @@ h2.info-title {color: #aca4b2;}
 }
 .the-project {
 	text-align: justify;
+	line-height: 24px;
+	font-size: 15px;
 }
 .the-project > p {
 	margin-bottom: 16px;

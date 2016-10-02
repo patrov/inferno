@@ -268,7 +268,7 @@ define(["Kimo/core", "vendor.mustache", "vendor.moment"], function(Kimo, Mustach
             this.translationItem.set("state", 1);//draft
             this.translationItem.set("terza", this.currentTerza);
             this.repository.create(this.translationItem.toJson());
-            /*whait and show the new translation*/
+            /* wait and show the new translation */
             this.onAction("save");
         },
         render: function(container) {

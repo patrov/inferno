@@ -7,9 +7,9 @@ class ConfigService(restful.Resource):
     
     def get(self):
         if g.user.is_anonymous():
-            return {'mode': 'view'}, 200, {'X-Mode': 'view'}
+            return {'mode': 'view', "alertMax": 3}, 200, {'X-Mode': 'view'}
         else:
-            return {'mode':'contrib'}, 200, {'X-Mode': 'contrib'}
+            return {'mode':'contrib', "alertMax": 3}, 200, {'X-Mode': 'contrib'}
 
         
         

@@ -35,6 +35,41 @@ define(["Kimo/core"], function(Kimo) {
             return false;
         }
     }),
+
+    /* exp:vote:metadata */
+    AlertMetadata = Kimo.ModelManager.createEntity({
+        name: "Metadata",
+        defaults: {
+            "key":"alert",
+            "value": 1,
+            "target":""
+        }
+    }),
+
+    AlertMetadataRepository = Kimo.ModelManager.createRepository({
+        repositoryName: 'AlertMetadataRepository',
+        model: AlertMetadata,
+        getPath: function () {
+            return "/rest/alert"
+        },
+
+        doAlert: function (dataType, targetId, data) {
+            if (!targetId) { throw "An id must be provided"; }
+            if (!dataType) { throw "a dataType must be provided"; }
+
+            var url = this.getPath() + "/" + dataType + "/" + targetId;
+            return $.ajax({ url: url, type: "POST", data: {data: JSON.stringify({"key":"alert", "value":1})} });
+        },
+
+        countAlert: function (dataType, targetId) {
+            if (!targetId) { throw "An id must be provided"; }
+            if (!dataType) { throw "a dataType must be provided"; }
+            var url = this.getPath() + "/" + dataType + "/" + targetId; 
+            return $.ajax({url: url}); 
+        }
+    }),
+
+
     /* Comment Item */
     CommentItem = Kimo.ModelManager.createEntity({
         name: "Comment",
@@ -156,7 +191,8 @@ define(["Kimo/core"], function(Kimo) {
     TranslRepository = new TranslationRepository;
     CommentRepository = new CommentRepository;
     VoteRepository = new VoteRepository;
-    AnnotationRepository = new AnnotationRepository;   
+    AnnotationRepository = new AnnotationRepository;    
+    AlertMetadataRepository = new AlertMetadataRepository;
 
     return {
         TranslationItem: TranslationItem,
@@ -165,6 +201,7 @@ define(["Kimo/core"], function(Kimo) {
         VoteRepository: VoteRepository,
         TranslationRepository: TranslRepository,
         CommentRepository: CommentRepository,
+        AlertMetadataRepository: AlertMetadataRepository,
         AnnotationRepository: AnnotationRepository,
         createTranslationRepository: function (instanceConfig) {
             return new TranslationRepository(instanceConfig);

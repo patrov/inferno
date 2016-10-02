@@ -194,7 +194,10 @@ define(["Kimo/core", "require", "bi.models", "manager!inferno:terza", "manager!i
 
             terzaWidget.configure({
                 mode: "edit",
-                translation: userTranslation
+                translation: userTranslation,
+                onAction: function (action) {
+                    Kimo.Observable.trigger("translationEdition", action, userTranslation);
+                }
             });
 
             terzaWidget.render(ctn);
