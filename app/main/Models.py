@@ -162,25 +162,30 @@ class Metadata(db.Model):
         return query.all()
 
     @staticmethod
-    def count_by(key, target=None):
+    def count_by(key, value=None, target=None):
         query = Metadata.query.filter_by(key=key)
         if target is not None:
-            query = Metadata.query.filter_by(key=key, target=target)
+            query = query.filter_by(target=target)
+        if value is not None:
+            query = query.filter_by(value=value)
         return query.count()
 
 
 class AlertMetadata(Metadata):
     def __init__(self, value=None, target=None):
-        super(Metadata, self).__init(key="alert", value=value, target=target) 
+        super(Metadata, self).__init__(key="alert", value=value, target=target) 
 
     @staticmethod
+    # save in cache
     def get_excluded_contents(max=3):
         return db.session.query(AlertMetadata.target, func.count(AlertMetadata.key)).\
         group_by(AlertMetadata.target).\
         having(func.count(AlertMetadata.key) > max).\
         all()
 
-
+class UserAlertMetadata(Metadata):
+    def __init__(self, value=None, target=None):
+        super(Metadata, self).__init__(key="user-alert", value=value, target=target)
 
 #Comments
 class Comment(db.Model):
