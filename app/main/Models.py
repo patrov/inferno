@@ -175,13 +175,22 @@ class AlertMetadata(Metadata):
     def __init__(self, value=None, target=None):
         super(Metadata, self).__init__(key="alert", value=value, target=target) 
 
-    @staticmethod
     # save in cache
-    def get_excluded_contents(max=3):
-        return db.session.query(AlertMetadata.target, func.count(AlertMetadata.key)).\
-        group_by(AlertMetadata.target).\
-        having(func.count(AlertMetadata.key) > max).\
-        all()
+    @staticmethod
+    def get_excluded_contents(max=3, id_only=True):
+        results = db.session.query(AlertMetadata.target, func.count(AlertMetadata.key)).\
+            filter(AlertMetadata.key=='alert').\
+            group_by(AlertMetadata.target).\
+            having(func.count(AlertMetadata.key) > max).\
+            all()
+
+        if id_only:
+            def get_id(item):
+                target_id = int(item[0].split(':', 1)[1])
+                return target_id
+            results = map(get_id, results)
+
+        return results
 
 class UserAlertMetadata(Metadata):
     def __init__(self, value=None, target=None):
@@ -289,6 +298,11 @@ class Translation(db.Model):
         self.author = author
         return self
     
+    @property
+    def alert_count(self):
+        print("translation:" + str(self.id))
+        return AlertMetadata.count_by("alert", target="translation:" + str(self.id))
+
     @property
     def user_liked(self):
         if hasattr(current_user, 'id') and current_user.id is not None :

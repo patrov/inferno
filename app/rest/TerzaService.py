@@ -1,6 +1,6 @@
 from flask.ext import restful
 from flask import request, g
-from app.main.Models import Terza, Translation, User, Comment
+from app.main.Models import Terza, Translation, User, Comment, AlertMetadata
 from flask.ext.restful import Resource, reqparse, fields, marshal_with
 from app import db
 from flask.ext.restful import reqparse
@@ -36,7 +36,8 @@ translation_fields = {
     'pubdate': fields.DateTime(attribute='pub_date'),
     'votes': fields.Integer(attribute='votes_count'),
     'canto': fields.Integer(attribute='no_canto'), 
-    'userLiked': fields.Integer(attribute='user_liked')
+    'userLiked': fields.Integer(attribute='user_liked'),
+    'alertCount': fields.Integer(attribute='alert_count')
 }
 
 comment_fields = {
@@ -129,6 +130,10 @@ class TranslationService(restful.Resource):
             results = self.get_contrib_translation(args['terza'])
         else:
             results = Translation.query.filter_by(author=g.user, no_terza=args['terza']).first() #deal with version
+            
+        # Don't show content with alerts
+        print type(results)
+
         return results
     
     def delete(self, no_translation):    
@@ -142,10 +147,13 @@ class TranslationService(restful.Resource):
         return None , 204
         
     #add pagination after
-    def get_contrib_translation(self, terza):
+    def get_contrib_translation(self, terza, filter_ids=[]):
         results = Translation.query.filter_by(no_terza=terza).filter(User.username != g.user.username).all()
+        ids = AlertMetadata.get_excluded_contents(max=3, id_only=True)
+        print ids
+        results = [translation for translation in results if translation.id not in ids]
         return results
-    
+    # not_(User.id.in_([123,456])
     
     @marshal_with(translation_fields)
     def post(self):
