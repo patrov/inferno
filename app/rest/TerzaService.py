@@ -150,7 +150,6 @@ class TranslationService(restful.Resource):
     def get_contrib_translation(self, terza, filter_ids=[]):
         results = Translation.query.filter_by(no_terza=terza).filter(User.username != g.user.username).all()
         ids = AlertMetadata.get_excluded_contents(max=3, id_only=True)
-        print ids
         results = [translation for translation in results if translation.id not in ids]
         return results
     # not_(User.id.in_([123,456])

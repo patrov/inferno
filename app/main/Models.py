@@ -58,7 +58,10 @@ class Terza(db.Model):
     @staticmethod
     def get_stats(no_terza):
         response =  {'translation': 0}
-        response['translation'] = Translation.query.filter_by(no_terza=no_terza).count()
+        translation_ids = AlertMetadata.get_excluded_contents(max=5, id_only=True)
+        translations = Translation.query.filter_by(no_terza=no_terza).all()
+        response['translation'] = len([translation for translation in translations if translation.id not in translation_ids])
+
         return response
         
     

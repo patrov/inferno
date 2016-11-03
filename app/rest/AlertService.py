@@ -22,7 +22,6 @@ class AlertService(Resource):
 		target = data_type + ":" + str(data_id)
 		#count uservote
 		user_has_voted = Metadata.count_by('user-alert', value=g.user.id, target=target)
-		print(user_has_voted)
 		if user_has_voted:
 			return
 
