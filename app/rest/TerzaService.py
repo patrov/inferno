@@ -1,9 +1,7 @@
-from flask.ext import restful
 from flask import request, g
 from app.main.Models import Terza, Translation, User, Comment, AlertMetadata
-from flask.ext.restful import Resource, reqparse, fields, marshal_with
+from flask_restful import Resource, reqparse, fields, marshal_with
 from app import db
-from flask.ext.restful import reqparse
 from sqlalchemy import text
 from pprint import pprint
 import json
@@ -67,7 +65,7 @@ def conditional_marshal(func):
     return func_wrap
     
 
-class CantoService(restful.Resource):
+class CantoService(Resource):
     
     @conditional_marshal
     def get(self, canto):
@@ -94,7 +92,7 @@ class CantoService(restful.Resource):
     
     
     
-class TerzaService(restful.Resource):
+class TerzaService(Resource):
     
     def __init__(self): 
         pass
@@ -118,7 +116,7 @@ class TerzaService(restful.Resource):
     def delete(self): pass
 
 #translation service
-class TranslationService(restful.Resource):
+class TranslationService(Resource):
     
     @marshal_with(translation_fields)
     def get(self):
@@ -132,8 +130,6 @@ class TranslationService(restful.Resource):
             results = Translation.query.filter_by(author=g.user, no_terza=args['terza']).first() #deal with version
             
         # Don't show content with alerts
-        print type(results)
-
         return results
     
     def delete(self, no_translation):    
@@ -143,7 +139,7 @@ class TranslationService(restful.Resource):
             db.session.commit()
         except Exception as e:
             msg = e
-            print msg
+            print(msg)
         return None , 204
         
     #add pagination after
@@ -176,7 +172,7 @@ class TranslationService(restful.Resource):
         return translation
     
  #userService
-class UserService(restful.Resource):
+class UserService(Resource):
     
     def post(self):
         user =  User.query.filter_by(login=request.form['login']).first()
@@ -190,7 +186,7 @@ class UserService(restful.Resource):
         
         
 #Comment Service
-class CommentService(restful.Resource):
+class CommentService(Resource):
     
     @marshal_with(comment_fields)
     def get(self):

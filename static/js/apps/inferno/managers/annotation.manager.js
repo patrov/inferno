@@ -2,8 +2,6 @@ define(["Kimo/core", "component!inferno:annotation"], function (Kimo, Annotation
 
     /*
      * Manage note editor
-        allow selection only on a certain limit like (if the node is selected)
-        handle selection after edit
      **/
     var NoteEditorManager = (function () {
 
@@ -21,7 +19,7 @@ define(["Kimo/core", "component!inferno:annotation"], function (Kimo, Annotation
 		},
         
         bindEvents = function () {
-            return false
+            return;
              Kimo.Observable.registerEvents(["userTabSelection",'TerzaSelection']);
 
              Kimo.Observable.on("userTabSelection", function (tabname) {

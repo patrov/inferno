@@ -1,4 +1,4 @@
-from flask.ext import restful
+import flask_restful
 from flask import request, g
 from app.main.Models import Metadata, UserAlertMetadata
 from flask.ext.restful import Resource, reqparse, fields, marshal_with

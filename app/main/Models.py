@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import Flask, g
-from flask.ext.sqlalchemy import SQLAlchemy
+import flask_login
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import column_property, object_session
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.ext.hybrid import hybrid_property

@@ -17,7 +17,7 @@ class StatService(restful.Resource):
         try :
             return StatService.available_services[name]
             
-        except KeyError, e:
+        except KeyError:
             return restful.abort(404, msg=e) 
             
         

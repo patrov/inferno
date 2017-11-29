@@ -29,24 +29,22 @@ def populate_canto():
 		terzaNo = 1
 		cantoNo = 0
 		for terza in canto:
-			print "------------------------------------------\n"
-			print terza
-			print "---------------------------------------------"
+			print("------------------------------------------\n")
 			if terza.decode('utf-8').strip().find(infos[1]) != -1 :
-				print terza.decode('utf-8').find('T')
+				print(terza.decode('utf-8').find('T'))
 				cantoNo = cantoNo + 1				
-				print "cantoNo {0}".format(cantoNo)
+				print("cantoNo {0}".format(cantoNo))
 				continue
 			else:
-				print "terza" + terza
+				print ("terza" + terza)
 				terza_item = Terza(terzaNo, terza, cantoNo, infos[0])
 				terzaNo = terzaNo + 1
 				db.session.add(terza_item)   
 			db.session.commit()
 			
-		print '{0} stranza ajoutés à la base Inferno'.format(terzaNo)
+		print('{0} stranza ajoutés à la base Inferno'.format(terzaNo))
 
 if __name__ == "__main__":
-	print "Populate canto ... "
+	print("Populate canto ...")
 	populate_canto()
-	print "Done!"
+	print("Done!")

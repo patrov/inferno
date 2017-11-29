@@ -1,6 +1,6 @@
 from flask import Flask, g
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.babel import Babel
+from flask_sqlalchemy import SQLAlchemy
+from flask_babel import Babel
 from config import getConfig
 import jinja2
 import os
@@ -54,11 +54,13 @@ def get_local():
 # load prod settings
 db = SQLAlchemy(app)
 
-from main.main_app import main_app
-from rest import api_mod
-from auth.mod_auth import auth_mod
-from mail import mail_mod
+from .main.main_app import main_app
+from .rest import api_mod
+from .auth.mod_auth import auth_mod
+from .mail import mail_mod
 app.register_blueprint(main_app)
 app.register_blueprint(api_mod)
 app.register_blueprint(mail_mod)
 
+# register commands
+from commands import *
