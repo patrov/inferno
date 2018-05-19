@@ -1,6 +1,6 @@
 from flask import Flask, g
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.babel import Babel
+from flask_sqlalchemy import SQLAlchemy
+from flask_babel import Babel
 from config import getConfig
 import jinja2
 import os
