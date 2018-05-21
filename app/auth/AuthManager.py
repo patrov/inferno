@@ -1,5 +1,5 @@
 from flask import flash
-from flask.ext.login import LoginManager, login_user, current_user
+from flask_login import LoginManager, login_user, current_user
 
 #db & models
 from app import db

@@ -1,13 +1,12 @@
 from flask import Blueprint, g, request, render_template, redirect, url_for
-from flask.ext import restful
 from pprint import pprint
 from app.main.Models import User
 from app import app, db
-from flask.ext.login import logout_user, current_user
+from flask_login import logout_user, current_user
 from app.auth.AuthManager import login_manager, handle_authentification
 from app.auth.validators import inferno_password_validator
 # handler flask-user
-from flask.ext.user import UserManager, login_required, SQLAlchemyAdapter, roles_required
+from flask_user import UserManager, login_required, SQLAlchemyAdapter, roles_required
 
 auth_mod = Blueprint("auth", __name__)
 

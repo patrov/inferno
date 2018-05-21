@@ -1,14 +1,13 @@
 from datetime import datetime
 from flask import Flask, g
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import column_property, object_session
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy import select, func, and_
-from flask.ext.login import AnonymousUserMixin
+from flask_login import current_user, AnonymousUserMixin
 from pprint import pprint
-from flask.ext.login import current_user
-from flask.ext.user import UserMixin
+from flask_user import UserMixin
 import json
 
 

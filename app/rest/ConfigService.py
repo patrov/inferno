@@ -1,9 +1,9 @@
-from flask.ext import restful
+from flask_restful import Resource
 from flask import request, g
 from pprint import pprint
 
 
-class ConfigService(restful.Resource):
+class ConfigService(Resource):
     
     def get(self):
         if g.user.is_anonymous():

@@ -7,9 +7,9 @@ from app.rest.AlertService import AlertService
 from app.rest.AnnotationService import AnnotationService, AnnotationPositionService
 
 from app import app
-from flask.ext import restful
+from flask_restful import Api
 
-api = restful.Api(app)
+api = Api(app)
 api.add_resource(CantoService, '/rest/canto/<int:canto>')
 api.add_resource(TerzaService, '/rest/terza/<int:no_terza>')
 api.add_resource(CommentService, '/rest/comment')

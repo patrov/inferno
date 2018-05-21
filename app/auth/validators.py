@@ -1,5 +1,5 @@
 from wtforms.validators import ValidationError
-from flask.ext.user.translations import _
+from flask_user.translations import _
 
 def inferno_password_validator(form, field):
 	password = field.data

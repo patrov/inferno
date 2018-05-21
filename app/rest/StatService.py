@@ -1,14 +1,12 @@
-from flask.ext import restful
 from flask import request, g
 from app.main.Models import db, Terza, Translation, User, Comment
-from flask.ext.restful import Resource, reqparse, fields, marshal_with
+from flask_restful import Resource, reqparse, fields, marshal_with, abort
 
 from pprint import pprint
-from flask.ext.restful import reqparse
 import json
 
 
-class StatService(restful.Resource):
+class StatService(Resource):
     
     available_services = {'terza' : Terza, 'user': User, 'comment': Comment}
     
@@ -17,8 +15,8 @@ class StatService(restful.Resource):
         try :
             return StatService.available_services[name]
             
-        except KeyError, e:
-            return restful.abort(404, msg=e) 
+        except KeyError as e:
+            return abort(404, msg=e) 
             
         
     def get(self, content_type, id):
@@ -28,7 +26,7 @@ class StatService(restful.Resource):
             stats = model.get_stats(id)  
             return stats
         else:
-            restful.abort(400, msg="Bad request exception") 
+            abort(400, msg="Bad request exception") 
         
         
         

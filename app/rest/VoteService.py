@@ -1,10 +1,8 @@
-from flask.ext import restful
 from flask import request, g
 from app.main.Models import db, Translation, User, Vote
-from flask.ext.restful import Resource, reqparse, fields, marshal_with
+from flask_restful import Resource, reqparse, fields, marshal_with
 
 from pprint import pprint
-from flask.ext.restful import reqparse
 import json
 
 
@@ -16,7 +14,7 @@ vote_fields = {
     "value": fields.Integer
 }
 
-class VoteService(restful.Resource):
+class VoteService(Resource):
     
     @marshal_with(vote_fields)
     def post(self, no_translation = None, type = 'up'):
